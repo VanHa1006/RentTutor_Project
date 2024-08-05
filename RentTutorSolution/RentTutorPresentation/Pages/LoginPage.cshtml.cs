@@ -74,12 +74,12 @@ namespace RentTutorPresentation.Pages
                             return RedirectToPage("Staff/BirdManagement/Index");*/
                         }
                     }
-                    ErrorMessage = "Incorect User Name or Password Please Try Again";
+                    ErrorMessage = "Incorect Email or Password Please Try Again";
                     return Page();
                 }
                 catch
                 {
-                    ErrorMessage = "Incorect User Name or Password Please Try Again";
+                    ErrorMessage = "Incorect Email or Password Please Try Again";
                     return Page();
                 }
             }

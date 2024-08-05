@@ -11,4 +11,10 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\" />
+    <Folder Include="Pages\Student\" />
+    <Folder Include="Pages\Tutor\" />
+  </ItemGroup>
+
 </Project>
