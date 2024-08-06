@@ -1,7 +1,8 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Admin.StudentManagerModel
 @{
-    ViewData["Title"] = "Students Manager";
+    ViewData["Title"] = "Customers";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -240,74 +241,77 @@
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
                                     <th class="px-4 py-3">Num</th>
-                                    <th class="px-4 py-3">Fullname</th>
+                                    <th class="px-4 py-3">Username</th>
                                     <th class="px-4 py-3">Email</th>
                                     <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3">Date-Create</th>
-                                    <th class="px-4 py-3">Actions</th>
+                                    <th class="px-4 py-3">Birthday</th>
+                                    <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                <!-- Repeat this <tr> block for each row in the table -->
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                    <td class="px-4 py-3 text-sm">1</td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                <img class="object-cover w-full h-full rounded-full"
-                                                     src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg"
-                                                     alt=""
-                                                     loading="lazy" />
-                                                <div class="absolute inset-0 rounded-full shadow-inner"
-                                                     aria-hidden="true"></div>
+                                @foreach (var student in Model.Students)
+                                {
+                                    <!-- Repeat this <tr> block for each row in the table -->
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
+                                        <td class="px-4 py-3 text-sm">1</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <!-- Avatar with inset shadow -->
+                                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                                    <img class="object-cover w-full h-full rounded-full"
+                                                    src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg"
+                                                    alt=""
+                                                    loading="lazy" />
+                                                    <div class="absolute inset-0 rounded-full shadow-inner"
+                                                    aria-hidden="true"></div>
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold">@student.Username</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                        @student.Phone
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p class="font-semibold">Teddy Nguyen</p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                    09999999999
-                                                </p>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
+                                            @student.Email
+                                        </td>
+                                        <td class="px-4 py-3 text-xs">
+                                            <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                @student.Status
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
+                                            @student.Birthday
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center space-x-4 text-sm">
+                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                        aria-label="View Detail" onclick="showStudentDetails(@student.UserId)">
+                                                    <svg class="w-5 h-5"
+                                                    aria-hidden="true"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                        <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Delete">
+                                                    <svg class="w-5 h-5"
+                                                    aria-hidden="true"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd"
+                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                        clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        ABC123@gmail.com
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                            Active
-                                        </button>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center space-x-4 text-sm">
-                                            <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                    aria-label="View Detail" onclick="openPopup()">
-                                                <svg class="w-5 h-5"
-                                                     aria-hidden="true"
-                                                     fill="currentColor"
-                                                     viewBox="0 0 20 20">
-                                                    <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
-                                                </svg>
-                                            </button>
-                                            <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                    aria-label="Delete">
-                                                <svg class="w-5 h-5"
-                                                     aria-hidden="true"
-                                                     fill="currentColor"
-                                                     viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                          clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Repeat block ends -->
+                                        </td>
+                                    </tr>
+                                    <!-- Repeat block ends -->
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -375,7 +379,7 @@
             </div>
 
             <!-- Popup Modal -->
-            <div id="popup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            @* <div id="popup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div class="bg-white rounded-lg p-6 w-full max-w-md relative">
                     <button class="absolute top-0 right-0 mt-4 mr-4 text-gray-600" onclick="closePopup()">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -383,45 +387,43 @@
                         </svg>
                     </button>
                     <h2 class="text-xl font-semibold mb-4">Student Details</h2>
-                    <img src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg" alt="User Image" class="w-24 h-24 rounded-full mb-4 mx-auto">
-                    <p><strong>Full Name:</strong> Teddy Nguyen</p>
-                    <p><strong>Phone:</strong> 0999999999</p>
-                    <p><strong>Email:</strong> teddynguyen@gmail.com</p>
-                    <p><strong>Address:</strong> Thu Duc, HCM City</p>
-                    <p><strong>Birthday:</strong> 2000-12-19</p>
-                    <p id="status-text"><strong>Status:</strong> Active</p>
-                    <p><strong>CreatedAt:</strong> 2023-12-19</p>
-                    <p><strong>UpdatedAt:</strong> 2024-12-19</p>
+                    <img id="student-image" src="" alt="User Image" class="w-24 h-24 rounded-full mb-4">
+                    <p><strong>Full Name:</strong> <span id="student-fullname"></span></p>
+                    <p><strong>Phone:</strong> <span id="student-phone"></span></p>
+                    <p><strong>Email:</strong> <span id="student-email"></span></p>
+                    <p><strong>Address:</strong> <span id="student-address"></span></p>
+                    <p><strong>Birthday:</strong> <span id="student-birthday"></span></p>
+                    <p id="status-text"><strong>Status:</strong> <span id="student-status"></span></p>
+                    <p><strong>Created At:</strong> <span id="student-createdat"></span></p>
+                    <p><strong>Updated At:</strong> <span id="student-updatedat"></span></p>
                 </div>
             </div>
 
-            <script>
-                // JavaScript to handle select-all functionality
-                document.getElementById('select-all').onclick = function () {
-                    var checkboxes = document.querySelectorAll('.form-checkbox');
-                    for (var checkbox of checkboxes) {
-                        checkbox.checked = this.checked;
+            @section Scripts {
+                <script>
+                    function showStudentDetails(id) {
+                        fetch(`/Admin/StudentManager?handler=StudentDetails&id=${id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("student-image").src = data.imageUrl;
+                                document.getElementById("student-fullname").textContent = data.fullName;
+                                document.getElementById("student-phone").textContent = data.phone;
+                                document.getElementById("student-email").textContent = data.email;
+                                document.getElementById("student-address").textContent = data.address;
+                                document.getElementById("student-birthday").textContent = new Date(data.birthday).toLocaleDateString();
+                                document.getElementById("student-status").textContent = data.Status ? "Active" : "Deactive";
+                                document.getElementById("student-createdat").textContent = new Date(data.createdAt).toLocaleDateString();
+                                document.getElementById("student-updatedat").textContent = new Date(data.updatedAt).toLocaleDateString();
+                                document.getElementById("popup-modal").classList.remove("hidden");
+                            })
+                            .catch(error => console.error('Error fetching student details:', error));
                     }
-                }
 
-                document.querySelectorAll('.toggle-active').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const statusText = document.getElementById('status-text');
-                        if (button.classList.contains('text-green-700')) {
-                            button.classList.remove('text-green-700', 'bg-green-100', 'dark:bg-green-700', 'dark:text-green-100');
-                            button.classList.add('text-red-700', 'bg-red-100', 'dark:bg-red-700', 'dark:text-red-100');
-                            button.textContent = 'Disactive';
-                            statusText.innerHTML = '<strong>Status:</strong> Disactive';
-                        } else {
-                            button.classList.remove('text-red-700', 'bg-red-100', 'dark:bg-red-700', 'dark:text-red-100');
-                            button.classList.add('text-green-700', 'bg-green-100', 'dark:bg-green-700', 'dark:text-green-100');
-                            button.textContent = 'Active';
-                            statusText.innerHTML = '<strong>Status:</strong> Active';
-                        }
-                    });
-                });
-
-            </script>
+                    function closePopup() {
+                        document.getElementById("popup-modal").classList.add("hidden");
+                    }
+                </script> *@
+            }
 
 
     <footer class="footer px-4 py-6">

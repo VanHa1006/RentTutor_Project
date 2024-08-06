@@ -2,6 +2,8 @@ using BusinessAccess.Business;
 using BusinessAccess.DAO;
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
+using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,11 +18,11 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(10);
 });
-// Add services to the container.
+// Add services to the container.s
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<UserService>(); 
+builder.Services.AddScoped<UserService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
@@ -32,7 +34,8 @@ builder.Services.AddSingleton<UserDAO>(provider =>
     var connectionString = configuration.GetConnectionString("DefaultConnection");
     return new UserDAO(connectionString);
 });
-
+builder.Services.AddDbContext<RenTurtorToStudentContext>(options =>
+        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
