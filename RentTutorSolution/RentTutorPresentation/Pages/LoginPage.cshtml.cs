@@ -25,26 +25,55 @@ namespace RentTutorPresentation.Pages
 
         public string ErrorMessage { get; set; }
 
-        public void OnGet()
-        {
-            // Get request
-        }
 
         public IActionResult OnPost()
+
         {
             var user = _userService.CheckLogin(Email, PasswordHash);
 
             if (user != null)
             {
-                // Đăng nhập thành công và trạng thái là Active
-                return RedirectToPage("/HomePage"); // Điều hướng đến HomePage
+                if (user.Status != "Active")
+                {
+                    ErrorMessage = "You are not allowed access into system";
+                    return Page();
+                }
+                if (user.Role.Equals("Student"))
+                {
+                    try
+                    {
+                        /*var cart = HttpContext.Session.GetString("cart");
+                        if (cart != null)
+                        {
+                            HttpContext.Session.SetInt32("UserID", user.UserId);
+                            return RedirectToPage("Cart");
+                        }*/
+                    }
+                    catch
+                    {
+                        HttpContext.Session.SetInt32("StudentId", user.UserId);
+                        return RedirectToPage("HomePage");
+                    }
+                    HttpContext.Session.SetInt32("UserID", user.UserId);
+                    return RedirectToPage("HomePage");
+
+                }
+                if (user.Role.Equals("Admin"))
+                {
+                    HttpContext.Session.SetInt32("AdminId", user.UserId);
+                    HttpContext.Session.SetString("isAdmin", user.Role);
+                    return RedirectToPage("Admin/Index");
+                }
+                if (user.Role.Equals("Tutor"))
+                {
+                    HttpContext.Session.SetInt32("TutorId", user.UserId);
+                    HttpContext.Session.SetString("isTutor", user.Role);
+                    return RedirectToPage("Tutor/Index");
+                }
             }
-            else
-            {
-                // Đăng nhập thất bại hoặc trạng thái không phải Active
-                ErrorMessage = "Invalid login attempt or account is not active.";
-                return Page(); // Quay lại trang đăng nhập và hiển thị lỗi
-            }
+            ErrorMessage = "Incorect User Name or Password Please Try Again";
+            return Page();
+            
         }
     }
 
