@@ -120,6 +120,7 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC0C22A397");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Address).HasMaxLength(500);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -127,9 +128,11 @@ public partial class RenTurtorToStudentContext : DbContext
                 .IsRequired()
                 .HasMaxLength(100);
             entity.Property(e => e.Experience).HasMaxLength(255);
+            entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(255);
+            entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.Qualifications).HasMaxLength(255);
             entity.Property(e => e.Role)
                 .IsRequired()
