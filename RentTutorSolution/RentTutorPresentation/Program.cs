@@ -1,13 +1,25 @@
+using BusinessAccess.DAO;
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
+
+var configuration = builder.Configuration;
+
+// Register UserDAO with a factory method to inject the connection string
+builder.Services.AddSingleton<UserDAO>(provider =>
+{
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new UserDAO(connectionString);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

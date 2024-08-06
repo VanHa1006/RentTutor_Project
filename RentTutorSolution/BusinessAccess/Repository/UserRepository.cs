@@ -8,14 +8,28 @@ using System.Threading.Tasks;
 
 namespace BusinessAccess.Repository
 {
-    public interface IUserRepository
+    public class UserRepository
     {
-        User checkLogin(string userName, string password);
-    }
+        private readonly UserDAO _userDAO;
 
-    public class UserRepository : IUserRepository
-    {
+        public UserRepository(UserDAO userDAO)
+        {
+            _userDAO = userDAO;
+        }
 
-        public User checkLogin(string userName, string password) => UserDAO.Instance.checkLogin(userName, password);
+        public User CheckLogin(string email, string passwordHash)
+        {
+            try
+            {
+                return _userDAO.CheckLogin(email, passwordHash);
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                Console.WriteLine($"An error occurred in UserRepository.CheckLogin: {ex.Message}");
+                // Handle or rethrow exception
+                throw;
+            }
+        }
     }
 }

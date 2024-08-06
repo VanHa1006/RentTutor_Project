@@ -1,89 +1,51 @@
-using BusinessAccess.Repository;
+﻿using BusinessAccess.Repository;
 using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RentTutorPresentation.Pages
 {
     public class LoginPageModel : PageModel
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IUserService _userService;
-        public LoginPageModel(IUserRepository userRepository, IUserService userService)
+        private readonly UserService _userService;
+
+        public LoginPageModel(UserService userService)
         {
-            _userRepository = userRepository;
             _userService = userService;
         }
 
         [BindProperty]
-        public User user { get; set; } = default!;
-        public string ErrorMessage { get; private set; }
+        public string Email { get; set; }
+
+        [BindProperty]
+        public string PasswordHash { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public void OnGet()
+        {
+            // Get request
+        }
 
         public IActionResult OnPost()
         {
+            var user = _userService.CheckLogin(Email, PasswordHash);
 
-            if (!string.IsNullOrWhiteSpace(user.Email) && !string.IsNullOrWhiteSpace(user.PasswordHash))
+            if (user != null)
             {
-                try
-                {
-                    var check = _userService.checkLogin(user.Email, user.PasswordHash);
-                    if (check != null)
-                    {
-                        if (check.IsActive != true)
-                        {
-                            ErrorMessage = "You are not allowed access into system";
-                            return Page();
-                        }
-                        if (check.Role.Equals("US"))
-                        {
-                            return RedirectToPage("HomePage");
-                            /*try
-                            {
-                                var cart = HttpContext.Session.GetString("cart");
-                                if (cart != null)
-                                {
-                                    HttpContext.Session.SetInt32("UserID", check.UserId);
-                                    return RedirectToPage("Cart");
-                                }
-                            }
-                            catch
-                            {
-                                HttpContext.Session.SetInt32("UserID", check.UserId);
-                                return RedirectToPage("HomePage");
-                            }
-                            HttpContext.Session.SetInt32("UserID", check.UserId);
-                            return RedirectToPage("HomePage");
-                        }
-                        if (check.RoleId.Equals("AD"))
-                        {
-                            HttpContext.Session.SetInt32("UserID", check.UserId);
-                            HttpContext.Session.SetString("isAdmin", check.RoleId);
-                            return RedirectToPage("Admin/UserManagement/ShowUserList");
-                        }
-                        if (check.RoleId.Equals("MN"))
-                        {
-                            HttpContext.Session.SetInt32("UserID", check.UserId);
-                            HttpContext.Session.SetString("isManager", check.RoleId);
-                            return RedirectToPage("Manager/StaffManagement/Index");
-                        }
-                        if (check.RoleId.Equals("ST"))
-                        {
-                            HttpContext.Session.SetInt32("UserID", check.UserId);
-                            HttpContext.Session.SetString("isStaff", check.RoleId);
-                            return RedirectToPage("Staff/BirdManagement/Index");*/
-                        }
-                    }
-                    ErrorMessage = "Incorect Email or Password Please Try Again";
-                    return Page();
-                }
-                catch
-                {
-                    ErrorMessage = "Incorect Email or Password Please Try Again";
-                    return Page();
-                }
+                // Đăng nhập thành công và trạng thái là Active
+                return RedirectToPage("/HomePage"); // Điều hướng đến HomePage
             }
-            return Page();
+            else
+            {
+                // Đăng nhập thất bại hoặc trạng thái không phải Active
+                ErrorMessage = "Invalid login attempt or account is not active.";
+                return Page(); // Quay lại trang đăng nhập và hiển thị lỗi
+            }
         }
     }
+
 }

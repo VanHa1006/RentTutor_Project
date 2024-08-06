@@ -7,23 +7,15 @@ public partial class Order
 {
     public int OrderId { get; set; }
 
-    public int? StudentId { get; set; }
-
-    public int? TutorSubjectId { get; set; }
-
-    public string Status { get; set; }
+    public int UserId { get; set; }
 
     public DateTime? OrderDate { get; set; }
 
-    public decimal? Amount { get; set; }
+    public decimal TotalAmount { get; set; }
 
-    public string PaymentStatus { get; set; }
+    public string Status { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
-    public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
-
-    public virtual User Student { get; set; }
-
-    public virtual TutorSubject TutorSubject { get; set; }
+    public virtual User User { get; set; }
 }
