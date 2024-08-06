@@ -3,83 +3,59 @@
 @{
     ViewData["Title"] = "Register";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="font-[sans-serif]">
-        <div class="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-            <div class="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full">
-                <div class="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
-                    <form class="space-y-4" method="post">
-                        <div class="mb-8">
-                            <h3 class="text-gray-800 text-3xl font-extrabold">Register</h3>
-                            <p class="text-gray-500 text-sm mt-4 leading-relaxed">
-                                Create your account and explore a world of possibilities. Your journey begins here.
-                            </p>
-                        </div>
-                        <div class="flex space-x-4">
-                            <div class="w-1/2">
-                                <label class="text-gray-800 text-sm mb-2 block">First Name</label>
-                                <div class="relative flex items-center">
-                                    <@* input asp-for="User.FirstName" *@ type="text" required class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter your first name" />
-                                </div>
-                                <span@*  asp-validation-for="User.FirstName" *@ class="text-danger"></span>
-                            </div>
-                            <div class="w-1/2">
-                                <label class="text-gray-800 text-sm mb-2 block">Last Name</label>
-                                <div class="relative flex items-center">
-                                    <input @* asp-for="User.LastName" *@ type="text" required class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter your last name" />
-                                </div>
-                                <span @* asp-validation-for="User.LastName" *@ class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="text-gray-800 text-sm mb-2 block">Email</label>
-                            <div class="relative flex items-center">
-                                <input @* asp-for="User.Email" *@ type="email" required class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter your email" />
-                            </div>
-                            <span@*  asp-validation-for="User.Email" *@ class="text-danger"></span>
-                        </div>
-                        <div>
-                            <label class="text-gray-800 text-sm mb-2 block">Password</label>
-                            <div class="relative flex items-center">
-                                <input @* asp-for="User.PasswordHash" *@ type="password" required class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter your password" />
-                            </div>
-                            <span @* asp-validation-for="User.PasswordHash" *@ class="text-danger"></span>
-                        </div>
-                        @* <div>
-                            <label class="text-gray-800 text-sm mb-2 block">Confirm Password</label>
-                            <div class="relative flex items-center">
-                                <input asp-for="User.ConfirmPassword" type="password" required class="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Confirm your password" />
-                            </div>
-                            @* <span asp-validation-for="user.ConfirmPassword" class="text-danger"></span> *@
-                        @* </div> *@ 
-                        @* <h6 class="text-danger" style="color:red">@Model.ErrorMessage</h6> *@
-                        <div class="mt-8">
-                            <button type="submit" class="w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                Register
-                            </button>
-                        </div>
-                        <p class="text-sm mt-8 text-center text-gray-800">
-                            Already have an account?
-                            <a href="/LoginPage" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign in here</a>
-                        </p>
-                    </form>
-                </div>
-                <div class="lg:h-[400px] md:h-[300px] max-md:mt-8">
-                    <img src="https://www.allen.ac.in/apps2425/assets/images/reset-password.jpg" class="w-full h-full max-md:w-4/5 mx-auto block object-cover" alt="Register Image" />
-                </div>
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User.Username" class="control-label"></label>
+                <input asp-for="User.Username" class="form-control" />
+                <span asp-validation-for="User.Username" class="text-danger"></span>
             </div>
-        </div>
+            <div class="form-group">
+                <label asp-for="User.Address" class="control-label"></label>
+                <input asp-for="User.Address" class="form-control" />
+                <span asp-validation-for="User.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Status" class="control-label"></label>
+                <input asp-for="User.Status" class="form-control" />
+                <span asp-validation-for="User.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.PasswordHash" class="control-label"></label>
+                <input asp-for="User.PasswordHash" class="form-control" />
+                <span asp-validation-for="User.PasswordHash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Phone" class="control-label"></label>
+                <input asp-for="User.Phone" class="form-control" />
+                <span asp-validation-for="User.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Qualifications" class="control-label"></label>
+                <input asp-for="User.Qualifications" class="form-control" />
+                <span asp-validation-for="User.Qualifications" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
