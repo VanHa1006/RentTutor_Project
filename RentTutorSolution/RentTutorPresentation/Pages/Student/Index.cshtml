@@ -2,5 +2,6 @@
 @model RentTutorPresentation.Pages.Student.IndexModel
 @{
 	Layout = null;
+	var userId = HttpContext.Session.GetString("StudentId");
 }
 <h1>Hello Student</h1>

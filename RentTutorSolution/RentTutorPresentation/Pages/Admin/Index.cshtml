@@ -2,6 +2,7 @@
 @model RentTutorPresentation.Pages.Admin.IndexModel
 @{
 	Layout = null;
+	var userId = HttpContext.Session.GetString("isAdmin");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +95,9 @@
 								<path d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"></path>
 								<rect width="32" height="64" x="256" y="232"></rect>
 							</svg>
-							<span>Logout</span>
+							<button class="btn btn-primary" onclick="window.location.href='./Logout'">
+								<span>Logout</span>
+							</button>
 						</a>
 					</li>
 				</ul>
