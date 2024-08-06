@@ -1,5 +1,6 @@
 ﻿using BusinessAccess.Base;
 using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BusinessAccess.Business
 {
 	public interface IUserBusiness
 	{
-		Task<IBusinessResult> GetAllStudent(int page, int size);
+		Task<IBusinessResult> GetAll(int page, int size);
 		Task<IBusinessResult> GetByIdAsync(int id);
 		Task<IBusinessResult> DeactiveUser(int id);
 		Task<IBusinessResult> ActiveUser(int id);
@@ -20,7 +21,7 @@ namespace BusinessAccess.Business
     public class UserBusiness : IUserBusiness
 	{
 		private readonly UnitOfWork _unitOfWork;
-
+		
 		public UserBusiness()
 		{
 			_unitOfWork ??= new UnitOfWork();
@@ -65,22 +66,22 @@ namespace BusinessAccess.Business
 			}
 		}
 
-		public async Task<IBusinessResult> GetAllStudent(int page, int size)
+		public async Task<IBusinessResult> GetAll(int page, int size)
 		{
 			try
 			{
-				var customer = await _unitOfWork.UserRepository.GetPagingListAsync(
+				var student = await _unitOfWork.UserRepository.GetPagingListAsync(
 				   selector: x => x,
 				   page: page,
 				   size: size
 				   );
-				if (customer != null)
+				if (student != null)
 				{
-					return new BusinessResult(1, "Get all user successfully", customer);
+					return new BusinessResult(1, "Get all student successfully", student);
 				}
 				else
 				{
-					return new BusinessResult(-1, "Get all customer fail");
+					return new BusinessResult(-1, "Get all student fail");
 				}
 			}
 			catch (Exception ex)
@@ -154,5 +155,7 @@ namespace BusinessAccess.Business
                 return new BusinessResult(-4, ex.Message);
             }
         }
+
+        
     }
 }
