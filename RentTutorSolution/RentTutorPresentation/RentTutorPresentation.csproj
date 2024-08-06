@@ -7,14 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Admin\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BusinessAccess\BusinessAccess.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Admin\" />
-    <Folder Include="Pages\Student\" />
-    <Folder Include="Pages\Tutor\" />
+    <UpToDateCheckInput Remove="Pages\Admin\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Admin\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Admin\Index.cshtml" />
   </ItemGroup>
 
 </Project>
