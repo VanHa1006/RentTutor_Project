@@ -54,7 +54,7 @@ namespace RentTutorPresentation.Pages
                         HttpContext.Session.SetInt32("StudentId", user.UserId);
                         return RedirectToPage("HomePage");
                     }
-                    HttpContext.Session.SetInt32("UserID", user.UserId);
+                    HttpContext.Session.SetInt32("StudentId", user.UserId);
                     return RedirectToPage("HomePage");
 
                 }

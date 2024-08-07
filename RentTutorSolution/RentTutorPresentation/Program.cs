@@ -16,8 +16,12 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    // Set a short timeout for easy testing.
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true; // Ensure the cookie is accessible only to the server.
+    options.Cookie.IsEssential = true; // Make the session cookie essential.
 });
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.s
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUserBusiness, UserBusiness>();
