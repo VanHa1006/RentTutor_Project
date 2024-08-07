@@ -1,8 +1,7 @@
 ﻿@page
-@model RentTutorPresentation.Pages.Admin.StudentManagerModel
+@model RentTutorPresentation.Pages.Admin.StudentDetailModel
 @{
-    ViewData["Title"] = "Customers";
-    Layout = null;
+	Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -11,18 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script defer>
-        function toggle(source) {
-            checkboxes = document.getElementsByName('select');
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
-
-    </script>
 </head>
 <body>
-    <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -40,8 +29,8 @@
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="/Admin"
-                           class=" flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <a href="#"
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -61,7 +50,7 @@
                     </li>
                     <li class="my-px">
                         <a href="/Admin/StudentManager"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -115,7 +104,7 @@
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Service Manager</span>
                     </li>
                     <li class="my-px">
-                        <a href="#"
+                        <a href="/Admin/CourseManage"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
@@ -133,7 +122,7 @@
                         </a>
                     </li>
                     <li class="my-px">
-                        <a href="#"
+                        <a href="/Admin/AdsTutorManage"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-green-400">
                                 <svg fill="none"
@@ -153,7 +142,7 @@
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
                     <li class="my-px">
-                        <a href="#"
+                        <a href="/Admin/Profile"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
@@ -170,7 +159,7 @@
                         </a>
                     </li>
                     <li class="my-px">
-                        <a href="#"
+                        <a href="/Logout"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-red-400">
                                 <svg fill="none"
@@ -183,15 +172,13 @@
                                     <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <button class="btn btn-primary" onclick="window.location.href='././Logout'">
-                                <span class="ml-3">Logout</span>
-                            </button>
-                            
+                            <span class="ml-3">Logout</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </aside>
+
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
             <header class="header bg-white shadow py-4 px-4">
                 <div class="header-content flex items-center flex-row">
@@ -243,165 +230,117 @@
                 </div>
             </header>
 
+
             <div class="main-content flex flex-col flex-grow p-4">
-                <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                    Students Manage 
-                </h4>
-                <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
-                                    <th class="px-4 py-3">Num</th>
-                                    <th class="px-4 py-3">Username</th>
-                                    <th class="px-4 py-3">Email</th>
-                                    <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3">Birthday</th>
-                                    <th class="px-4 py-3">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach (var student in Model.Students)
-                                {
-                                    <!-- Repeat this <tr> block for each row in the table -->
-                                    <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                        <td class="px-4 py-3 text-sm">@student.StudentId</td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center text-sm">
-                                                <!-- Avatar with inset shadow -->
-                                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                    <img class="object-cover w-full h-full rounded-full"
-                                                         src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg"
-                                                         alt=""
-                                                         loading="lazy" />
-                                                    <div class="absolute inset-0 rounded-full shadow-inner"
-                                                         aria-hidden="true"></div>
-                                                </div>
-                                                <div>
-                                                    <p class="font-semibold">@student.StudentNavigation.Username</p>
-                                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                        @student.StudentNavigation.Phone
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">
-                                            @student.StudentNavigation.Email
-                                        </td>
-                                        <td class="px-4 py-3 text-xs">
-                                            <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                                @student.StudentNavigation.Status
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">
-                                            @student.StudentNavigation.Birthday
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center space-x-4 text-sm">
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="View Detail" onclick="showStudentDetails(@student.StudentNavigation.UserId)">
-                                                    <svg class="w-5 h-5"
-                                                         aria-hidden="true"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 20 20">
-                                                        <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
-                                                    </svg>
-                                                </button>
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="Delete">
-                                                    <svg class="w-5 h-5"
-                                                         aria-hidden="true"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd"
-                                                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                              clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- Repeat block ends -->
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                        <span class="flex items-center col-span-3">
-                            Showing 01-10 of 100
-                        </span>
-                        <span class="col-span-2"></span>
-                        <!-- Pagination -->
-                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                            <nav aria-label="Table navigation">
-                                <ul class="inline-flex items-center">
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                                aria-label="Previous">
-                                            <svg class="w-4 h-4 fill-current"
-                                                 aria-hidden="true"
-                                                 viewBox="0 0 20 20">
-                                                <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                      clip-rule="evenodd"
-                                                      fill-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple bg-blue-500 text-white">
-                                            1
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            2
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <span class="px-3 py-1">...</span>
-                                    </li>
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            8
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            9
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                                aria-label="Next">
-                                            <svg class="w-4 h-4 fill-current"
-                                                 aria-hidden="true"
-                                                 viewBox="0 0 20 20">
-                                                <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                      clip-rule="evenodd"
-                                                      fill-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </span>
+                <h1 class="font-bold text-2xl text-gray-700">Student Detail</h1>
+
+                <div class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
+                    <div class="container mx-auto p-6">
+                        <button class="flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:shadow-outline-blue" onclick="goBack()">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 18a8 8 0 110-16 8 8 0 010 16zm1-12H9v4H5v2h4v4h2v-4h4v-2h-4V6z"></path>
+                            </svg>
+                            Back
+                        </button>
+                    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+                        <div class="flex flex-col items-center mb-4">
+                            <img src="/img/Avatar04.jpg" alt="Student Image" class="w-20 h-20 rounded-full mb-4">
+                            <div class="text-center">
+                                <h2 id="username" class="text-xl font-semibold">Username</h2>
+                                <p id="email" class="text-gray-600">email@example.com</p>
+                            </div>
+                        </div>
+                            <div class="flex space-x-4">
+                                <div class="w-1/2">
+                                    <label class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                    <input type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                </div>
+
+                                <div class="w-1/2">
+                                    <label class="block text-gray-700 font-medium mb-2">Role</label>
+                                    <input type="text" id="role" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                </div>
+                            </div>
+
+                        <div class="flex space-x-4">
+                            <div class="w-1/2">
+                                <label class="block text-gray-700 font-medium mb-2">Phone</label>
+                                <input type="text" id="phone" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="w-1/2">
+                                <label class="block text-gray-700 font-medium mb-2">Birthday</label>
+                                <input type="text" id="birthday" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-medium mb-2">Address</label>
+                            <input type="text" id="address" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        </div>
+
+                        <div class="flex space-x-4">
+                            <div class="w-1/2">
+                                <label class="block text-gray-700 font-medium mb-2">Created At</label>
+                                <input type="text" id="createdAt" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="w-1/2">
+                                <label class="block text-gray-700 font-medium mb-2">Updated At</label>
+                                <input type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-medium mb-2">Status</label>
+                            <select id="status" class="w-full px-4 py-2 border rounded-lg">
+                                <option value="active" class="text-green-600">Active</option>
+                                <option value="disactive" class="text-red-600">Disactive</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
 
-    <footer class="footer px-4 py-6">
-        <div class="footer-content">
-            <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
-        </div>
-    </footer>
-    </main>
+                    function showStudentDetails(userId) {
+                        // Fetch and display student details using the userId
+
+                    }
+
+                    // Example: populate fields with data
+                    document.getElementById('username').innerText = "Teddy";
+                    document.getElementById('email').innerText = "Teddy@example.com";
+                    document.getElementById('role').value = "Student";
+                    document.getElementById('createdAt').value = "2023-01-01";
+                    document.getElementById('updatedAt').value = "2024-01-01";
+                    document.getElementById('fullName').value = "Teddy Nguyen";
+                    document.getElementById('phone').value = "123-456-7890";
+                    document.getElementById('address').value = "Cu Chi";
+                    document.getElementById('birthday').value = "2000-01-01";
+                    document.getElementById('status').value = "Active";
+                </script>
+
+
+
+                </div>
+
+            </div>
+
+
+            <footer class="footer px-4 py-6">
+                <div class="footer-content">
+                    <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
+                </div>
+            </footer>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+
+        </main>
     </div>
+
 </body>
 </html>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

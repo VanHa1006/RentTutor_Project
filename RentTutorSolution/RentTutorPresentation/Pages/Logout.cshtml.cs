@@ -8,7 +8,7 @@ namespace RentTutorPresentation.Pages
         public IActionResult OnGet()
         {
             HttpContext.Session.Clear();
-            return RedirectToPage("/LoginPage");
+            return RedirectToPage("/HomePage");
         }
     }
 }
