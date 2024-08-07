@@ -190,7 +190,10 @@
                                     <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Logout</span>
+                            <button class="btn btn-primary" onclick="window.location.href='././Logout'">
+                                <span class="ml-3">Logout</span>
+                            </button>
+                            
                         </a>
                     </li>
                 </ul>
@@ -271,7 +274,7 @@
                                     <!-- Repeat this <tr> block for each row in the table -->
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                        <td class="px-4 py-3 text-sm">1</td>
+                                        <td class="px-4 py-3 text-sm">@student.StudentId</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <!-- Avatar with inset shadow -->
@@ -284,28 +287,28 @@
                                                     aria-hidden="true"></div>
                                                 </div>
                                                 <div>
-                                                    <p class="font-semibold">@student.Username</p>
+                                                    <p class="font-semibold">@student.StudentNavigation.Username</p>
                                                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                        @student.Phone
+                                                        @student.StudentNavigation.Phone
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            @student.Email
+                                            @student.StudentNavigation.Email
                                         </td>
                                         <td class="px-4 py-3 text-xs">
                                             <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                                @student.Status
+                                                @student.StudentNavigation.Status
                                             </button>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            @student.Birthday
+                                            @student.StudentNavigation.Birthday
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center space-x-4 text-sm">
                                                 <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="View Detail" onclick="showStudentDetails(@student.UserId)">
+                                                        aria-label="View Detail" onclick="showStudentDetails(@student.StudentNavigation.UserId)">
                                                     <svg class="w-5 h-5"
                                                     aria-hidden="true"
                                                     fill="currentColor"

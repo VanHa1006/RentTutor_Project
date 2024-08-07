@@ -17,17 +17,9 @@ public partial class User
 
     public string Status { get; set; }
 
-    public string Qualifications { get; set; }
-
-    public string Experience { get; set; }
-
-    public string Specialization { get; set; }
-
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-    public string FullName { get; set; }
 
     public string Phone { get; set; }
 
@@ -35,11 +27,9 @@ public partial class User
 
     public DateOnly? Birthday { get; set; }
 
-    public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
+    public virtual Student Student { get; set; }
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual Tutor Tutor { get; set; }
 
-    public virtual ICollection<UserApprovalLog> UserApprovalLogAdmins { get; set; } = new List<UserApprovalLog>();
-
-    public virtual ICollection<UserApprovalLog> UserApprovalLogUsers { get; set; } = new List<UserApprovalLog>();
+    public virtual ICollection<UserApprovalLog> UserApprovalLogs { get; set; } = new List<UserApprovalLog>();
 }

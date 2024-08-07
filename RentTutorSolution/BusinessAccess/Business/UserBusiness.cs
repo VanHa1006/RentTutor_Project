@@ -116,7 +116,7 @@ namespace BusinessAccess.Business
 			{
 				var user = await _unitOfWork.UserRepository.GetPagingListAsync(
 					selector: x => x,
-					predicate: x => x.FullName.Contains(searchTerm),
+					predicate: x => x.Username.Contains(searchTerm),
 					page: page,
 					size: size
 					);

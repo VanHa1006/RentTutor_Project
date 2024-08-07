@@ -9,29 +9,19 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentManagerModel : PageModel
     {
-        private readonly IUserBusiness _userBusiness;
-        private readonly UserService _userService;
+        private readonly IStudentsBusiness _studentsBusiness;
 
-        public StudentManagerModel(IUserBusiness userBusiness, UserService userService)
+        public StudentManagerModel(IStudentsBusiness studentsBusiness)
         {
-            _userBusiness = userBusiness;
-            _userService = userService;
+            _studentsBusiness = studentsBusiness;
         }
-        public List<User> Students { get; set; }
+
+        public IList<DataAccess.Models.Student> Students { get; set; }
 
         public async Task OnGetAsync()
         {
-            Students = await _userService.GetAllStudents();
-        }
-
-        public async Task<IActionResult> OnGetStudentDetailsAsync(int id)
-        {
-            var student = await _userService.GetUserByIdAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return new JsonResult(student);
+            Students = await _studentsBusiness.GetAllStudentsAsync();
         }
     }
 }
+

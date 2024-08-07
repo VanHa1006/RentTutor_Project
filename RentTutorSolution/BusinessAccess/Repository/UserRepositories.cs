@@ -65,22 +65,6 @@ namespace BusinessAccess.Repository
 				return false;
 			}
 		}
-
-		public async Task<List<User>> GetAllStudents()
-        {
-            try
-            {
-                var users = await _dbSet.Where(x =>x.Role ==("Student")).ToListAsync();
-                return users;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving active users: {ex.Message}");
-                return new List<User>();
-            }
-
-        }
-
     }
 }
 

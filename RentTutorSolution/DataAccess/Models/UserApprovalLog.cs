@@ -7,7 +7,7 @@ public partial class UserApprovalLog
 {
     public int LogId { get; set; }
 
-    public int UserId { get; set; }
+    public int TutorId { get; set; }
 
     public int AdminId { get; set; }
 
@@ -19,5 +19,5 @@ public partial class UserApprovalLog
 
     public virtual User Admin { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual Tutor Tutor { get; set; }
 }

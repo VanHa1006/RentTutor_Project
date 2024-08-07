@@ -27,6 +27,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IStudentsBusiness, StudentsBusiness>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
