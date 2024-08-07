@@ -254,20 +254,20 @@
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
                                     <th class="px-4 py-3">Num</th>
-                                    <th class="px-4 py-3">Username</th>
-                                    <th class="px-4 py-3">Email</th>
-                                    <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3">Birthday</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Username)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Email)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Status)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Birthday)</th>
                                     <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach (var student in Model.Students)
+                                @foreach (var item in Model.Customer.Items)
                                 {
                                     <!-- Repeat this <tr> block for each row in the table -->
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                        <td class="px-4 py-3 text-sm">@student.StudentId</td>
+                                        <td class="px-4 py-3 text-sm">1</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <!-- Avatar with inset shadow -->
@@ -280,28 +280,29 @@
                                                          aria-hidden="true"></div>
                                                 </div>
                                                 <div>
-                                                    <p class="font-semibold">@student.StudentNavigation.Username</p>
+                                                    <p class="font-semibold">@Html.DisplayFor(modelItem => item.Username)</p>
                                                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                        @student.StudentNavigation.Phone
+                                                        @Html.DisplayFor(modelItem => item.Phone)
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            @student.StudentNavigation.Email
+                                            @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td class="px-4 py-3 text-xs">
                                             <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                                @student.StudentNavigation.Status
+                                                @Html.DisplayFor(modelItem => item.Status)
                                             </button>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            @student.StudentNavigation.Birthday
+                                            @Html.DisplayFor(modelItem => item.Birthday)
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center space-x-4 text-sm">
+                                                <a asp-page="./StudentDetail" asp-route-id="@item.UserId">
                                                 <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="View Detail" onclick="showStudentDetails(@student.StudentNavigation.UserId)">
+                                                        aria-label="View Detail">
                                                     <svg class="w-5 h-5"
                                                          aria-hidden="true"
                                                          fill="currentColor"
@@ -309,6 +310,7 @@
                                                         <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
                                                     </svg>
                                                 </button>
+                                                </a>
                                                 <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                         aria-label="Delete">
                                                     <svg class="w-5 h-5"

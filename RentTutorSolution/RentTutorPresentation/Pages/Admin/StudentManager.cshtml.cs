@@ -9,18 +9,52 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentManagerModel : PageModel
     {
-        private readonly IStudentsBusiness _studentsBusiness;
+        private readonly IUserBusiness _customerBusiness;
 
-        public StudentManagerModel(IStudentsBusiness studentsBusiness)
+        public StudentManagerModel(IUserBusiness customerBusiness)
         {
-            _studentsBusiness = studentsBusiness;
+            _customerBusiness = customerBusiness;
+        }
+        public string Message { get; set; } = default!;
+        public Paginate<User> Customer { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+        [BindProperty(SupportsGet = true)]
+        public int Size { get; set; } = 10;
+
+        private async Task<Paginate<User>> GetCustomers()
+        {
+            var result = await _customerBusiness.GetAll(PageIndex, Size);
+            if (result.Status > 0 && result.Data != null)
+            {
+                var customer = result.Data;
+                return (Paginate<User>)customer;
+            }
+            return null;
         }
 
-        public IList<DataAccess.Models.Student> Students { get; set; }
-
+        private async Task<Paginate<User>> Search()
+        {
+            var result = await _customerBusiness.Search(SearchTerm, PageIndex, Size);
+            if (result.Status > 0 && result.Data != null)
+            {
+                var customer = result.Data;
+                return (Paginate<User>)customer;
+            }
+            return null;
+        }
         public async Task OnGetAsync()
         {
-            Students = await _studentsBusiness.GetAllStudentsAsync();
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                Customer = await Search();
+            }
+            else
+            {
+                Customer = await GetCustomers();
+            }
         }
     }
 }
