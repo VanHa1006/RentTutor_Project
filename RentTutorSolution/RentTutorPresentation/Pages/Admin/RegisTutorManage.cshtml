@@ -14,16 +14,11 @@
 <body>
     <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500">
+        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
                 <div class="inline-flex">
-                    <a href="#" class="inline-flex flex-row items-center">
-                        <svg class="w-10 h-10 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                  d="M11.757 2.034a1 1 0 01.638.519c.483.967.844 1.554 1.207 2.03.368.482.756.876 1.348 1.467A6.985 6.985 0 0117 11a7.002 7.002 0 01-14 0c0-1.79.684-3.583 2.05-4.95a1 1 0 011.707.707c0 1.12.07 1.973.398 2.654.18.374.461.74.945 1.067.116-1.061.328-2.354.614-3.58.225-.966.505-1.93.839-2.734.167-.403.356-.785.57-1.116.208-.322.476-.649.822-.88a1 1 0 01.812-.134zm.364 13.087A2.998 2.998 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879.586.585.879 1.353.879 2.121s-.293 1.536-.879 2.121z"
-                                  clip-rule="evenodd" />
-                        </svg>
-                        <span class="leading-10 text-gray-100 text-2xl font-bold ml-1 uppercase">Rent-Tutor</span>
+                    <a href="/Admin">
+                        <img src="/img/graduation.png" alt="logo" class='w-24 h-24 object-cover rounded-full mx-auto' />
                     </a>
                 </div>
             </div>
@@ -259,118 +254,179 @@
                     </span>
                 </div>
 
-              
-                    <div class="grid grid-cols-4 gap-4 mt-4">
+    
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                         <!-- Tutor Request Card 1 -->
-                        <div class="border-2 border-gray-300 p-4 rounded-lg flex flex-col space-y-2">
-                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-32 h-32 object-cover rounded-full mx-auto">
-                            <p><strong>Full Name:</strong> Tutor One</p>
-                            <p><strong>Username:</strong> tutorone</p>
-                            <p><strong>Email:</strong> tutorone@example.com</p>
-                            <p><strong>Phone:</strong> 123-456-7890</p>
-                            <p><strong>Address:</strong> 123 Main St, City</p>
-                            <p><strong>Birthday:</strong> January 1, 1990</p>
-                            <p><strong>Qualifications:</strong> PhD in Education</p>
-                            <p><strong>Experience:</strong> 10 years</p>
-                            <p><strong>Specialization:</strong> Mathematics</p>
-                            <div class="flex space-x-2">
-                                <button class="bg-green-500 text-white py-1 px-4 rounded" onclick="acceptTutor()">Accept</button>
-                                <button class="bg-red-500 text-white py-1 px-4 rounded" onclick="showDeclineForm(1)">Decline</button>
+                        <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                            <p class="text-sm"><strong>Full Name:</strong> Tutor One</p>
+                            <p class="text-sm"><strong>Username:</strong> tutorone</p>
+                            <p class="text-sm"><strong>Email:</strong> tutorone@example.com</p>
+                            <p class="text-sm"><strong>Phone:</strong> 123-456-7890</p>
+                            <p class="text-sm"><strong>Address:</strong> 123 Main St, City</p>
+                            <p class="text-sm"><strong>Birthday:</strong> January 1, 1990</p>
+                            <p class="text-sm"><strong>Qualifications:</strong> PhD in Education</p>
+                            <p class="text-sm"><strong>Experience:</strong> 10 years</p>
+                            <p class="text-sm"><strong>Specialization:</strong> Mathematics</p>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(1)">Decline</button>
                             </div>
                             <div id="decline-form-1" class="hidden flex flex-col space-y-2 mt-2">
-                                <label><strong>Decision:</strong></label>
-                                <input type="text" class="border border-gray-300 rounded p-1" placeholder="Enter decision">
-                                <label><strong>Reason:</strong></label>
-                                <textarea class="border border-gray-300 rounded p-1" placeholder="Enter reason"></textarea>
-                                <div class="flex space-x-2">
-                                    <button class="bg-blue-500 text-white py-1 px-4 rounded">Send</button>
-                                    <button class="bg-gray-500 text-white py-1 px-4 rounded" onclick="hideDeclineForm(1)">Cancel</button>
-                                </div>
+                                <label class="text-sm"><strong>Decision:</strong></label>
+                                <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                                <label class="text-sm"><strong>Reason:</strong></label>
+                                <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
+                            <div class="flex space-x-2">
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(1)">Decline</button>
+                            </div>
                             </div>
                         </div>
                         <!-- Tutor Request Card 2 -->
-                        <div class="border-2 border-gray-300 p-4 rounded-lg flex flex-col space-y-2">
-                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-32 h-32 object-cover rounded-full mx-auto">
-                            <p><strong>Full Name:</strong> Tutor Two</p>
-                            <p><strong>Username:</strong> tutortwo</p>
-                            <p><strong>Email:</strong> tutortwo@example.com</p>
-                            <p><strong>Phone:</strong> 234-567-8901</p>
-                            <p><strong>Address:</strong> 234 Main St, City</p>
-                            <p><strong>Birthday:</strong> February 2, 1991</p>
-                            <p><strong>Qualifications:</strong> Masters in Physics</p>
-                            <p><strong>Experience:</strong> 8 years</p>
-                            <p><strong>Specialization:</strong> Physics</p>
-                            <div class="flex space-x-2">
-                                <button class="bg-green-500 text-white py-1 px-4 rounded" onclick="acceptTutor()">Accept</button>
-                                <button class="bg-red-500 text-white py-1 px-4 rounded" onclick="showDeclineForm(2)">Decline</button>
+                        <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                            <p class="text-sm"><strong>Full Name:</strong> Tutor Two</p>
+                            <p class="text-sm"><strong>Username:</strong> tutortwo</p>
+                            <p class="text-sm"><strong>Email:</strong> tutortwo@example.com</p>
+                            <p class="text-sm"><strong>Phone:</strong> 234-567-8901</p>
+                            <p class="text-sm"><strong>Address:</strong> 234 Main St, City</p>
+                            <p class="text-sm"><strong>Birthday:</strong> February 2, 1991</p>
+                            <p class="text-sm"><strong>Qualifications:</strong> Masters in Physics</p>
+                            <p class="text-sm"><strong>Experience:</strong> 8 years</p>
+                            <p class="text-sm"><strong>Specialization:</strong> Physics</p>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(2)">Decline</button>
                             </div>
                             <div id="decline-form-2" class="hidden flex flex-col space-y-2 mt-2">
-                                <label><strong>Decision:</strong></label>
-                                <input type="text" class="border border-gray-300 rounded p-1" placeholder="Enter decision">
-                                <label><strong>Reason:</strong></label>
-                                <textarea class="border border-gray-300 rounded p-1" placeholder="Enter reason"></textarea>
+                                <label class="text-sm"><strong>Decision:</strong></label>
+                                <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                                <label class="text-sm"><strong>Reason:</strong></label>
+                                <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
                                 <div class="flex space-x-2">
-                                    <button class="bg-blue-500 text-white py-1 px-4 rounded">Send</button>
-                                    <button class="bg-gray-500 text-white py-1 px-4 rounded" onclick="hideDeclineForm(2)">Cancel</button>
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm">Send</button>
+                                    <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(2)">Cancel</button>
                                 </div>
                             </div>
                         </div>
                         <!-- Tutor Request Card 3 -->
-                        <div class="border-2 border-gray-300 p-4 rounded-lg flex flex-col space-y-2">
-                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-32 h-32 object-cover rounded-full mx-auto">
-                            <p><strong>Full Name:</strong> Tutor Three</p>
-                            <p><strong>Username:</strong> tutorthree</p>
-                            <p><strong>Email:</strong> tutorthree@example.com</p>
-                            <p><strong>Phone:</strong> 345-678-9012</p>
-                            <p><strong>Address:</strong> 345 Main St, City</p>
-                            <p><strong>Birthday:</strong> March 3, 1992</p>
-                            <p><strong>Qualifications:</strong> Masters in Chemistry</p>
-                            <p><strong>Experience:</strong> 7 years</p>
-                            <p><strong>Specialization:</strong> Chemistry</p>
-                            <div class="flex space-x-2">
-                                <button class="bg-green-500 text-white py-1 px-4 rounded" onclick="acceptTutor()">Accept</button>
-                                <button class="bg-red-500 text-white py-1 px-4 rounded" onclick="showDeclineForm(3)">Decline</button>
+                        <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                            <p class="text-sm"><strong>Full Name:</strong> Tutor Three</p>
+                            <p class="text-sm"><strong>Username:</strong> tutorthree</p>
+                            <p class="text-sm"><strong>Email:</strong> tutorthree@example.com</p>
+                            <p class="text-sm"><strong>Phone:</strong> 345-678-9012</p>
+                            <p class="text-sm"><strong>Address:</strong> 345 Main St, City</p>
+                            <p class="text-sm"><strong>Birthday:</strong> March 3, 1992</p>
+                            <p class="text-sm"><strong>Qualifications:</strong> Masters in Chemistry</p>
+                            <p class="text-sm"><strong>Experience:</strong> 7 years</p>
+                            <p class="text-sm"><strong>Specialization:</strong> Chemistry</p>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(3)">Decline</button>
                             </div>
                             <div id="decline-form-3" class="hidden flex flex-col space-y-2 mt-2">
-                                <label><strong>Decision:</strong></label>
-                                <input type="text" class="border border-gray-300 rounded p-1" placeholder="Enter decision">
-                                <label><strong>Reason:</strong></label>
-                                <textarea class="border border-gray-300 rounded p-1" placeholder="Enter reason"></textarea>
+                                <label class="text-sm"><strong>Decision:</strong></label>
+                                <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                                <label class="text-sm"><strong>Reason:</strong></label>
+                                <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
                                 <div class="flex space-x-2">
-                                    <button class="bg-blue-500 text-white py-1 px-4 rounded">Send</button>
-                                    <button class="bg-gray-500 text-white py-1 px-4 rounded" onclick="hideDeclineForm(3)">Cancel</button>
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm">Send</button>
+                                    <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(3)">Cancel</button>
                                 </div>
                             </div>
                         </div>
                         <!-- Tutor Request Card 4 -->
-                        <div class="border-2 border-gray-300 p-4 rounded-lg flex flex-col space-y-2">
-                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-32 h-32 object-cover rounded-full mx-auto">
-                            <p><strong>Full Name:</strong> Tutor Four</p>
-                            <p><strong>Username:</strong> tutorfour</p>
-                            <p><strong>Email:</strong> tutorfour@example.com</p>
-                            <p><strong>Phone:</strong> 456-789-0123</p>
-                            <p><strong>Address:</strong> 456 Main St, City</p>
-                            <p><strong>Birthday:</strong> April 4, 1993</p>
-                        <p><strong>Qualifications:</strong> Masters in Biology  Masters in Biology Masters in Biology Masters in Biology Masters in Biology Masters in Biology Masters in Biology</p>
-                            <p><strong>Experience:</strong> 6 years</p>
-                            <p><strong>Specialization:</strong> Biology</p>
-                            <div class="flex space-x-2">
-                                <button class="bg-green-500 text-white py-1 px-4 rounded" onclick="acceptTutor()">Accept</button>
-                                <button class="bg-red-500 text-white py-1 px-4 rounded" onclick="showDeclineForm(4)">Decline</button>
+                        <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                            <p class="text-sm"><strong>Full Name:</strong> Tutor Four</p>
+                            <p class="text-sm"><strong>Username:</strong> tutorfour</p>
+                            <p class="text-sm"><strong>Email:</strong> tutorfour@example.com</p>
+                            <p class="text-sm"><strong>Phone:</strong> 456-789-0123</p>
+                            <p class="text-sm"><strong>Address:</strong> 456 Main St, City</p>
+                            <p class="text-sm"><strong>Birthday:</strong> April 4, 1993</p>
+                            <p class="text-sm"><strong>Qualifications:</strong> Masters in Biology</p>
+                            <p class="text-sm"><strong>Experience:</strong> 6 years</p>
+                            <p class="text-sm"><strong>Specialization:</strong> Biology</p>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(4)">Decline</button>
                             </div>
                             <div id="decline-form-4" class="hidden flex flex-col space-y-2 mt-2">
-                                <label><strong>Decision:</strong></label>
-                                <input type="text" class="border border-gray-300 rounded p-1" placeholder="Enter decision">
-                                <label><strong>Reason:</strong></label>
-                                <textarea class="border border-gray-300 rounded p-1" placeholder="Enter reason"></textarea>
+                                <label class="text-sm"><strong>Decision:</strong></label>
+                                <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                                <label class="text-sm"><strong>Reason:</strong></label>
+                                <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
                                 <div class="flex space-x-2">
-                                    <button class="bg-blue-500 text-white py-1 px-4 rounded">Send</button>
-                                    <button class="bg-gray-500 text-white py-1 px-4 rounded" onclick="hideDeclineForm(4)">Cancel</button>
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm">Send</button>
+                                    <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(4)">Cancel</button>
                                 </div>
                             </div>
                         </div>
+                    <!-- Tutor Request Card 5 -->
+                    <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                        <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                        <p class="text-sm"><strong>Full Name:</strong> Tutor Four</p>
+                        <p class="text-sm"><strong>Username:</strong> tutorfour</p>
+                        <p class="text-sm"><strong>Email:</strong> tutorfour@example.com</p>
+                        <p class="text-sm"><strong>Phone:</strong> 456-789-0123</p>
+                        <p class="text-sm"><strong>Address:</strong> 456 Main St, City</p>
+                        <p class="text-sm"><strong>Birthday:</strong> April 4, 1993</p>
+                        <p class="text-sm"><strong>Qualifications:</strong> Masters in Biology</p>
+                        <p class="text-sm"><strong>Experience:</strong> 6 years</p>
+                        <p class="text-sm"><strong>Specialization:</strong> Biology</p>
+                        <div class="flex items-center justify-between">
+                            <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                            <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(4)">Decline</button>
+                        </div>
+                        <div id="decline-form-4" class="hidden flex flex-col space-y-2 mt-2">
+                            <label class="text-sm"><strong>Decision:</strong></label>
+                            <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                            <label class="text-sm"><strong>Reason:</strong></label>
+                            <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm">Send</button>
+                                <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(4)">Cancel</button>
+                            </div>
+                        </div>
                     </div>
-               
+                    <!-- Tutor Request Card 5 -->
+                    <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
+                        <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
+                        <p class="text-sm"><strong>Full Name:</strong> Tutor Four</p>
+                        <p class="text-sm"><strong>Username:</strong> tutorfour</p>
+                        <p class="text-sm"><strong>Email:</strong> tutorfour@example.com</p>
+                        <p class="text-sm"><strong>Phone:</strong> 456-789-0123</p>
+                        <p class="text-sm"><strong>Address:</strong> 456 Main St, City</p>
+                        <p class="text-sm"><strong>Birthday:</strong> April 4, 1993</p>
+                        <p class="text-sm"><strong>Qualifications:</strong> Masters in Biology</p>
+                        <p class="text-sm"><strong>Experience:</strong> 6 years</p>
+                        <p class="text-sm"><strong>Specialization:</strong> Biology</p>
+                        <div class="flex items-center justify-between">
+                            <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" onclick="acceptTutor()">Accept</button>
+                            <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(4)">Decline</button>
+                        </div>
+                        <div id="decline-form-4" class="hidden flex flex-col space-y-2 mt-2">
+                            <label class="text-sm"><strong>Decision:</strong></label>
+                            <input type="text" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
+                            <label class="text-sm"><strong>Reason:</strong></label>
+                            <textarea class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
+                            <div class="flex space-x-2">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm">Send</button>
+                                <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(4)">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            <footer class="footer px-4 py-6">
+                <div class="footer-content">
+                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
+                </div>
+            </footer>
             </div>
 
 
@@ -384,7 +440,7 @@
                     setTimeout(() => {
                         alertContainer.classList.remove('flex');
                         alertContainer.classList.add('hidden');
-                    }, 3000);
+                    }, 1500);
                 }
 
                 function closeAlert() {
@@ -403,11 +459,7 @@
             </script>
 
 
-            <footer class="footer px-4 py-6">
-                <div class="footer-content">
-                    <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
-                </div>
-            </footer>
+  
             <script src="~/js/site.js" asp-append-version="true"></script>
 
         </main>
