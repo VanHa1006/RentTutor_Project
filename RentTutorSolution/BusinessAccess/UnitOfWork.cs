@@ -14,6 +14,7 @@ namespace BusinessAccess
         private UserRepository _userRepository;
         private StudentRepository _studentRepository;
         private TutorRepository _tutorRepository;
+        private UserApprovalLogRepository _userApprovalLogRepository;
         public UnitOfWork() { }
 
         public UserRepository UserRepository
@@ -37,6 +38,14 @@ namespace BusinessAccess
             get
             {
                 return _tutorRepository ??= new TutorRepository();
+            }
+        }
+
+        public UserApprovalLogRepository UserApprovalLogRepository
+        {
+            get
+            {
+                return _userApprovalLogRepository ??= new UserApprovalLogRepository();
             }
         }
     }

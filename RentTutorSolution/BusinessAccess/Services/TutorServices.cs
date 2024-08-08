@@ -12,7 +12,7 @@ namespace BusinessAccess.Services
     public interface ITutorServices
     {
         Task<IBusinessResult> DeleteUser(int id);
-        Task<IBusinessResult> GetByIdAsync(int id);
+        Task<IBusinessResult> AcceptTutor(int id);
         Task<IBusinessResult> RegisterTutor(Tutor user);
         Task<IBusinessResult> GetAllTutorsPending(int page, int size);
         Task<IBusinessResult> SearchPending(string searchTerm, int page, int size);
@@ -26,6 +26,7 @@ namespace BusinessAccess.Services
         {
             _unitOfWork ??= new UnitOfWork();
         }
+
 
         public async Task<IBusinessResult> DeleteUser(int id)
         {
@@ -56,7 +57,7 @@ namespace BusinessAccess.Services
                    predicate: x => x.TutorNavigation.Role == "Tutor" && x.TutorNavigation.Status == "Pending",
                    page: page,
                    size: size, 
-                   include: x => x.Include(p => p.TutorNavigation)
+                   include: x => x.Include(p => p.TutorNavigation).Include(p => p.UserApprovalLogs)
                    );
                 if (users != null)
                 {
@@ -73,19 +74,21 @@ namespace BusinessAccess.Services
             }
         }
 
-        public async Task<IBusinessResult> GetByIdAsync(int id)
+        public async Task<IBusinessResult> AcceptTutor(int id)
         {
             try
             {
-                var student = await _unitOfWork.TutorRepository.GetByIdAsync(id);
-                if (student != null)
+                var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+                if (user == null)
                 {
-                    return new BusinessResult(1, "Get student successfully", student);
+                    return new BusinessResult(-1, "User not found");
                 }
-                else
-                {
-                    return new BusinessResult(-1, "Get student fail");
-                }
+
+                user.Status = "Active";
+                _unitOfWork.UserRepository.Update(user);
+                await _unitOfWork.UserRepository.SaveAsync();
+
+                return new BusinessResult(1, "User activated successfully");
             }
             catch (Exception ex)
             {

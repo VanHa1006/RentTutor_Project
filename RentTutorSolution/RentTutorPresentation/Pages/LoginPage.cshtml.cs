@@ -33,9 +33,14 @@ namespace RentTutorPresentation.Pages
 
             if (user != null)
             {
-                if (user.Status != "Active")
+                if (user.Status == "Deative")
                 {
                     ErrorMessage = "You are not allowed access into system";
+                    return Page();
+                }
+                if (user.Status == "Pending")
+                {
+                    ErrorMessage = "You must wait for Admin approval! Please wait within 15 minutes for a response.";
                     return Page();
                 }
                 if (user.Role.Equals("Student"))

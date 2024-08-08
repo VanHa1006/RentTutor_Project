@@ -29,6 +29,7 @@ builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IStudentServices, StudentServices>();
 builder.Services.AddScoped<ITutorServices, TutorServices>();
+builder.Services.AddScoped<IUserApprovalLogService, UserApprovalLogService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
