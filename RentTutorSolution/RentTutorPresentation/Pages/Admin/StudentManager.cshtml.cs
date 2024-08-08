@@ -1,8 +1,10 @@
-using BusinessAccess.Services;
+﻿using BusinessAccess.Services;
 using DataAccess.Models;
 using DataAccess.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace RentTutorPresentation.Pages.Admin
 {
@@ -29,6 +31,7 @@ namespace RentTutorPresentation.Pages.Admin
             var result = await _studentServices.GetAllStudents(PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
+
                 var students = result.Data;
                 return (Paginate<User>)students;
             }
