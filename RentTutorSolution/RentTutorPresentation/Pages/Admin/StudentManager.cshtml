@@ -221,12 +221,11 @@
                                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
-
-                            <input id="search"
-                                   type="text"
-                                   name="search"
-                                   class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400"
-                                   placeholder="Search..." />
+                            <form method="get">
+                                <div class="input-group">
+                                    <input placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
+                                </div>
+                            </form>
                         </div>
                         <div class="flex md:hidden">
                             <a href="#" class="flex items-center justify-center h-10 w-10 border-transparent">
@@ -267,20 +266,20 @@
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
                                     <th class="px-4 py-3">Num</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Username)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Email)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Status)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Birthday)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Username)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Email)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Status)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Birthday)</th>
                                     <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach (var item in Model.Customer.Items)
+                                @foreach (var item in Model.Student.Items)
                                 {
                                     <!-- Repeat this <tr> block for each row in the table -->
-                                    <tr class="text-gray-700 dark:text-gray-400">
+                                    <tr style="cursor: pointer; class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                        <td class="px-4 py-3 text-sm">1</td>
+                                        <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.Student.StudentId)</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <!-- Avatar with inset shadow -->
@@ -315,7 +314,7 @@
                                             <div class="flex items-center space-x-4 text-sm">
                                                 <a asp-page="./StudentDetail" asp-route-id="@item.UserId">
                                                 <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="View Detail">
+                                                        aria-label="View Detail" onclick="showStudentDetails">
                                                     <svg class="w-5 h-5"
                                                          aria-hidden="true"
                                                          fill="currentColor"
@@ -324,17 +323,13 @@
                                                     </svg>
                                                 </button>
                                                 </a>
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="Delete">
-                                                    <svg class="w-5 h-5"
-                                                         aria-hidden="true"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd"
-                                                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                              clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </button>
+                                                    <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                  clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -417,6 +412,15 @@
     </div>
 </body>
 </html>
+<div>
+    <a asp-page="/Admin/StudentManager" asp-route-SearchTerm="@Model.SearchTerm" asp-route-PageIndex="@(Model.PageIndex - 1)"
+       class="@(Model.PageIndex == 1 ? "disabled" : "") btn btn-primary">Previous</a>
+
+    <span>Page @Model.Student.Page of @Model.Student.TotalPages </span>
+
+    <a asp-page="/Admin/StudentManager" asp-route-SearchTerm="@Model.SearchTerm" asp-route-PageIndex="@(Model.PageIndex + 1)"
+       class="@(Model.PageIndex == Model.Student.TotalPages ? "disabled" : "") btn btn-primary">Next</a>
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

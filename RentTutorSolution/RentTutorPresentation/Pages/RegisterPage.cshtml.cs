@@ -1,4 +1,3 @@
-using BusinessAccess.Business;
 using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +11,7 @@ namespace RentTutorPresentation.Pages
 {
 	public class RegisterPageModel : PageModel
 	{
-		private readonly IHubContext<TutorHub> _hubContext;
+		/*private readonly IHubContext<TutorHub> _hubContext;
         private readonly IUserBusiness _userBusiness;
 
         [BindProperty]
@@ -47,6 +46,6 @@ namespace RentTutorPresentation.Pages
                 return Page();
             }
 
-        }
+        }*/
     }
 }

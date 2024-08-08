@@ -10,9 +10,9 @@ namespace RentTutorPresentation.Pages
 {
     public class LoginPageModel : PageModel
     {
-        private readonly UserService _userService;
+        private readonly LoginService _userService;
 
-        public LoginPageModel(UserService userService)
+        public LoginPageModel(LoginService userService)
         {
             _userService = userService;
         }
