@@ -14,6 +14,14 @@ namespace RentTutorPresentation.Pages.Admin
         {
             _studentServices = studentServices;
         }
+        public string Message { get; set; } = default!;
+        public Paginate<User> Customer { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+        [BindProperty(SupportsGet = true)]
+        public int Size { get; set; } = 10;
 
         public string Message { get; set; } = default!;
         public Paginate<User> Student { get; set; } = default!;
