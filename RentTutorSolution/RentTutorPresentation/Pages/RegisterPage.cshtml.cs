@@ -1,5 +1,6 @@
 using BusinessAccess.Services;
 using DataAccess.Models;
+using DataAccess.Paging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -47,5 +48,55 @@ namespace RentTutorPresentation.Pages
             }
 
         }*/
+
+        private readonly IStudentServices _userServices;
+        private readonly ITutorServices _tutorServices;
+
+        public RegisterPageModel(IStudentServices studentServices, ITutorServices tutorServices)
+        {
+            _userServices = studentServices;
+            _tutorServices = tutorServices;
+        }
+
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
+        [BindProperty]
+        public DataAccess.Models.Student Student { get; set; } = default!;
+        public async Task<IActionResult> OnPostRegisterStudentAsync()
+        {
+            var result = await _userServices.Save(Student);
+            if (result.Status > 0)
+            {
+                ViewData["SuccessMessage"] = result.Message;
+                return RedirectToPage("./LoginPage");
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = $"Error: {result.Message}";
+                return Page();
+            }
+
+        }
+
+        [BindProperty]
+        public DataAccess.Models.Tutor Tutor { get; set; } = default!;
+        public async Task<IActionResult> OnPostRegisterTutorAsync()
+        {
+            var result = await _tutorServices.RegisterTutor(Tutor);
+            if (result.Status > 0)
+            {
+                ViewData["SuccessMessage"] = result.Message;
+                return RedirectToPage("./LoginPage");
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = $"Error: {result.Message}";
+                return Page();
+            }
+
+        }
     }
 }

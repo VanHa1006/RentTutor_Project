@@ -12,6 +12,7 @@ namespace BusinessAccess.Services
     {
         Task<IBusinessResult> DeleteUser(int id);
         Task<IBusinessResult> GetByIdAsync(int id);
+        Task<IBusinessResult> Save(Student user);
     }
 
     public class StudentServices : IStudentServices
@@ -55,6 +56,34 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(-1, "Get student fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> Save(Student user)
+        {
+            try
+            {
+                user.StudentNavigation.Status = "Active";
+                user.StudentNavigation.Role = "Student";
+                user.StudentNavigation.Username = "Student";
+                user.StudentNavigation.Phone = "";
+                user.StudentNavigation.Address = "";
+                user.StudentNavigation.Birthday = DateOnly.MinValue;
+                user.StudentNavigation.CreatedAt = DateTime.Now;
+                user.StudentNavigation.UpdatedAt = DateTime.Now;
+                var newUser = await _unitOfWork.StudentRepository.CreateAsync(user);
+                if (newUser >= 1)
+                {
+                    return new BusinessResult(1, "Create successfully");
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Create fail");
                 }
             }
             catch (Exception ex)

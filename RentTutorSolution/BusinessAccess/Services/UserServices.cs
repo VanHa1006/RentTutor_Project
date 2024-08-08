@@ -153,6 +153,14 @@ namespace BusinessAccess.Services
         {
             try
             {
+                user.Status = "Active";
+                user.Role = "Student";
+                user.Username = "Student";
+                user.Phone = "";
+                user.Address = "";
+                user.Birthday = DateOnly.MinValue;
+                user.CreatedAt = DateTime.Now;
+                user.UpdatedAt = DateTime.Now;
                 var newUser = await _unitOfWork.UserRepository.CreateAsync(user);
                 if (newUser >= 1)
                 {
