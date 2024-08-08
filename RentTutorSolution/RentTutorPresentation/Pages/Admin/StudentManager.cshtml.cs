@@ -1,4 +1,3 @@
-using BusinessAccess.Business;
 using BusinessAccess.Services;
 using DataAccess.Models;
 using DataAccess.Paging;
@@ -9,18 +8,70 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentManagerModel : PageModel
     {
-        private readonly IStudentsBusiness _studentsBusiness;
+        private readonly IUserServices _studentServices;
 
-        public StudentManagerModel(IStudentsBusiness studentsBusiness)
+        public StudentManagerModel(IUserServices studentServices)
         {
-            _studentsBusiness = studentsBusiness;
+            _studentServices = studentServices;
         }
 
-        public IList<DataAccess.Models.Student> Students { get; set; }
+        public string Message { get; set; } = default!;
+        public Paginate<User> Student { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+        [BindProperty(SupportsGet = true)]
+        public int Size { get; set; } = 10;
 
+        private async Task<Paginate<User>> GetStudents()
+        {
+            var result = await _studentServices.GetAllStudents(PageIndex, Size);
+            if (result.Status > 0 && result.Data != null)
+            {
+                var students = result.Data;
+                return (Paginate<User>)students;
+            }
+            return null;
+        }
+
+        private async Task<Paginate<User>> Search()
+        {
+            var result = await _studentServices.Search(SearchTerm, PageIndex, Size);
+            if (result.Status > 0 && result.Data != null)
+            {
+                var customer = result.Data;
+                return (Paginate<User>)customer;
+            }
+            return null;
+        }
         public async Task OnGetAsync()
         {
-            Students = await _studentsBusiness.GetAllStudentsAsync();
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                Student = await Search();
+            }
+            else
+            {
+                Student = await GetStudents();
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync(int id)
+        {
+            var user = await _studentServices.GetByIdAsync(id);
+            var deleteResult = await _studentServices.DeleteAsync(id);
+            if (deleteResult.Status > 0)
+            {
+                ViewData["SuccessMessage"] = deleteResult.Message;
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = $"Error: {deleteResult.Message}";
+                return Page();
+
+            }
         }
     }
 }

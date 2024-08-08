@@ -2,6 +2,7 @@
 @model RentTutorPresentation.Pages.Admin.StudentDetailModel
 @{
 	Layout = null;
+    ViewData["Title"] = "Edit";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -230,75 +231,87 @@
                 </div>
             </header>
 
-
             <div class="main-content flex flex-col flex-grow p-4">
                 <h1 class="font-bold text-2xl text-gray-700">Student Detail</h1>
-
+                
                 <div class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
                     <div class="container mx-auto p-6">
-                        <button class="flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:shadow-outline-blue" onclick="goBack()">
+                            
+                        <button href="/Admin/StudentManager" class="flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:shadow-outline-blue" onclick="goBack()">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 18a8 8 0 110-16 8 8 0 010 16zm1-12H9v4H5v2h4v4h2v-4h4v-2h-4V6z"></path>
                             </svg>
                             Back
                         </button>
+                        <form method="post">
                     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
                         <div class="flex flex-col items-center mb-4">
                             <img src="/img/Avatar04.jpg" alt="Student Image" class="w-20 h-20 rounded-full mb-4">
                             <div class="text-center">
-                                <h2 id="username" class="text-xl font-semibold">Username</h2>
-                                <p id="email" class="text-gray-600">email@example.com</p>
+                                    <h2 id="username" class="text-xl font-semibold">@Html.DisplayFor(model => model.Student.Username)</h2>
+                                    <p id="email" class="text-gray-600">@Html.DisplayFor(model => model.Student.Email)</p>
                             </div>
                         </div>
+                            
                             <div class="flex space-x-4">
+                                    <input type="hidden" asp-for="Student.UserId" />
+                                    <input type="hidden" asp-for="Student.Username" />
+                                    <input type="hidden" asp-for="Student.Email" />
+                                    <input type="hidden" asp-for="Student.PasswordHash" />
+
                                 <div class="w-1/2">
-                                    <label class="block text-gray-700 font-medium mb-2">Full Name</label>
-                                    <input type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                        <label asp-for="Student.FullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                        <input asp-for="Student.FullName" type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg" readonly>
                                 </div>
 
                                 <div class="w-1/2">
-                                    <label class="block text-gray-700 font-medium mb-2">Role</label>
-                                    <input type="text" id="role" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                        <label asp-for="Student.Role"  class="block text-gray-700 font-medium mb-2">Role</label>
+                                        <input asp-for="Student.Role" type="text" id="role" class="w-full px-4 py-2 border rounded-lg" readonly>
                                 </div>
                             </div>
 
                         <div class="flex space-x-4">
                             <div class="w-1/2">
-                                <label class="block text-gray-700 font-medium mb-2">Phone</label>
-                                <input type="text" id="phone" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                        <label asp-for="Student.Phone"  class="block text-gray-700 font-medium mb-2">Phone</label>
+                                        <input asp-for="Student.Phone"  type="text" id="phone" class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
 
                             <div class="w-1/2">
-                                <label class="block text-gray-700 font-medium mb-2">Birthday</label>
-                                <input type="text" id="birthday" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                <label asp-for="Student.Birthday" class="block text-gray-700 font-medium mb-2">Birthday</label>
+                                        <input asp-for="Student.Birthday" type="text" id="birthday" class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2">Address</label>
-                            <input type="text" id="address" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                    <label asp-for="Student.Address" class="block text-gray-700 font-medium mb-2">Address</label>
+                                    <input asp-for="Student.Address" type="text" id="address" class="w-full px-4 py-2 border rounded-lg" readonly>
                         </div>
 
                         <div class="flex space-x-4">
                             <div class="w-1/2">
-                                <label class="block text-gray-700 font-medium mb-2">Created At</label>
-                                <input type="text" id="createdAt" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                        <label asp-for="Student.CreatedAt" class="block text-gray-700 font-medium mb-2">Created At</label>
+                                        <input asp-for="Student.CreatedAt" type="text" id="createdAt" class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
 
                             <div class="w-1/2">
-                                <label class="block text-gray-700 font-medium mb-2">Updated At</label>
-                                <input type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                        <label asp-for="Student.UpdatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
+                                        <input asp-for="Student.UpdatedAt" type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
                         </div>
+                            </form>
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2">Status</label>
-                            <select id="status" class="w-full px-4 py-2 border rounded-lg">
-                                <option value="active" class="text-green-600">Active</option>
-                                <option value="disactive" class="text-red-600">Disactive</option>
-                            </select>
+                            <label asp-for="Student.Status"  class="block text-gray-700 font-medium mb-2">Status</label>
+                                    <select asp-for="Student.Status" class="w-full px-4 py-2 border rounded-lg">
+                                        <option value="Active" class="text-green-600">Active</option>
+                                        <option value="Disactive" class="text-red-600">Disactive</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
                         </div>
-                    </div>
+                     </div>
                 </div>
-                <script>
+                
+            <script>
                     function goBack() {
                         window.history.back();
                     }
@@ -307,18 +320,6 @@
                         // Fetch and display student details using the userId
 
                     }
-
-                    // Example: populate fields with data
-                    document.getElementById('username').innerText = "Teddy";
-                    document.getElementById('email').innerText = "Teddy@example.com";
-                    document.getElementById('role').value = "Student";
-                    document.getElementById('createdAt').value = "2023-01-01";
-                    document.getElementById('updatedAt').value = "2024-01-01";
-                    document.getElementById('fullName').value = "Teddy Nguyen";
-                    document.getElementById('phone').value = "123-456-7890";
-                    document.getElementById('address').value = "Cu Chi";
-                    document.getElementById('birthday').value = "2000-01-01";
-                    document.getElementById('status').value = "Active";
                 </script>
 
 
@@ -339,7 +340,77 @@
     </div>
 
 </body>
-</html>
+</html> 
+@*  <h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Student.UserId" />
+            <div class="form-group">
+                <label asp-for="Student.Username" class="control-label"></label>
+                <input asp-for="Student.Username" class="form-control" />
+                <span asp-validation-for="Student.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Email" class="control-label"></label>
+                <input asp-for="Student.Email" class="form-control" />
+                <span asp-validation-for="Student.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.PasswordHash" class="control-label"></label>
+                <input asp-for="Student.PasswordHash" class="form-control" />
+                <span asp-validation-for="Student.PasswordHash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Role" class="control-label"></label>
+                <input asp-for="Student.Role" class="form-control" />
+                <span asp-validation-for="Student.Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Status" class="control-label"></label>
+                <input asp-for="Student.Status" class="form-control" />
+                <span asp-validation-for="Student.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.CreatedAt" class="control-label"></label>
+                <input asp-for="Student.CreatedAt" class="form-control" />
+                <span asp-validation-for="Student.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.UpdatedAt" class="control-label"></label>
+                <input asp-for="Student.UpdatedAt" class="form-control" />
+                <span asp-validation-for="Student.UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Phone" class="control-label"></label>
+                <input asp-for="Student.Phone" class="form-control" />
+                <span asp-validation-for="Student.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Address" class="control-label"></label>
+                <input asp-for="Student.Address" class="form-control" />
+                <span asp-validation-for="Student.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Birthday" class="control-label"></label>
+                <input asp-for="Student.Birthday" class="form-control" />
+                <span asp-validation-for="Student.Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.FullName" class="control-label"></label>
+                <input asp-for="Student.FullName" class="form-control" />
+                <span asp-validation-for="Student.FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div> *@ 
+
 
 @section Scripts {
     @{

@@ -27,6 +27,8 @@ public partial class User
 
     public DateOnly? Birthday { get; set; }
 
+    public string FullName { get; set; }
+
     public virtual Student Student { get; set; }
 
     public virtual Tutor Tutor { get; set; }

@@ -1,4 +1,3 @@
-using BusinessAccess.Business;
 using BusinessAccess.DAO;
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
@@ -24,10 +23,10 @@ builder.Services.AddSession(options =>
 builder.Services.AddHttpContextAccessor();
 // Add services to the container.s
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IUserBusiness, UserBusiness>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<IStudentsBusiness, StudentsBusiness>();
+builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IStudentServices, StudentServices>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
