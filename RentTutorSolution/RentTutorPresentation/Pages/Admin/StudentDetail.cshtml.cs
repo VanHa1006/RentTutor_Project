@@ -1,4 +1,4 @@
-using BusinessAccess.Business;
+using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,46 +8,51 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentDetailModel : PageModel
     {
-        private readonly DataAccess.Models.RenTurtorToStudentContext _context;
-
-        public StudentDetailModel(DataAccess.Models.RenTurtorToStudentContext context)
+        private readonly IUserServices _studentServices;
+        public StudentDetailModel(IUserServices studentServices)
         {
-            _context = context;
+            _studentServices = studentServices;
         }
-
         [BindProperty]
-        public User User { get; set; } = default!;
+        public User Student { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            var user = await _studentServices.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            User = user;
+            Student = user.Data as User;
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+
         public async Task<IActionResult> OnPostAsync()
         {
-
-            _context.Attach(User).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var result = await _studentServices.UpdateAsync(Student);
+                if (result.Status > 0)
+                {
+                    ViewData["SuccessMessage"] = result.Message;
+                    return RedirectToPage("./StudentManager");
+                }
+                else
+                {
+                    ViewData["ErrorMessage"] = result.Message;
+                    return Page();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.UserId))
+                if (!await StudentExists(Student.UserId))
                 {
                     return NotFound();
                 }
@@ -56,13 +61,11 @@ namespace RentTutorPresentation.Pages.Admin
                     throw;
                 }
             }
-
-            return RedirectToPage("./StudentManager");
         }
-
-        private bool UserExists(int id)
+        private async Task<bool> StudentExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            var customer = await _studentServices.GetByIdAsync(id);
+            return customer != null && customer.Data != null;
         }
     }
 }
