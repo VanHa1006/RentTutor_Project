@@ -12,7 +12,7 @@ namespace BusinessAccess
     {
         private RenTurtorToStudentContext _unitOfWorkContext;
         private UserRepositories _userRepository;
-
+        private StudentRepositories _studentsRepository;
         public UnitOfWork() { }
 
         public UserRepositories UserRepository
@@ -20,6 +20,14 @@ namespace BusinessAccess
             get
             {
                 return _userRepository ??= new UserRepositories();
+            }
+        }
+
+        public StudentRepositories StudentsRepository
+        {
+            get
+            {
+                return _studentsRepository ??= new StudentRepositories();
             }
         }
     }

@@ -13,10 +13,9 @@ namespace BusinessAccess.Business
 	{
 		Task<IBusinessResult> GetAll(int page, int size);
 		Task<IBusinessResult> GetByIdAsync(int id);
-		Task<IBusinessResult> DeactiveUser(int id);
-		Task<IBusinessResult> ActiveUser(int id);
 		Task<IBusinessResult> Search(string searchTerm, int page, int size);
         Task<IBusinessResult> RegisterTutor(User user);
+        Task<IBusinessResult> UpdateAsync(User user);
     }
     public class UserBusiness : IUserBusiness
 	{
@@ -26,45 +25,6 @@ namespace BusinessAccess.Business
 		{
 			_unitOfWork ??= new UnitOfWork();
 		}
-		public async Task<IBusinessResult> DeactiveUser(int id)
-		{
-			try
-			{
-				var removeUser = await _unitOfWork.UserRepository.RemoveCustomerAsync(id);
-				if (removeUser != null)
-				{
-					return new BusinessResult(1, "Remove successfully");
-				}
-				else
-				{
-					return new BusinessResult(-1, "Remove fail");
-				}
-			}
-			catch (Exception ex)
-			{
-				return new BusinessResult(-4, ex.Message);
-			}
-		}
-
-		public async Task<IBusinessResult> ActiveUser(int id)
-		{
-			try
-			{
-				var removeUser = await _unitOfWork.UserRepository.ActiveUserAsync(id);
-				if (removeUser != null)
-				{
-					return new BusinessResult(1, "Remove successfully");
-				}
-				else
-				{
-					return new BusinessResult(-1, "Remove fail");
-				}
-			}
-			catch (Exception ex)
-			{
-				return new BusinessResult(-4, ex.Message);
-			}
-		}
 
 		public async Task<IBusinessResult> GetAll(int page, int size)
 		{
@@ -72,7 +32,8 @@ namespace BusinessAccess.Business
 			{
 				var student = await _unitOfWork.UserRepository.GetPagingListAsync(
 				   selector: x => x,
-				   page: page,
+                   predicate: x => x.Role == "Student",
+                   page: page,
 				   size: size
 				   );
 				if (student != null)
@@ -116,7 +77,7 @@ namespace BusinessAccess.Business
 			{
 				var user = await _unitOfWork.UserRepository.GetPagingListAsync(
 					selector: x => x,
-					predicate: x => x.FullName.Contains(searchTerm),
+					predicate: x => x.Username.Contains(searchTerm)&& x.Role == "Student",
 					page: page,
 					size: size
 					);
@@ -156,6 +117,24 @@ namespace BusinessAccess.Business
             }
         }
 
-        
+        public async Task<IBusinessResult> UpdateAsync(User user)
+        {
+            try
+            {
+                var updateCustomer = await _unitOfWork.UserRepository.UpdateAsync(user);
+                if (updateCustomer != null)
+                {
+                    return new BusinessResult(1, "Update successfully");
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Update fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
     }
 }
