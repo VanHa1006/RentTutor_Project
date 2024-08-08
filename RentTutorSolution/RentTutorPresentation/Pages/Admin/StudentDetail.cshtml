@@ -11,6 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .status-active {
+            color: #38a169; /* Tailwind green-600 */
+        }
+
+        .status-disactive {
+            color: #e53e3e; /* Tailwind red-600 */
+        }
+    </style>
 </head>
 <body>
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
@@ -229,15 +238,15 @@
             <div class="main-content flex flex-col flex-grow p-4">
                 <h1 class="font-bold text-2xl text-gray-700">Student Detail</h1>
 
-                <div class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
+               
                     <div class="container mx-auto p-6">
 
-                        <button href="/Admin/StudentManager" class="flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:shadow-outline-blue" onclick="goBack()">
+                    @*     <button href="/Admin/StudentManager" class="flex items-center px-4 py-2 mb-4 text-sm font-medium text-white bg-blue-500 rounded-lg focus:outline-none focus:shadow-outline-blue" onclick="goBack()">
                             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 18a8 8 0 110-16 8 8 0 010 16zm1-12H9v4H5v2h4v4h2v-4h4v-2h-4V6z"></path>
                             </svg>
                             Back
-                        </button>
+                        </button> *@
                         <form method="post">
                             <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
                                 <div class="flex flex-col items-center mb-4">
@@ -248,65 +257,95 @@
                                     </div>
                                 </div>
 
-                                <div class="flex space-x-4">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
                                     <input type="hidden" asp-for="Student.UserId" />
                                     <input type="hidden" asp-for="Student.Username" />
                                     <input type="hidden" asp-for="Student.Email" />
                                     <input type="hidden" asp-for="Student.PasswordHash" />
 
-                                    <div class="w-1/2">
+                                    <div>
                                         <label asp-for="Student.FullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
                                         <input asp-for="Student.FullName" type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
 
-                                    <div class="w-1/2">
+                                    <div>
                                         <label asp-for="Student.Role" class="block text-gray-700 font-medium mb-2">Role</label>
                                         <input asp-for="Student.Role" type="text" id="role" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
                                 </div>
 
-                                <div class="flex space-x-4">
-                                    <div class="w-1/2">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
                                         <label asp-for="Student.Phone" class="block text-gray-700 font-medium mb-2">Phone</label>
                                         <input asp-for="Student.Phone" type="text" id="phone" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
 
-                                    <div class="w-1/2">
+                                    <div>
                                         <label asp-for="Student.Birthday" class="block text-gray-700 font-medium mb-2">Birthday</label>
                                         <input asp-for="Student.Birthday" type="text" id="birthday" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
                                 </div>
+
                                 <div class="mb-4">
                                     <label asp-for="Student.Address" class="block text-gray-700 font-medium mb-2">Address</label>
                                     <input asp-for="Student.Address" type="text" id="address" class="w-full px-4 py-2 border rounded-lg" readonly>
                                 </div>
 
-                                <div class="flex space-x-4">
-                                    <div class="w-1/2">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
                                         <label asp-for="Student.CreatedAt" class="block text-gray-700 font-medium mb-2">Created At</label>
                                         <input asp-for="Student.CreatedAt" type="text" id="createdAt" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
 
-                                    <div class="w-1/2">
+                                    <div>
                                         <label asp-for="Student.UpdatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
                                         <input asp-for="Student.UpdatedAt" type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg" readonly>
                                     </div>
                                 </div>
-                        </form>
-                        <div class="mb-4">
-                            <label asp-for="Student.Status" class="block text-gray-700 font-medium mb-2">Status</label>
-                            <select asp-for="Student.Status" class="w-full px-4 py-2 border rounded-lg">
-                                <option value="Active" class="text-green-600">Active</option>
-                                <option value="Disactive" class="text-red-600">Disactive</option>
-                            </select>
-                            <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-primary" />
+
+                                <div class="mb-4">
+                                    <label asp-for="Student.Status" for="status" class="block text-gray-700 font-medium mb-2">Status</label>
+                                    <select asp-for="Student.Status" id="status" class="w-full px-4 py-2 font-medium mb-2 border rounded-lg" onchange="updateStatusColor()">
+                                        <option value="Active" class="text-green-600">Active</option>
+                                        <option value="Disactive" class="text-red-600">Disactive</option>
+                                    </select>
+                                </div>
+
+                            <div class="flex items-center justify-between">
+                                <button href="/Admin/StudentManager" class="flex items-center px-4 py-2 font-semibold leading-tight text-white bg-gray-500 rounded-lg hover:bg-gray-700" onclick="goBack()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z" />
+                                    </svg>
+                                   
+                                </button>
+                                    <button class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700" type="submit">Save</button>
+                                </div>
+                         
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </div>
+                
 
                 <script>
+
+                    function updateStatusColor() {
+                        const select = document.getElementById('status');
+                        const selectedOption = select.options[select.selectedIndex];
+
+                        // Remove existing status classes
+                        select.classList.remove('status-active', 'status-disactive');
+
+                        // Add new status class based on selected option
+                        if (selectedOption.value === 'Active') {
+                            select.classList.add('status-active');
+                        } else if (selectedOption.value === 'Disactive') {
+                            select.classList.add('status-disactive');
+                        }
+                    }
+
+                    // Initial call to set the correct color on page load
+                    document.addEventListener('DOMContentLoaded', updateStatusColor);   
+
                     function goBack() {
                         window.history.back();
                     }
@@ -326,7 +365,7 @@
 
     <footer class="footer px-4 py-6">
         <div class="footer-content">
-            <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
+            <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
         </div>
     </footer>
     <script src="~/js/site.js" asp-append-version="true"></script>

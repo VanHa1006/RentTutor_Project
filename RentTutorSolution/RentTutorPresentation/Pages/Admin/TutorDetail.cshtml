@@ -1,7 +1,8 @@
-@page
-@model RentTutorPresentation.Pages.Admin.RegisTutorManageModel
+﻿@page
+@model RentTutorPresentation.Pages.Admin.TutorDetailModel
 @{
     Layout = null;
+    ViewData["Title"] = "Edit";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .status-active {
+            color: #38a169; /* Tailwind green-600 */
+        }
+
+        .status-disactive {
+            color: #e53e3e; /* Tailwind red-600 */
+        }
+    </style>
 </head>
 <body>
-    <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -25,8 +34,8 @@
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="/Admin"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <a href="#"
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -55,7 +64,7 @@
                                      viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      class="h-6 w-6">
-                                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                                 </svg>
                             </span>
                             <span class="ml-3">Student Manage</span>
@@ -73,16 +82,15 @@
                                      viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      class="h-6 w-6">
-                                    <path d="M12 3.04l7 4.02-7 4.01-7-4.01 7-4.02zm-8 6.47v4.02c0 .78.63 1.41 1.41 1.41h12.18c.78 0 1.41-.63 1.41-1.41V9.51l-7 4.01-7-4.01zm14.36 4.01h1.59c.78 0 1.41.63 1.41 1.41v3.03c0 .78-.63 1.41-1.41 1.41H4.05c-.78 0-1.41-.63-1.41-1.41v-3.03c0-.78.63-1.41 1.41-1.41h1.59l6.18 3.51 6.18-3.51z" />
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </span>
                             <span class="ml-3">Tutor Manage</span>
                         </a>
                     </li>
-
                     <li class="my-px">
                         <a href="/Admin/RegisTutorManage"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-green-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -111,27 +119,11 @@
                                      viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      class="h-6 w-6">
-                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             </span>
                             <span class="ml-3">Course Manage</span>
-                        </a>
-                    </li>
-                    <li class="my-px">
-                        <a href="/Admin/CategoriesCourses"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                            <span class="flex items-center justify-center text-lg text-gray-400">
-                                <svg fill="none"
-                                     stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     stroke-width="2"
-                                     viewBox="0 0 24 24"
-                                     stroke="currentColor"
-                                     class="h-6 w-6">
-                                    <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                                </svg>
-                            </span>
-                            <span class="ml-3">Categories Courses</span>
+
                         </a>
                     </li>
                     <li class="my-px">
@@ -145,18 +137,17 @@
                                      viewBox="0 0 24 24"
                                      stroke="currentColor"
                                      class="h-6 w-6">
-                                    <path d="M11 5h8M11 12h8M11 19h8M5 6h.01M5 12h.01M5 18h.01" />
+                                    <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </span>
                             <span class="ml-3">Ads Tutor Manage</span>
                         </a>
                     </li>
-
                     <li class="my-px">
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
                     <li class="my-px">
-                        <a href="#"
+                        <a href="/Admin/Profile"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
@@ -192,6 +183,7 @@
                 </ul>
             </div>
         </aside>
+
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
             <header class="header bg-white shadow py-4 px-4">
                 <div class="header-content flex items-center flex-row">
@@ -230,9 +222,9 @@
                         </div>
                     </form>
                     <div class="flex ml-auto">
-                        <a href="#" class="flex flex-row items-center">
+                        <a href class="flex flex-row items-center">
                             <img src="https://avatars.githubusercontent.com/u/16786985?v=4"
-                              
+                                 alt
                                  class="h-10 w-10 bg-gray-200 border rounded-full" />
                             <span class="flex flex-col ml-2">
                                 <span class="truncate w-20 font-semibold tracking-wide leading-none">Admin</span>
@@ -243,112 +235,182 @@
                 </div>
             </header>
 
+        @*  <------------------------------------   Form Detail Tutor  -----------------------------> *@
 
             <div class="main-content flex flex-col flex-grow p-4">
-                <h1 class="font-bold text-2xl text-gray-700">Register Tutor</h1>
-                <div id="alert-container" class="fixed bottom-0 right-0 m-4 hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                    <strong class="font-bold">Success!</strong>
-                    <span class="block sm:inline"> Tutor Accept Successful.</span>
-                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="closeAlert()">
-                        <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 0 0-1.414 0L10 8.586 7.066 5.652a1 1 0 1 0-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 1 0 1.414 1.414L10 11.414l2.934 2.934a1 1 0 0 0 1.414-1.414L11.414 10l2.934-2.934a1 1 0 0 0 0-1.414z" /></svg>
-                    </span>
-                </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-                        <!-- Tutor Request Card 1 -->
-                    @foreach (var item in Model.Tutor.Items)
-                    {
-                        <div class="border-2 border-gray-300 p-3 rounded-lg flex flex-col space-y-2 bg-white">
-                        
-                            <img src="/img/Avatar07.jpg" alt="Tutor Image" class="w-24 h-24 object-cover rounded-full mx-auto">
-                            <p class="text-sm"><strong>Full Name:</strong>@Html.DisplayFor(modelItem => item.TutorNavigation.FullName)</p>
-                            <p class="text-sm"><strong>Username:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Username)</p>
-                            <p class="text-sm"><strong>Email:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Email)</p>
-                            <p class="text-sm"><strong>Phone:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Phone)</p>
-                            <p class="text-sm"><strong>Address:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Address)</p>
-                            <p class="text-sm"><strong>Birthday:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Birthday)</p>
-                            <p class="text-sm"><strong>Qualifications:</strong>@Html.DisplayFor(modelItem => item.Qualifications)</p>
-                            <p class="text-sm"><strong>Experience:</strong> @Html.DisplayFor(modelItem => item.Experience)</p>
-                            <p class="text-sm"><strong>Specialization:</strong> @Html.DisplayFor(modelItem => item.Specialization)</p>
+                <h1 class="font-bold text-2xl text-gray-700">Tutor Detail</h1>
+                <div class="container mx-auto p-6">
+                    <form>
+                        <div class="bg-white p-4 rounded-lg shadow-lg max-w-3xl mx-auto">
+                          @*   <div class="flex flex-col items-center mb-4">
+                                <img src="/img/Avatar02.jpg" alt="Tutor Image" class="w-20 h-20 rounded-full mb-4">
+                                <div class="text-center">
+                                    <h2 id="username" class="text-xl font-semibold">Giáo Sư Nam</h2>
+                                    <p id="email" class="text-gray-600">Namgiaosu789@example.com</p>
+                                </div>
+                            </div> *@
+
+
+
+
+                            <div class="flex flex-col items-center mb-4">
+                            @* <div class="w-96 px-6 py-6  text-center bg-gray-600 rounded-lg lg:mt-0 xl:px-10"> *@
+                                <div class="space-y-4 xl:space-y-6">
+                                    <img class="mx-auto rounded-full h-36 w-36" src="/img/Avatar02.jpg" alt="author avatar">
+                                    <div class="space-y-2">
+                                        <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
+                                            <h3 id="username" class="text-black" >Giáo Sư Nam</h3>
+                                            <p id="email" class="text-indigo-600">Namgiaosu789@example.com</p>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                           @*  </div> *@
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                    <input type="text" id="fullName" value="Nguyễn Thành Nam" class="w-full px-4 py-2 border rounded-lg"
+                                           readonly>
+                                </div>
+
+                                <div>
+                                    <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
+                                    <input type="text" id="role" value="Tutor" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="phone" class="block text-gray-700 font-medium mb-2">Phone</label>
+                                    <input type="text" id="phone" value="123-456-7890" class="w-full px-4 py-2 border rounded-lg"
+                                           readonly>
+                                </div>
+
+                                <div>
+                                    <label for="birthday" class="block text-gray-700 font-medium mb-2">Birthday</label>
+                                    <input type="text" id="birthday" value="1960-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                           readonly>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                                <input type="text" id="address" value="123 Main St, Anytown, USA"
+                                       class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="qualifications" class="block text-gray-700 font-medium mb-2">Qualifications</label>
+                                <input type="text" id="qualifications" value="PhD in Mathematics"
+                                       class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="experience" class="block text-gray-700 font-medium mb-2">Experience</label>
+                                <input type="text" id="experience" value="30 years of teaching experience"
+                                       class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="specialization" class="block text-gray-700 font-medium mb-2">Specialization</label>
+                                <input type="text" id="specialization" value="Calculus and Algebra"
+                                       class="w-full px-4 py-2 border rounded-lg" readonly>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="createdAt" class="block text-gray-700 font-medium mb-2">Created At</label>
+                                    <input type="text" id="createdAt" value="2022-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                           readonly>
+                                </div>
+
+                                <div>
+                                    <label for="updatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
+                                    <input type="text" id="updatedAt" value="2023-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                           readonly>
+                                </div>
+                            </div>
+
+                           @*  --------- Status ở ddaaayyyyy ------------ *@
+
+                            <div class="mb-4">
+                                <label for="status" class="block text-gray-700 font-medium mb-2">Status</label>
+                                <select id="status" class="w-full px-4 py-2 font-medium mb-2 border rounded-lg"
+                                        onchange="updateStatusColor()">
+                                    <option value="Active" class="text-green-600" selected>Active</option>
+                                    <option value="Disactive" class="text-red-600">Disactive</option>
+                                </select>
+                            </div>
 
                             <div class="flex items-center justify-between">
-                                <!-- Accept Button -->
-                                <form method="post" asp-page-handler="Accept">
-                                    <input type="hidden" name="TutorId" value="@item.TutorNavigation.UserId" />
-                                    <button class="bg-green-500 text-white py-1 px-3 rounded text-sm" type="submit">Accept</button>
-                                </form>
+                                <a href="/Admin/TutorManage">
+                                <button  class="flex items-center px-4 py-2 font-semibold leading-tight text-white bg-gray-500 rounded-lg hover:bg-gray-700" onclick="goBack()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z" />
+                                    </svg>
 
-                                <!-- Decline Button & Form -->
-                                <button class="bg-red-500 text-white py-1 px-3 rounded text-sm" onclick="showDeclineForm(@item.TutorNavigation.UserId)">Decline</button>
+                                </button>
+                                </a>
+                                <button class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700" type="submit">Save</button>
                             </div>
 
-                            <div id="decline-form-@item.TutorNavigation.UserId" class="hidden flex flex-col space-y-2 mt-2">
-                                <form method="post" asp-page-handler="Decline">
-                                    <div>
-                                    <input type="hidden" name="TutorId" value="@item.TutorNavigation.UserId" />
-                                    <label class="text-sm"><strong>Decision:</strong></label>
-                                        <input type="text" name="Decision" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter decision">
-                                    </div>
-                                    <div>
-                                    <label class="text-sm"><strong>Reason:</strong></label>
-                                    <textarea name="Reason" class="border border-gray-300 rounded p-1 text-sm" placeholder="Enter reason"></textarea>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="bg-blue-500 text-white py-1 px-3 rounded text-sm" type="submit">Send</button>
-                                        <button class="bg-gray-500 text-white py-1 px-3 rounded text-sm" onclick="hideDeclineForm(@item.TutorNavigation.UserId)">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
+                        
+                    </form>
+                </div>
+                <footer class="footer px-4 py-6">
+                    <div class="footer-content">
+                        <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
+                    </div>
+                </footer>
+            </div>
+
+
+            @* ---------------------------------------Javascript ở đây nè ------------------------------------- *@
+                <script>
+
+                    function updateStatusColor() {
+                        const select = document.getElementById('status');
+                        const selectedOption = select.options[select.selectedIndex];
+
+                        // Remove existing status classes
+                        select.classList.remove('status-active', 'status-disactive');
+
+                        // Add new status class based on selected option
+                        if (selectedOption.value === 'Active') {
+                            select.classList.add('status-active');
+                        } else if (selectedOption.value === 'Disactive') {
+                            select.classList.add('status-disactive');
+                        }
                     }
 
-                    
-                    
+                    // Initial call to set the correct color on page load
+                    document.addEventListener('DOMContentLoaded', updateStatusColor);
 
-                    
-           
+                    function goBack() {
+                        window.history.back();
+                    }
+
+                    function showStudentDetails(userId) {
+                        // Fetch and display student details using the userId
+
+                    }
+                </script>
             </div>
-            
 
-          
-            <script>
-                function acceptTutor() {
-                    const alertContainer = document.getElementById('alert-container');
-                    alertContainer.classList.remove('hidden');
-                    alertContainer.classList.add('flex');
-
-                    setTimeout(() => {
-                        alertContainer.classList.remove('flex');
-                        alertContainer.classList.add('hidden');
-                    }, 1500);
-                }
-
-                function closeAlert() {
-                    const alertContainer = document.getElementById('alert-container');
-                    alertContainer.classList.remove('flex');
-                    alertContainer.classList.add('hidden');
-                }
-
-                function showDeclineForm(id) {
-                    document.getElementById(`decline-form-${id}`).classList.remove('hidden');
-                }
-
-                function hideDeclineForm(id) {
-                    document.getElementById(`decline-form-${id}`).classList.add('hidden');
-                }
-            </script>
+    </div>
 
 
-  
-            <script src="~/js/site.js" asp-append-version="true"></script>
-             <footer class="footer px-4 py-6">
-                <div class="footer-content">
-                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
-                </div>
-            </footer>
-        </main>
+ 
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </main>
     </div>
 </body>
 </html>
+
+
 
 @section Scripts {
     @{

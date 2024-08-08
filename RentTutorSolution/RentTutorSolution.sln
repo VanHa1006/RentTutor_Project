@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAccess", "BusinessA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. CommonAccess", "4. CommonAccess", "{EFD297F5-FE0D-40E9-9AFB-F1CED41E9B36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{F8261E6F-AD9D-4582-9F2E-A0D0B73F5659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{F8261E6F-AD9D-4582-9F2E-A0D0B73F5659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
