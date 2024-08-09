@@ -5,6 +5,7 @@ using DataAccess.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using System.Drawing;
 
 namespace RentTutorPresentation.Pages.Admin
@@ -14,10 +15,13 @@ namespace RentTutorPresentation.Pages.Admin
         private readonly ITutorServices _tutorServices;
 
         private readonly IUserApprovalLogService _userApprovalLogService;
-        public RegisTutorManageModel(ITutorServices tutorServices, IUserApprovalLogService userApprovalLogService)
+
+        private readonly IEmailService _emailService;
+        public RegisTutorManageModel(ITutorServices tutorServices, IUserApprovalLogService userApprovalLogService, IEmailService emailService)
         {
             _tutorServices = tutorServices;
             _userApprovalLogService = userApprovalLogService;
+            _emailService = emailService;
         }
 
         public string Message { get; set; } = default!;
@@ -74,6 +78,7 @@ namespace RentTutorPresentation.Pages.Admin
                 var result = await _tutorServices.AcceptTutor(TutorId);
                 if (result.Status > 0)
                 {
+                    var user = await _tutorServices.GetTutorById(TutorId);
                     ViewData["SuccessMessage"] = result.Message;
                     return RedirectToPage("./TutorManage");
                 }
@@ -94,6 +99,7 @@ namespace RentTutorPresentation.Pages.Admin
                     throw;
                 }
             }
+
         }
 
         public async Task<IActionResult> OnPostDeclineAsync(int TutorId, string Decision, string Reason)
@@ -102,8 +108,10 @@ namespace RentTutorPresentation.Pages.Admin
             {
                 // Log the decision and update the user's status
                 var logResult = await _userApprovalLogService.RejectRequestRegisterTutor(TutorId, Decision, Reason);
+                
                 if (logResult.Status > 0)
                 {
+                    var user = await _tutorServices.GetTutorById(TutorId);
                     ViewData["SuccessMessage"] = "The tutor has been declined, and the decision has been logged.";
                     return RedirectToPage("./TutorManage");
                 }

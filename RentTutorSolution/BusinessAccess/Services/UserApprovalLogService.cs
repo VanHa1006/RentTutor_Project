@@ -16,10 +16,12 @@ namespace BusinessAccess.Services
     public class UserApprovalLogService : IUserApprovalLogService
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly IEmailService _emailService;
 
-        public UserApprovalLogService()
+        public UserApprovalLogService(IEmailService emailService)
         {
             _unitOfWork ??= new UnitOfWork();
+            _emailService = emailService;
         }
         public async Task<IBusinessResult> RejectRequestRegisterTutor(int tutorId, string decision, string reason)
         {
@@ -49,6 +51,14 @@ namespace BusinessAccess.Services
 
                 // Step 3: Save all changes to the database
                 await _unitOfWork.UserApprovalLogRepository.SaveAsync();
+
+                var subject = decision;  // Set the email's subject to the decision
+                var body = $"Dear {user.FullName},\n\n" +
+                           $"Your request to register as a tutor has been rejected.\n\n" +
+                           $"Reason: {reason}\n\n" +
+                           $"Best regards,\nThe Admin Team";
+
+                await _emailService.SendEmailAsync(user.Email, subject, body);
 
                 return new BusinessResult(1, "Approval log saved and user status updated successfully");
             }

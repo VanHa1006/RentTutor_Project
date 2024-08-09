@@ -3,6 +3,7 @@ using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +17,18 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> RegisterTutor(Tutor user);
         Task<IBusinessResult> GetAllTutorsPending(int page, int size);
         Task<IBusinessResult> SearchPending(string searchTerm, int page, int size);
+        Task<IBusinessResult> GetTutorById(int id);
     }
 
     public class TutorServices : ITutorServices
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly IEmailService _emailService;
 
-        public TutorServices()
+        public TutorServices(IEmailService emailService)
         {
             _unitOfWork ??= new UnitOfWork();
+            _emailService = emailService;
         }
 
 
@@ -88,6 +92,13 @@ namespace BusinessAccess.Services
                 _unitOfWork.UserRepository.Update(user);
                 await _unitOfWork.UserRepository.SaveAsync();
 
+                var subject = "Comming Website Rentutor";  // Set the email's subject to the decision
+                var body = $"Dear {user.FullName},\n\n" +
+                           $"Your request to register as a tutor has been Approve.\n\n" +
+                           $"Please create course and invite students to app\n\n" +
+                           $"Best regards,\nThe Admin Team";
+
+                await _emailService.SendEmailAsync(user.Email, subject, body);
                 return new BusinessResult(1, "User activated successfully");
             }
             catch (Exception ex)
@@ -138,6 +149,30 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(1, "Search fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetTutorById(int id)
+        {
+            try
+            {
+                var tutor = await _unitOfWork.TutorRepository.SingleOrDefaultAsync(
+                    selector: x => x,
+                    predicate: x => x.TutorId == id,
+                    include: x => x.Include(p => p.TutorNavigation.Email).Include(p => p.UserApprovalLogs)
+                    );
+                if (tutor != null)
+                {
+                    return new BusinessResult(1, "Get tutor successfully", tutor);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get tutor fail");
                 }
             }
             catch (Exception ex)
