@@ -33,9 +33,9 @@ namespace RentTutorPresentation.Pages
 
             if (user != null)
             {
-                if (user.Status == "Deative")
+                if (user.Status == "Disactive")
                 {
-                    ErrorMessage = "You are not allowed access into system";
+                    ErrorMessage = "Your account has been banned for violating the rules or is under review and will be reopened later.";
                     return Page();
                 }
                 if (user.Status == "Pending")

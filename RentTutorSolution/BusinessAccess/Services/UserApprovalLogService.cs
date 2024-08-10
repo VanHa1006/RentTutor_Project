@@ -54,7 +54,7 @@ namespace BusinessAccess.Services
 
                 var subject = decision;  // Set the email's subject to the decision
                 var body = $"Dear {user.FullName},\n\n" +
-                           $"Your request to register as a tutor has been rejected.\n\n" +
+                           $"Your tutor registration form has been rejected because it does not comply with our policies. You can now access it as a User. You can re-register the form on your Homepage and wait for review.\n\n" +
                            $"Reason: {reason}\n\n" +
                            $"Best regards,\nThe Admin Team";
 

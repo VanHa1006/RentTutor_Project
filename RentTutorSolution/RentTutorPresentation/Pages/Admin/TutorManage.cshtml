@@ -277,17 +277,22 @@
                                     <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
                                     <th class="px-4 py-3">Num</th>
                                     <th class="px-4 py-3">Image</th>
-                                    <th class="px-4 py-3">FullName</th>
-                                    <th class="px-4 py-3">Email</th>
-                                    <th class="px-4 py-3">Qualifications</th>
-                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Tutor.Items[0].FullName)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Tutor.Items[0].Email)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Tutor.Items[0].Tutor.Qualifications)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Tutor.Items[0].Status)</th>
                                     <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                @{
+                                    int counter = 1;// Khởi tạo biến đếm
+                                }
+                                @foreach (var item in Model.Tutor.Items)
+                                {
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                    <td class="px-4 py-3 text-sm">1</td>
+                                    <td class="px-4 py-3 text-sm">@counter</td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center text-sm">
                                             <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -299,21 +304,25 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm">John Doe</td>
-                                    <td class="px-4 py-3 text-sm">john.doe@example.com</td>
-                                    <td class="px-4 py-3 text-sm">M.Sc. in Mathematics</td>
+                                        <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.Username)</td>
+                                        <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.Email)</td>
+                                        <td class="px-4 py-3 text-sm">
+                                            <img class="w-24" src="@Html.DisplayFor(modelItem => item.Tutor.Qualifications)" />
+                                            </td>
                                     <td class="px-4 py-3 text-xs">
-                                        <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Active</button>
+                                        <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                        </button>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
-                                            <a href="/Admin/TutorDetail">
+                                                <a asp-page="./TutorDetail" asp-route-id="@item.UserId">
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                     <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
                                                 </svg>
                                             </button>
-                                            </a>
+                                                </a>
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
@@ -322,80 +331,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                    <td class="px-4 py-3 text-sm">2</td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                <img class="object-cover w-full h-full rounded-full"
-                                                     src="/img/Avatar05.jpg"
-                                                     alt=""
-                                                     loading="lazy" />
-                                                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">Jane Smith</td>
-                                    <td class="px-4 py-3 text-sm">jane.smith@example.com</td>
-                                    <td class="px-4 py-3 text-sm">Ph.D. in Physics</td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">Inactive</button>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center space-x-4 text-sm">
-                                            <a href="/Admin/TutorDetail">
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
-                                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
-                                                    </svg>
-                                                </button>
-                                            </a>
-                                            <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                    <td class="px-4 py-3 text-sm">3</td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                <img class="object-cover w-full h-full rounded-full"
-                                                     src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg"
-                                                     alt=""
-                                                     loading="lazy" />
-                                                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">Emily Johnson</td>
-                                    <td class="px-4 py-3 text-sm">emily.johnson@example.com</td>
-                                    <td class="px-4 py-3 text-sm">B.A. in English Literature</td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Active</button>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center space-x-4 text-sm">
-                                            <a href="/Admin/TutorDetail">
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
-                                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a4 4 0 100 8 4 4 0 000-8zm0 2a2 2 0 110 4 2 2 0 010-4z"></path>
-                                                    </svg>
-                                                </button>
-                                            </a>
-                                            <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    counter++;
+                                    <!-- Repeat block ends -->
+                                }
                             </tbody>
                         </table>
                     </div>

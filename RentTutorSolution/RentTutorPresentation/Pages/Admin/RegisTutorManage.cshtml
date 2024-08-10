@@ -266,9 +266,15 @@
                             <p class="text-sm"><strong>Phone:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Phone)</p>
                             <p class="text-sm"><strong>Address:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Address)</p>
                             <p class="text-sm"><strong>Birthday:</strong> @Html.DisplayFor(modelItem => item.TutorNavigation.Birthday)</p>
-                            <p class="text-sm"><strong>Qualifications:</strong>@Html.DisplayFor(modelItem => item.Qualifications)</p>
                             <p class="text-sm"><strong>Experience:</strong> @Html.DisplayFor(modelItem => item.Experience)</p>
                             <p class="text-sm"><strong>Specialization:</strong> @Html.DisplayFor(modelItem => item.Specialization)</p>
+                            <div class="text-sm">
+                                <strong>Qualifications:</strong>
+                                <img src="@Html.DisplayFor(modelItem => item.Qualifications)" />
+                                
+                                </div>
+
+                            
 
                             <div class="flex items-center justify-between">
                                 <!-- Accept Button -->

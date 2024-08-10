@@ -240,7 +240,7 @@
             <div class="main-content flex flex-col flex-grow p-4">
                 <h1 class="font-bold text-2xl text-gray-700">Tutor Detail</h1>
                 <div class="container mx-auto p-6">
-                    <form>
+                    <form method="post">
                         <div class="bg-white p-4 rounded-lg shadow-lg max-w-3xl mx-auto">
                           @*   <div class="flex flex-col items-center mb-4">
                                 <img src="/img/Avatar02.jpg" alt="Tutor Image" class="w-20 h-20 rounded-full mb-4">
@@ -249,18 +249,15 @@
                                     <p id="email" class="text-gray-600">Namgiaosu789@example.com</p>
                                 </div>
                             </div> *@
-
-
-
-
                             <div class="flex flex-col items-center mb-4">
                             @* <div class="w-96 px-6 py-6  text-center bg-gray-600 rounded-lg lg:mt-0 xl:px-10"> *@
+                               
                                 <div class="space-y-4 xl:space-y-6">
                                     <img class="mx-auto rounded-full h-36 w-36" src="/img/Avatar02.jpg" alt="author avatar">
                                     <div class="space-y-2">
                                         <div class="flex justify-center items-center flex-col space-y-3 text-lg font-medium leading-6">
-                                            <h3 id="username" class="text-black" >Giáo Sư Nam</h3>
-                                            <p id="email" class="text-indigo-600">Namgiaosu789@example.com</p>
+                                            <h3 id="username" class="text-black">@Html.DisplayFor(model => model.Tutor.Username)</h3>
+                                            <p id="email" class="text-indigo-600">@Html.DisplayFor(model => model.Tutor.Email)</p>
                                            
                                         </div>
                                     </div>
@@ -268,79 +265,81 @@
                            @*  </div> *@
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4">
+                                <input type="hidden" asp-for="Tutor.UserId" />
+                                <input type="hidden" asp-for="Tutor.Username" />
+                                <input type="hidden" asp-for="Tutor.Email" />
+                                <input type="hidden" asp-for="Tutor.PasswordHash" />
                                 <div>
-                                    <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
-                                    <input type="text" id="fullName" value="Nguyễn Thành Nam" class="w-full px-4 py-2 border rounded-lg"
+                                    <label asp-for="Tutor.FullName" for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                    <input asp-for="Tutor.FullName" type="text" id="fullName" class="w-full px-4 py-2 border rounded-lg"
                                            readonly>
                                 </div>
 
                                 <div>
-                                    <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
-                                    <input type="text" id="role" value="Tutor" class="w-full px-4 py-2 border rounded-lg" readonly>
+                                    <label asp-for="Tutor.Role" for="role" class="block text-gray-700 font-medium mb-2">Role</label>
+                                    <input asp-for="Tutor.Role" type="text" id="role" class="w-full px-4 py-2 border rounded-lg" readonly>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label for="phone" class="block text-gray-700 font-medium mb-2">Phone</label>
-                                    <input type="text" id="phone" value="123-456-7890" class="w-full px-4 py-2 border rounded-lg"
+                                    <label asp-for="Tutor.Phone" for="phone" class="block text-gray-700 font-medium mb-2">Phone</label>
+                                    <input asp-for="Tutor.Phone" type="text" id="phone" class="w-full px-4 py-2 border rounded-lg"
                                            readonly>
                                 </div>
 
                                 <div>
-                                    <label for="birthday" class="block text-gray-700 font-medium mb-2">Birthday</label>
-                                    <input type="text" id="birthday" value="1960-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                    <label asp-for="Tutor.Birthday" for="birthday" class="block text-gray-700 font-medium mb-2">Birthday</label>
+                                    <input asp-for="Tutor.Birthday" type="text" id="birthday" class="w-full px-4 py-2 border rounded-lg"
                                            readonly>
                                 </div>
                             </div>
 
                             <div class="mb-4">
-                                <label for="address" class="block text-gray-700 font-medium mb-2">Address</label>
-                                <input type="text" id="address" value="123 Main St, Anytown, USA"
+                                <label asp-for="Tutor.Address" for="address" class="block text-gray-700 font-medium mb-2">Address</label>
+                                <input asp-for="Tutor.Address" type="text" id="address"
                                        class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
 
                             <div class="mb-4">
-                                <label for="qualifications" class="block text-gray-700 font-medium mb-2">Qualifications</label>
-                                <input type="text" id="qualifications" value="PhD in Mathematics"
+                                    <label asp-for="TutorDetails.Experience" for="experience" class="block text-gray-700 font-medium mb-2">Experience</label>
+                                    <input asp-for="TutorDetails.Experience" type="text" id="experience"
                                        class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
 
                             <div class="mb-4">
-                                <label for="experience" class="block text-gray-700 font-medium mb-2">Experience</label>
-                                <input type="text" id="experience" value="30 years of teaching experience"
-                                       class="w-full px-4 py-2 border rounded-lg" readonly>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="specialization" class="block text-gray-700 font-medium mb-2">Specialization</label>
-                                <input type="text" id="specialization" value="Calculus and Algebra"
+                                    <label asp-for="TutorDetails.Specialization" for="specialization" class="block text-gray-700 font-medium mb-2">Specialization</label>
+                                    <input asp-for="TutorDetails.Specialization" type="text" id="specialization"
                                        class="w-full px-4 py-2 border rounded-lg" readonly>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label for="createdAt" class="block text-gray-700 font-medium mb-2">Created At</label>
-                                    <input type="text" id="createdAt" value="2022-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                    <label asp-for="Tutor.CreatedAt" for="createdAt" class="block text-gray-700 font-medium mb-2">Created At</label>
+                                    <input asp-for="Tutor.CreatedAt" class="w-full px-4 py-2 border rounded-lg"
                                            readonly>
                                 </div>
 
                                 <div>
-                                    <label for="updatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
-                                    <input type="text" id="updatedAt" value="2023-01-01" class="w-full px-4 py-2 border rounded-lg"
+                                    <label asp-for="Tutor.UpdatedAt" for="updatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
+                                    <input asp-for="Tutor.UpdatedAt" type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg"
                                            readonly>
                                 </div>
                             </div>
+                                <div class="mb-4">
+                                    <label asp-for="TutorDetails.Qualifications" for="qualifications" class="block text-gray-700 font-medium mb-2">Qualifications</label>
+                                    <img src="@Html.DisplayFor(model => model.TutorDetails.Qualifications)" id="experience"
+                                         class="w-full px-4 py-2 border rounded-lg" readonly>
+                                </div>
 
                            @*  --------- Status ở ddaaayyyyy ------------ *@
 
                             <div class="mb-4">
-                                <label for="status" class="block text-gray-700 font-medium mb-2">Status</label>
-                                <select id="status" class="w-full px-4 py-2 font-medium mb-2 border rounded-lg"
-                                        onchange="updateStatusColor()">
-                                    <option value="Active" class="text-green-600" selected>Active</option>
-                                    <option value="Disactive" class="text-red-600">Disactive</option>
-                                </select>
+                                    <label asp-for="Tutor.Status" for="status" class="block text-gray-700 font-medium mb-2">Status</label>
+                                    <select asp-for="Tutor.Status" id="status" class="w-full px-4 py-2 font-medium mb-2 border rounded-lg" onchange="updateStatusColor()">
+                                        <option value="Active" class="text-green-600">Active</option>
+                                        <option value="Disactive" class="text-red-600">Disactive</option>
+                                    </select>
                             </div>
 
                             <div class="flex items-center justify-between">
@@ -354,9 +353,8 @@
                                 </a>
                                 <button class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700" type="submit">Save</button>
                             </div>
-
+                    
                         </div>
-                        
                     </form>
                 </div>
                 <footer class="footer px-4 py-6">

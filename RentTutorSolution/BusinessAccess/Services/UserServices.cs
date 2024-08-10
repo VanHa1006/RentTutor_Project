@@ -1,9 +1,12 @@
-﻿using BusinessAccess.Base;
+﻿using Azure;
+using BusinessAccess.Base;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +22,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> DeleteUser(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
         Task<IBusinessResult> GetAllStudents(int page, int size);
-        Task<IBusinessResult> GetAllTutor();
+        Task<IBusinessResult> GetAllTutor(int page, int size);
 
     }
 
@@ -218,19 +221,25 @@ namespace BusinessAccess.Services
             }
         }
 
-        public async Task<IBusinessResult> GetAllTutor()
+        public async Task<IBusinessResult> GetAllTutor(int page, int size)
         {
             try
             {
-                //var currencies = _DAO.GetAll();
-                var users = await _unitOfWork.UserRepository.GetAllTurtor();
-                if (users == null)
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.UserRepository.GetPagingListAsync(
+                   selector: x => x,
+                   predicate: x => x.Role == "Tutor",
+                   page: page,
+                   size: size,
+                   include: x => x.Include(p => p.Tutor)
+                   );
+                if (users != null)
                 {
-                    return new BusinessResult(4, "No tutors data");
+                    return new BusinessResult(1, "Get all Tutors successfully", users);
                 }
                 else
                 {
-                    return new BusinessResult(1, "Get tutors list success", users);
+                    return new BusinessResult(-1, "Get all Tutors fail");
                 }
             }
             catch (Exception ex)
