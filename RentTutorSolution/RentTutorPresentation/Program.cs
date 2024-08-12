@@ -31,6 +31,7 @@ builder.Services.AddScoped<IStudentServices, StudentServices>();
 builder.Services.AddScoped<ITutorServices, TutorServices>();
 builder.Services.AddScoped<IUserApprovalLogService, UserApprovalLogService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ICourseServices, CourseService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 

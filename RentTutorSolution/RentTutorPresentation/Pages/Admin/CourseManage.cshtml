@@ -269,225 +269,127 @@
                    
                 </div>
 
+                <!-- Course List -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
+                    @if (Model.Course != null && Model.Course.Items != null && Model.Course.Items.Any())
+{
+                    @foreach (var item in Model.Course.Items)
+                    {
+                        <div data-course-id="@item.CourseId" class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+                            <div class="relative overflow-hidden bg-cover bg-no-repeat">
+                                <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
+                                <img class="rounded-t-lg" src="@Html.DisplayFor(modelItem => item.Image)" style="width: 100%; height: auto;" />
+                            </div>
+                            <div class="p-3">
+                                <h5 class="mb-2 text-sm-center font-bold leading-tight">@Html.DisplayFor(modelItem => item.CourseName)</h5>
+                                <p class="text-xs text-gray-500">Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)</p>
+                                <p id="Tutor"><span class="font-bold">Tutor:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
+                                <div id="Status" class="flex items-center">
+                                    <span class="font-bold">Status:</span>
+                                    <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
+                                </div>
+                                <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button>
+                            </div>
                         </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
+                    }
+                    }
+                    else
+                    {
+                        <p>No courses available.</p>
+                    }
+                </div>
+
+                <!-- Popup Modal -->
+                <form method="post" id="courseForm">
+                    <div id="coursePopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <h2 class="text-xl font-bold mb-4" id="popupCourseName"></h2>
+                            <img id="popupCourseImage" src="" class="w-full h-auto mb-4 rounded-lg" />
+                            <p><span class="font-bold">Category:</span> <span id="popupCategory"></span></p>
+                            <p><span class="font-bold">Tutor:</span> <span id="popupTutor"></span></p>
+                            <p>
                                 <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
-                        </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
-                                <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
-                        </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
-                                <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
-                        </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
-                                <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
-                        </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
-                                <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Card Template -->
-                    <div class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                        <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                            <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                            <img class="rounded-t-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9OKVzdNoPnqlNSFdMOgnZUQtJ1ImsIFibYw&s" alt="ReactJS Redux Toolkit" style="width: 100%; height: auto;" />
-                        </div>
-                        <div class="p-3">
-                            <h5 class="mb-2 text-sm-center font-bold leading-tight">Support for ReactJS Redux toolkit</h5>
-                            <p class="text-xs text-gray-500">Category: Web Development</p>
-                            <p id="CousesName"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <div id="Status" class="flex items-center">
-                                <span class="font-bold">Status:</span>
-                                <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Running</p>
-                            </div>
-                            <div class="flex items-center mt-3">
-                                <button onclick="showDetailPopup('Support for ReactJS Redux toolkit')" class="px-2 py-1 bg-blue-500 text-white rounded">View Detail</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Repeat the above block for more cards -->
-               </div>
-
-                <!-- Detail Popup -->
-                <div id="detailPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center p-4">
-                    <div class="bg-white rounded-lg max-w-3xl w-1/2 p-6 shadow-lg">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 id="courseName" class="text-2xl font-bold">Support for Reactjs Redux toolkit</h2>
-                            <button onclick="hideDetailPopup()" class="text-3xl">&times;</button>
-                        </div>
-                        <img id="courseImage" class="rounded-lg mb-4 w-3/5 mx-auto" src="https://funix.edu.vn/wp-content/uploads/2022/08/hoc-lap-trinh-reactjs-3.jpg" alt="ReactJS Redux Toolkit" />
-                        <p id="courseCategory" class="text-base mb-2"><span class="font-bold">Category:</span> Web Development</p>
-                        <div class="grid grid-cols-2 gap-4 mb-2">
-                            <p id="courseTutor" class="text-base"><span class="font-bold">Tutor:</span> Nguyen Chi Thanh</p>
-                            <p id="coursePrice" class="text-base"><span class="font-bold">Price:</span> $200</p>
-                        </div>
-                        <p id="courseDescription" class="text-base mb-2"><span class="font-bold">Description:</span> Redux Toolkit is a new library for Redux that simplifies the application development process. This article will give you an overview of Redux, from usage to the latest features.</p>
-                        <div class="flex items-center mb-4">
-                            <label for="courseStatus" class="mr-2 font-bold ">Status:</label>
-                            <div  class="rounded p-2">
-                                <select id="courseStatus" class="border rounded p-2 w-full bg-green-100 text-green-700 ">
-                                    <option value="Running">Running</option>
-                                    <option value="Stop operating">Stop operating</option>
+                                <select id="popupStatus"
+                                        class="ml-2 px-2 py-1 font-semibold leading-tight bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-100">
+                                    <option value="Active" class="text-green-600">Active</option>
+                                    <option value="Disactive" class="text-red-600">Disactive</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-500 mb-4">
-                            <p id="courseCreatedAt"><span class="font-bold">Created At:</span> October 27, 2023</p>
-                            <p id="courseUpdatedAt"><span class="font-bold">Updated At:</span> February 1, 2024</p>
-                        </div>
-                        <div class="flex justify-end">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                            </p>
+                            <input type="hidden" id="courseIdInput" name="CourseId" />
+                            <button type="button" onclick="closePopup()" class="mt-4 text-red-500">Close</button>
+                            <button type="submit" class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700">Save</button>
                         </div>
                     </div>
-                </div>
-                <div id="successAlert" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden">
-                    Delete Successfully
-                </div>
+                </form>
 
                 <script>
-                    function showDetailPopup(courseName) {
-                        // Set the popup data based on the course name or other data
-                        document.getElementById('courseName').innerText = courseName;
-                        // More code to set other details
+                    function openPopup(courseId) {
+                        // Lấy thông tin của khóa học dựa trên courseId
+                        var courseData = document.querySelector(`[data-course-id="${courseId}"]`);
 
-                        document.getElementById('detailPopup').classList.remove('hidden');
-                    }
-
-                   
-                    function hideDetailPopup() {
-                        document.getElementById('detailPopup').classList.add('hidden');
-                    }
-
-                    document.getElementById('courseStatus').addEventListener('change', function () {
-                        const status = this.value;
-                        const courseStatus = document.getElementById('courseStatus');
-
-                        courseStatus.classList.remove('bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
-
-                        if (status === 'Running') {
-                            courseStatus.classList.add('bg-green-100', 'text-green-700');
-                        } else if (status === 'Stop operating') {
-                            courseStatus.classList.add('bg-red-100', 'text-red-700');
+                        if (!courseData) {
+                            console.error('Course data not found for ID:', courseId);
+                            return;
                         }
-                    });
 
-
-
-                    document.getElementById('checkAllButton').addEventListener('click', function () {
-                        document.querySelectorAll('.form-checkbox').forEach(checkbox => {
-                            checkbox.checked = true;
-                        });
-                    });
-
-                document.getElementById('deleteButton').addEventListener('click', function () {
-                    let checkedCards = Array.from(document.querySelectorAll('.form-checkbox')).filter(checkbox => checkbox.checked);
-                    if (checkedCards.length > 0) {
-                        if (confirm('Are you sure you want to delete this Course or not?')) {
-                            checkedCards.forEach(checkbox => {
-                                checkbox.closest('.block').remove();
-                            });
-                            document.getElementById('successAlert').classList.remove('hidden');
-                            setTimeout(() => {
-                                document.getElementById('successAlert').classList.add('hidden');
-                            }, 3000);
+                        // Lấy phần tử status trong danh sách khóa học và cập nhật form
+                        var statusElement = courseData.querySelector('#Status p');
+                        if (statusElement) {
+                            var status = statusElement.textContent.trim();
+                            var selectElement = document.getElementById('popupStatus');
+                            selectElement.value = status === 'Active' ? 'Active' : 'Disactive';
                         }
-                    } else {
-                        alert('No cards selected.');
+
+                        // Cập nhật courseId vào hidden input trong form
+                        document.getElementById('courseIdInput').value = courseId;
+
+                        // Hiển thị popup modal
+                        document.getElementById('coursePopup').classList.remove('hidden');
                     }
-                });
+
+                    function closePopup() {
+                        // Ẩn popup modal
+                        document.getElementById('coursePopup').classList.add('hidden');
+                    }
+
+                    document.getElementById('courseForm').addEventListener('submit', function (event) {
+                        event.preventDefault(); // Ngăn không cho form gửi theo cách mặc định
+
+                        // Lấy giá trị của courseId và status từ form
+                        var courseId = document.getElementById('courseIdInput').value;
+                        var status = document.getElementById('popupStatus').value;
+                        var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                        if (!courseId) {
+                            console.error('CourseId is missing.');
+                            return;
+                        }
+
+                        // Gửi yêu cầu cập nhật status của khóa học
+                        fetch('/Admin/Index1?handler=Edit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': token
+                            },
+                            body: JSON.stringify({ CourseId: courseId, Status: status })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log('Status updated successfully:', data.message);
+                                    closePopup(); // Ẩn popup modal sau khi cập nhật thành công
+                                    location.reload(); // Tải lại trang để cập nhật danh sách khóa học
+                                } else {
+                                    console.error('Failed to update status:', data.message);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
                 </script>
 
 
-
+                
             </div>
 
 

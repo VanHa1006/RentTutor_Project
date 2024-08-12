@@ -35,13 +35,13 @@ public partial class RenTurtorToStudentContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(local);Uid=sa;Pwd=1234567890;Database=RenTurtorToStudent; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=havansendo1006.ddns.net,1433;Uid=Sendo_Havan*127.0.0.0*1;Pwd=Sendo_havan1006;Database=RenTurtorToStudent; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B7701AE88");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B6EEC2B07");
 
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.CategoryName)
@@ -51,7 +51,7 @@ public partial class RenTurtorToStudentContext : DbContext
 
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.CourseId).HasName("PK__Courses__C92D71873D3CA8D5");
+            entity.HasKey(e => e.CourseId).HasName("PK__Courses__C92D7187F9D861F8");
 
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
@@ -61,7 +61,9 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.Image).HasMaxLength(255);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.TutorId).HasColumnName("TutorID");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -70,17 +72,17 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Courses__Categor__5812160E");
+                .HasConstraintName("FK__Courses__Categor__4F7CD00D");
 
             entity.HasOne(d => d.Tutor).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Courses__TutorID__59063A47");
+                .HasConstraintName("FK__Courses__TutorID__5070F446");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__6A4BEDF65C3D8283");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__6A4BEDF6E803967B");
 
             entity.ToTable("Feedback");
 
@@ -94,17 +96,17 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Feedback__Course__6C190EBB");
+                .HasConstraintName("FK__Feedback__Course__5165187F");
 
             entity.HasOne(d => d.Student).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Feedback__Studen__6B24EA82");
+                .HasConstraintName("FK__Feedback__Studen__52593CB8");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFE4438CED");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF9DB31BC4");
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.OrderDate)
@@ -119,12 +121,12 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.Student).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Orders__StudentI__5DCAEF64");
+                .HasConstraintName("FK__Orders__StudentI__5535A963");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30CEC01AE01");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C794BE623");
 
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
@@ -137,17 +139,17 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderDeta__Cours__619B8048");
+                .HasConstraintName("FK__OrderDeta__Cours__534D60F1");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderDeta__Order__60A75C0F");
+                .HasConstraintName("FK__OrderDeta__Order__5441852A");
         });
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.StudentId).HasName("PK__Students__32C52A79EB1B6115");
+            entity.HasKey(e => e.StudentId).HasName("PK__Students__32C52A797AB2EF01");
 
             entity.Property(e => e.StudentId)
                 .ValueGeneratedNever()
@@ -156,12 +158,12 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.StudentNavigation).WithOne(p => p.Student)
                 .HasForeignKey<Student>(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Students__Studen__5165187F");
+                .HasConstraintName("FK__Students__Studen__5629CD9C");
         });
 
         modelBuilder.Entity<Tutor>(entity =>
         {
-            entity.HasKey(e => e.TutorId).HasName("PK__Tutors__77C70FC23A526FC0");
+            entity.HasKey(e => e.TutorId).HasName("PK__Tutors__77C70FC24F6262FF");
 
             entity.Property(e => e.TutorId)
                 .ValueGeneratedNever()
@@ -173,12 +175,12 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.TutorNavigation).WithOne(p => p.Tutor)
                 .HasForeignKey<Tutor>(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Tutors__TutorID__4E88ABD4");
+                .HasConstraintName("FK__Tutors__TutorID__571DF1D5");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC6D7CAAA5");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC9FB8435C");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Address).HasMaxLength(255);
@@ -195,7 +197,8 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.Role)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .HasDefaultValue("DefaultRole");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .HasDefaultValue("Pending");
@@ -209,7 +212,7 @@ public partial class RenTurtorToStudentContext : DbContext
 
         modelBuilder.Entity<UserApprovalLog>(entity =>
         {
-            entity.HasKey(e => e.LogId).HasName("PK__UserAppr__5E5499A85BA64BCF");
+            entity.HasKey(e => e.LogId).HasName("PK__UserAppr__5E5499A884D79455");
 
             entity.Property(e => e.LogId).HasColumnName("LogID");
             entity.Property(e => e.AdminId).HasColumnName("AdminID");
@@ -225,12 +228,12 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.HasOne(d => d.Admin).WithMany(p => p.UserApprovalLogs)
                 .HasForeignKey(d => d.AdminId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__UserAppro__Admin__66603565");
+                .HasConstraintName("FK__UserAppro__Admin__5812160E");
 
             entity.HasOne(d => d.Tutor).WithMany(p => p.UserApprovalLogs)
                 .HasForeignKey(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__UserAppro__Tutor__656C112C");
+                .HasConstraintName("FK__UserAppro__Tutor__59063A47");
         });
 
         OnModelCreatingPartial(modelBuilder);
