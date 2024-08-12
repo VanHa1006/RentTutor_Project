@@ -7,6 +7,7 @@ namespace RentTutorPresentation.Pages.Admin
     {
         public void OnGet()
         {
+            return;
         }
     }
 }
