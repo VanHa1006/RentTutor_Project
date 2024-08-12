@@ -14,16 +14,11 @@
 <body>
     <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500">
+        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
                 <div class="inline-flex">
-                    <a href="#" class="inline-flex flex-row items-center">
-                        <svg class="w-10 h-10 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                  d="M11.757 2.034a1 1 0 01.638.519c.483.967.844 1.554 1.207 2.03.368.482.756.876 1.348 1.467A6.985 6.985 0 0117 11a7.002 7.002 0 01-14 0c0-1.79.684-3.583 2.05-4.95a1 1 0 011.707.707c0 1.12.07 1.973.398 2.654.18.374.461.74.945 1.067.116-1.061.328-2.354.614-3.58.225-.966.505-1.93.839-2.734.167-.403.356-.785.57-1.116.208-.322.476-.649.822-.88a1 1 0 01.812-.134zm.364 13.087A2.998 2.998 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879.586.585.879 1.353.879 2.121s-.293 1.536-.879 2.121z"
-                                  clip-rule="evenodd" />
-                        </svg>
-                        <span class="leading-10 text-gray-100 text-2xl font-bold ml-1 uppercase">Rent-Tutor</span>
+                    <a href="/Admin">
+                        <img src="/img/graduation.png" alt="logo" class='w-24 h-24 object-cover rounded-full mx-auto' />
                     </a>
                 </div>
             </div>
@@ -249,23 +244,301 @@
             </header>
 
 
+
+
+            @* -------------------Main Component --------------- *@
             <div class="main-content flex flex-col flex-grow p-4">
-                <h1 class="font-bold text-2xl text-gray-700">Categories Courses</h1>
+                <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                    Categories Manage
+                </h4>
+                <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                    <div class="flex justify-between mb-4">
+                        <button class="create-category px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-full hover:bg-blue-700">
+                            Create
+                        </button>
+                        <button class="delete-selected px-4 py-2 font-semibold leading-tight text-white bg-red-600 rounded-full hover:bg-red-700">
+                            Delete
+                        </button>
+                    </div>
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
+                                    <th class="px-4 py-3">Category Name</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                <!-- Dữ liệu giả -->
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-name">Category 1</span>
+                                        <input type="text" class="edit-category-name hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Category 1">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-description">Description 1</span>
+                                        <input type="text" class="edit-category-description hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Description 1">
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-4 text-sm">
+                                            <button class="edit-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Edit">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M12.9 2.3l4.8 4.8c.4.4.4 1 0 1.4l-9.6 9.6c-.2.2-.4.3-.7.3h-4.8c-.6 0-1-.4-1-1v-4.8c0-.3.1-.5.3-.7l9.6-9.6c.4-.4 1-.4 1.4 0zM5.5 17h3.3L16 9.8l-3.3-3.3L5.5 14v3zm0-3v-1.6L14 5.9l1.6 1.6-8.1 8.1H5.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="delete-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Delete">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Dữ liệu giả -->
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-name">Category 2</span>
+                                        <input type="text" class="edit-category-name hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Category 1">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-description">Description 2</span>
+                                        <input type="text" class="edit-category-description hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Description 1">
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-4 text-sm">
+                                            <button class="edit-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Edit">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M12.9 2.3l4.8 4.8c.4.4.4 1 0 1.4l-9.6 9.6c-.2.2-.4.3-.7.3h-4.8c-.6 0-1-.4-1-1v-4.8c0-.3.1-.5.3-.7l9.6-9.6c.4-.4 1-.4 1.4 0zM5.5 17h3.3L16 9.8l-3.3-3.3L5.5 14v3zm0-3v-1.6L14 5.9l1.6 1.6-8.1 8.1H5.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="delete-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Delete">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Dữ liệu giả -->
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-name">Category 3</span>
+                                        <input type="text" class="edit-category-name hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Category 1">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <span class="category-description">Description 3</span>
+                                        <input type="text" class="edit-category-description hidden w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0" value="Description 1">
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-4 text-sm">
+                                            <button class="edit-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Edit">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M12.9 2.3l4.8 4.8c.4.4.4 1 0 1.4l-9.6 9.6c-.2.2-.4.3-.7.3h-4.8c-.6 0-1-.4-1-1v-4.8c0-.3.1-.5.3-.7l9.6-9.6c.4-.4 1-.4 1.4 0zM5.5 17h3.3L16 9.8l-3.3-3.3L5.5 14v3zm0-3v-1.6L14 5.9l1.6 1.6-8.1 8.1H5.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="delete-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Delete">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                <div class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
-                    <h2> Các Thể loại Khóa học</h2>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                        <span class="flex items-center col-span-3">
+                            Showing 01-10 of 100
+                        </span>
+                        <span class="col-span-2"></span>
+                        <!-- Pagination -->
+                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                            <nav aria-label="Table navigation">
+                                <ul class="inline-flex items-center">
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple bg-blue-500 text-white">
+                                            1
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                            2
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <span class="px-3 py-1">...</span>
+                                    </li>
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                            8
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                                            9
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                                <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </span>
+                    </div>
                 </div>
-
             </div>
 
+            <!-- Modal for Delete Confirmation -->
+            <div id="delete-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                    <div class="mt-3 text-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Do you want to delete this Category?
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                This action cannot be undone.
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <button id="confirm-delete" class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                Yes
+                            </button>
+                            <button id="cancel-delete" class="px-4 py-2 bg-gray-600 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 mt-2">
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.getElementById('select-all').addEventListener('click', function (event) {
+                        const checkboxes = document.querySelectorAll('.form-checkbox');
+                        checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+                    });
+
+                    document.querySelector('.create-category').addEventListener('click', function () {
+                        const tbody = document.querySelector('tbody');
+                        const newRow = document.createElement('tr');
+                        newRow.classList.add('text-gray-700', 'dark:text-gray-400');
+                        newRow.innerHTML = `
+                                                <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
+                                                <td class="px-4 py-3 text-sm"><input type="text" class="category-name-input w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0"></td>
+                                                <td class="px-4 py-3 text-sm"><input type="text" class="category-description-input w-full text-sm text-gray-700 dark:text-gray-400 bg-transparent border-none focus:ring-0"></td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center space-x-4 text-sm">
+                                                        <button class="save-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-green-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                aria-label="Save">
+                                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path d="M3 3h14v14H3V3z"></path>
+                                                                <path d="M13 9H7v2h6V9z"></path>
+                                                            </svg>
+                                                        </button>
+                                                        <button class="delete-category flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                                aria-label="Delete">
+                                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            `;
+                        tbody.appendChild(newRow);
+
+                        // Add event listeners for the new row
+                        newRow.querySelector('.save-category').addEventListener('click', function () {
+                            const categoryNameInput = newRow.querySelector('.category-name-input');
+                            const categoryDescriptionInput = newRow.querySelector('.category-description-input');
+
+                            if (categoryNameInput.value.trim() !== '' && categoryDescriptionInput.value.trim() !== '') {
+                                newRow.querySelector('td:nth-child(2)').innerHTML = `<span class="category-name">${categoryNameInput.value}</span>`;
+                                newRow.querySelector('td:nth-child(3)').innerHTML = `<span class="category-description">${categoryDescriptionInput.value}</span>`;
+
+                                this.innerHTML = `
+                                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M3 3h14v14H3V3z"></path>
+                                                            <path d="M13 9H7v2h6V9z"></path>
+                                                        </svg>
+                                                    `;
+                                this.classList.add('saved');
+                            }
+                        });
+
+                        newRow.querySelector('.delete-category').addEventListener('click', function () {
+                            newRow.remove();
+                        });
+                    });
+
+                    document.querySelector('tbody').addEventListener('click', function (event) {
+                        if (event.target.closest('.delete-category')) {
+                            const row = event.target.closest('tr');
+                            document.getElementById('delete-modal').classList.remove('hidden');
+
+                            document.getElementById('confirm-delete').addEventListener('click', function () {
+                                row.remove();
+                                document.getElementById('delete-modal').classList.add('hidden');
+                            });
+
+                            document.getElementById('cancel-delete').addEventListener('click', function () {
+                                document.getElementById('delete-modal').classList.add('hidden');
+                            });
+                        } else if (event.target.closest('.edit-category')) {
+                            const row = event.target.closest('tr');
+                            row.querySelector('.category-name').classList.toggle('hidden');
+                            row.querySelector('.edit-category-name').classList.toggle('hidden');
+                            row.querySelector('.category-description').classList.toggle('hidden');
+                            row.querySelector('.edit-category-description').classList.toggle('hidden');
+                        }
+                    });
+
+                    document.querySelector('.delete-selected').addEventListener('click', function () {
+                        const selectedCheckboxes = document.querySelectorAll('tbody .form-checkbox:checked');
+                        if (selectedCheckboxes.length > 0) {
+                            document.getElementById('delete-modal').classList.remove('hidden');
+                            document.getElementById('confirm-delete').addEventListener('click', function () {
+                                selectedCheckboxes.forEach(checkbox => checkbox.closest('tr').remove());
+                                document.getElementById('delete-modal').classList.add('hidden');
+                            });
+                            document.getElementById('cancel-delete').addEventListener('click', function () {
+                                document.getElementById('delete-modal').classList.add('hidden');
+                            });
+                        }
+                    });
+                });
+            </script>
 
             <footer class="footer px-4 py-6">
                 <div class="footer-content">
-                    <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
+                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
                 </div>
             </footer>
             <script src="~/js/site.js" asp-append-version="true"></script>
-
         </main>
     </div>
 </body>

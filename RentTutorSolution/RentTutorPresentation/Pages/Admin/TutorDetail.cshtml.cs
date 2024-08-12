@@ -6,17 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RentTutorPresentation.Pages.Admin
 {
-    public class StudentDetailModel : PageModel
+    public class TutorDetailModel : PageModel
     {
+        private readonly IUserServices _userServices;
+        private readonly ITutorServices _tutorServices;
 
-        private readonly IUserServices _studentServices;
-        public StudentDetailModel(IUserServices studentServices)
+        public TutorDetailModel(IUserServices userServices, ITutorServices tutorServices)
         {
-            _studentServices = studentServices;
+            _userServices = userServices;
+            _tutorServices = tutorServices;
         }
         [BindProperty]
-        public User Student { get; set; } = default!;
-
+        public User Tutor { get; set; } = default!;
+        public DataAccess.Models.Tutor TutorDetails { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -24,23 +26,35 @@ namespace RentTutorPresentation.Pages.Admin
             {
                 return NotFound();
             }
-            var user = await _studentServices.GetByIdAsync(id);
+
+            var user = await _userServices.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            Student = user.Data as User;
+            Tutor = user.Data as User;
+
+            // Get Tutor information
+            var tutorResult = await _tutorServices.GetTutorById(id);
+            if (tutorResult == null)
+            {
+                return NotFound();
+            }
+            TutorDetails = tutorResult.Data as DataAccess.Models.Tutor;
+
             return Page();
         }
+
+
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                var result = await _studentServices.UpdateAsync(Student);
+                var result = await _userServices.UpdateAsync(Tutor);
                 if (result.Status > 0)
                 {
                     ViewData["SuccessMessage"] = result.Message;
-                    return RedirectToPage("./StudentManager");
+                    return RedirectToPage("./TutorManage");
                 }
                 else
                 {
@@ -48,11 +62,9 @@ namespace RentTutorPresentation.Pages.Admin
                     return Page();
                 }
             }
-
-            var success = await _userRepositories.UpdateUserAsync(User);
-            if (!success)
+            catch (DbUpdateConcurrencyException)
             {
-                if (!await StudentExists(Student.UserId))
+                if (!await TutorExists(Tutor.UserId))
                 {
                     return NotFound();
                 }
@@ -62,11 +74,11 @@ namespace RentTutorPresentation.Pages.Admin
                 }
             }
         }
-
-        private async Task<bool> StudentExists(int id)
+        private async Task<bool> TutorExists(int id)
         {
-            var customer = await _studentServices.GetByIdAsync(id);
+            var customer = await _userServices.GetByIdAsync(id);
             return customer != null && customer.Data != null;
         }
     }
 }
+

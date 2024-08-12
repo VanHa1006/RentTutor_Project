@@ -1,5 +1,4 @@
 ﻿using BusinessAccess.DAO;
-using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessAccess.Repository
 {
-    public class StudentRepositories : GenericRepository<Student>
+    public class EmailRepository 
     {
-        public StudentRepositories() { }
     }
 }

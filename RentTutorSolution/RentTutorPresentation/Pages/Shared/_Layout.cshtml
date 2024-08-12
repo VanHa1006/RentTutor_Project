@@ -19,35 +19,38 @@
     <header class='flex shadow-md py-1 px-1 sm:px-10 bg-white font-[sans-serif] min-h-[50px] tracking-wide relative z-50'>
         <div class='flex flex-wrap items-center justify-between gap-5 w-full'>
             <a href="javascript:void(0)">
-                <img src="https://bcassetcdn.com/public/blog/wp-content/uploads/2019/06/18095203/new-graduation.png" alt="logo" class='w-36' />
+                <img src="/img/graduation.png" alt="logo" class='w-36' />
             </a>
             <div id="collapseMenu" class='max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                 <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 fill-black" viewBox="0 0 320.591 320.591">
-                        <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000"></path>
-                        <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path>
+                       @*  <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" data-original="#000000"></path>
+                        <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" data-original="#000000"></path> *@
                     </svg>
                 </button>
                 <ul class='lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
                     <li class='mb-6 hidden max-lg:block'>
-                        <a href="javascript:void(0)">
-                            <img src="https://bcassetcdn.com/public/blog/wp-content/uploads/2019/06/18095203/new-graduation.png" alt="logo" class='w-36' />
+                        <a href="/HomePage">
+                            <img src="/img/graduation.png" alt="logo" class='w-36' />
                         </a>
-                        </li>
+                    </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='javascript:void(0)' class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
-                        </li>
+                        <a href='/HomePage' class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
+                    </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Privacy' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Privacy</a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='javascript:void(0)' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>About</a>
-                        </li>
+                    </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Contactus' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                    <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
+                        <a href='/BecomeTutor' class='hover:text-[#0400ff] text-blue-800 block font-semibold text-[19px]'>Become Tutor</a>
+                    </li>
+                </ul>
+            </div>
             <div class="header-action">
                 @if (string.IsNullOrEmpty(userId))
                 {
@@ -67,15 +70,45 @@
                 }
                 else
                 {
-                    <div class='flex max-lg:ml-auto space-x-3'>
-                        <a href='/Logout' class='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 bg-blue-500 hover:bg-blue-700'>
-                            Logout
-                        </a>
-                        <button id="toggleOpen" class='lg:hidden'>
-                            <svg class="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
+                    <div class="relative">
+                        <div tabindex="0" role="button" class="flex items-center space-x-3 cursor-pointer m-1" id="avatarDropdownToggle">
+                            <div class="ml-6">
+                                <svg height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.1026543,2.69607267 C14.1723908,2.17246378 15.1055573,1.99999846 16.5532309,2.0000161 C20.2579495,2.01535832 23,5.13984465 23,9.11987614 C23,12.1577519 21.3061684,15.0922806 18.1511601,17.9298912 C16.4951061,19.4193443 14.3806781,20.8933233 12.866397,21.6774721 L12,22.1261233 L11.133603,21.6774721 C9.6193219,20.8933233 7.50489394,19.4193443 5.84883985,17.9298912 C2.69383159,15.0922806 1,12.1577519 1,9.11987614 C1,5.09726693 3.71643647,2 7.45454545,2 C8.85027925,2 9.83131847,2.18877527 10.9218108,2.72813403 C11.3014787,2.91591822 11.658192,3.13866136 11.9899709,3.39576047 C12.3350403,3.12339226 12.7066025,2.88992996 13.1026543,2.69607267 Z M16.8137247,16.4428585 C19.5861779,13.9493174 21,11.4998994 21,9.11987614 C21,6.18896383 19.0882067,4.01053125 16.5490834,4.00000753 C15.3870057,4.00000023 14.7458716,4.11849292 13.9819236,4.49242603 C13.5120101,4.72243676 13.095105,5.0329512 12.7314502,5.42754949 L12.0023377,6.21870239 L11.2665312,5.43377128 C10.9108757,5.05437109 10.5000057,4.75076878 10.0351348,4.52084307 C9.24812694,4.13158808 8.56428173,4 7.45454545,4 C4.88364127,4 3,6.14771812 3,9.11987614 C3,11.4998994 4.41382212,13.9493174 7.18627532,16.4428585 C8.69781928,17.8023393 10.6410383,19.1609346 12,19.8736982 C13.3589617,19.1609346 15.3021807,17.8023393 16.8137247,16.4428585 Z" fill-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-6">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                                    <g id="Line">
+                                        <path d="M20,11.7V9c0-.19,0-.37,0-.54a4,4,0,1,0-4.42-6.61A8,8,0,0,0,4,9v2.7L2.56,13.86A3.22,3.22,0,0,0,2,15.7a3.36,3.36,0,0,0,1,2.35A3.34,3.34,0,0,0,5.3,19H7.1a5,5,0,0,0,9.8,0h1.8A3.3,3.3,0,0,0,22,15.7a3.24,3.24,0,0,0-.56-1.83ZM20,5a2,2,0,1,1-2-2A2,2,0,0,1,20,5ZM12,21a3,3,0,0,1-2.83-2h5.66A3,3,0,0,1,12,21Zm6.7-4H5.3a1.29,1.29,0,0,1-.91-.37A1.31,1.31,0,0,1,4,15.7,1.26,1.26,0,0,1,4.22,15l1.61-2.42A1,1,0,0,0,6,12V9a6,6,0,0,1,6-6,6.07,6.07,0,0,1,2.31.47A3.91,3.91,0,0,0,14,5a4,4,0,0,0,4,4v3a1,1,0,0,0,.17.55L19.78,15a1.2,1.2,0,0,1,.22.72A1.3,1.3,0,0,1,18.7,17Z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <img src="/img/Avatar01.jpg" alt="Avatar" class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-bold text-sm">Nguyen Cuong Thinh</p>
+                                <p class="text-xs text-gray-500">Student</p>
+                            </div>
+                            <div class="ml-6">
+                                <button id="toggleOpen" class='lg:hidden'>
+                                    <svg class="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    
+
+                      
+                        <ul id="avatarDropdown" tabindex="0" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg w-52 z-[1] p-2">
+                            <li><a href="/Student/StudentProfile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Student Profile</a></li>
+                            <li><a href="/MyLearn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learn</a></li>
+                            <li><a href="/OrdersHistory" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders History</a></li>
+                            <li><a href="/AccountSettings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
+                            <li><a href="/HelpAndSupport" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
+                            <li><a href="/Logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log out</a></li>
+                        </ul>
+                        
                     </div>
                 }
             </div>
@@ -88,13 +121,12 @@
         </main>
     </div>
 
-
     <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-3 p-8 font-[sans-serif] tracking-wide">
         <div class="w-full max-w-screen-xl mx-auto p-3 md:py-6 container">
             <div class="sm:flex sm:items-center sm:justify-between">
-                <a href="https://www.facebook.com/Thinhnc.194/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="https://bcassetcdn.com/public/blog/wp-content/uploads/2019/06/18095203/new-graduation.png" class="h-28 w-28" alt="RentTutor Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Rent-Tutor</span>
+                <a href="/HomePage" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <img src="/img/graduation.png" class="h-28 w-28" alt="RentTutor Logo" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SWP Group-7</span>
                 </a>
                 <ul class="flex flex-wrap items-center mb-4 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
@@ -112,7 +144,7 @@
                 </ul>
             </div>
             <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-6" />
-            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://www.facebook.com/Thinhnc.194/" class="hover:underline">Rent-Tutor™</a>. All Rights Reserved.</span>
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://www.facebook.com/Thinhnc.194/" class="hover:underline">Graduation™</a>. All Rights Reserved.</span>
         </div>
     </footer>
 
@@ -123,21 +155,36 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
-        var toggleOpen = document.getElementById('toggleOpen');
-        var toggleClose = document.getElementById('toggleClose');
-        var collapseMenu = document.getElementById('collapseMenu');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle collapse menu
+            var toggleOpen = document.getElementById('toggleOpen');
+            var toggleClose = document.getElementById('toggleClose');
+            var collapseMenu = document.getElementById('collapseMenu');
 
-        function handleClick() {
-            if (collapseMenu.style.display === 'block') {
-                collapseMenu.style.display = 'none';
-            } else {
-                collapseMenu.style.display = 'block';
+            function handleClick() {
+                if (collapseMenu.style.display === 'block') {
+                    collapseMenu.style.display = 'none';
+                } else {
+                    collapseMenu.style.display = 'block';
+                }
             }
-        }
 
-        toggleOpen.addEventListener('click', handleClick);
-        toggleClose.addEventListener('click', handleClick);
+            if (toggleOpen) {
+                toggleOpen.addEventListener('click', handleClick);
+            }
+
+            if (toggleClose) {
+                toggleClose.addEventListener('click', handleClick);
+            }
+
+            // Toggle avatar dropdown
+            var avatarDropdownToggle = document.getElementById('avatarDropdownToggle');
+            var dropdown = document.getElementById('avatarDropdown');
+
+            avatarDropdownToggle.addEventListener('click', function () {
+                dropdown.classList.toggle('hidden');
+            });
+        });
     </script>
-
 </body>
 </html>

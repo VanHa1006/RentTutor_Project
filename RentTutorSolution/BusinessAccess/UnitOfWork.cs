@@ -11,23 +11,41 @@ namespace BusinessAccess
     public class UnitOfWork
     {
         private RenTurtorToStudentContext _unitOfWorkContext;
-        private UserRepositories _userRepository;
-        private StudentRepositories _studentsRepository;
+        private UserRepository _userRepository;
+        private StudentRepository _studentRepository;
+        private TutorRepository _tutorRepository;
+        private UserApprovalLogRepository _userApprovalLogRepository;
         public UnitOfWork() { }
 
-        public UserRepositories UserRepository
+        public UserRepository UserRepository
         {
             get
             {
-                return _userRepository ??= new UserRepositories();
+                return _userRepository ??= new UserRepository();
             }
         }
 
-        public StudentRepositories StudentsRepository
+        public StudentRepository StudentRepository
         {
             get
             {
-                return _studentsRepository ??= new StudentRepositories();
+                return _studentRepository ??= new StudentRepository();
+            }
+        }
+
+        public TutorRepository TutorRepository
+        {
+            get
+            {
+                return _tutorRepository ??= new TutorRepository();
+            }
+        }
+
+        public UserApprovalLogRepository UserApprovalLogRepository
+        {
+            get
+            {
+                return _userApprovalLogRepository ??= new UserApprovalLogRepository();
             }
         }
     }

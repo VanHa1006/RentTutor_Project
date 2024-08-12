@@ -12,28 +12,34 @@
     <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script defer>
-        function toggle(source) {
-            checkboxes = document.getElementsByName('select');
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle checkboxes
+            document.getElementById('select-all').addEventListener('click', function (event) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"].form-checkbox');
+                checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+            });
 
+            // Change status button color
+            const statusButtons = document.querySelectorAll(".statusButton");
+            statusButtons.forEach(function (statusButton) {
+                var statusText = statusButton.textContent.trim();
+                if (statusText === "Active") {
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+                } else {
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
+                }
+            });
+        });
     </script>
 </head>
 <body>
     <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500">
+        <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
                 <div class="inline-flex">
-                    <a href="#" class="inline-flex flex-row items-center">
-                        <svg class="w-10 h-10 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                  d="M11.757 2.034a1 1 0 01.638.519c.483.967.844 1.554 1.207 2.03.368.482.756.876 1.348 1.467A6.985 6.985 0 0117 11a7.002 7.002 0 01-14 0c0-1.79.684-3.583 2.05-4.95a1 1 0 011.707.707c0 1.12.07 1.973.398 2.654.18.374.461.74.945 1.067.116-1.061.328-2.354.614-3.58.225-.966.505-1.93.839-2.734.167-.403.356-.785.57-1.116.208-.322.476-.649.822-.88a1 1 0 01.812-.134zm.364 13.087A2.998 2.998 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879.586.585.879 1.353.879 2.121s-.293 1.536-.879 2.121z"
-                                  clip-rule="evenodd" />
-                        </svg>
-                        <span class="leading-10 text-gray-100 text-2xl font-bold ml-1 uppercase">Rent-Tutor</span>
+                    <a href="/Admin">
+                        <img src="/img/graduation.png" alt="logo" class='w-24 h-24 object-cover rounded-full mx-auto' />
                     </a>
                 </div>
             </div>
@@ -226,12 +232,25 @@
                                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
+                            <form method="get">
+                                <div class="input-group">
+                                    <input placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
+                                </div>
 
-                            <input id="search"
-                                   type="text"
-                                   name="search"
-                                   class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400"
-                                   placeholder="Search..." />
+                               
+                            </form>
+                            <!-- Status Select -->
+                            <div class="hidden md:flex relative mt-3 md:mt-0 md:ml-3">
+                                <select id="status" name="status"
+                                        class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
+                                    <option value="">
+                                        &#x39E;  @* Unicode *@
+                                        Status
+                                    </option>
+                                    <option value="Active">Active</option>
+                                    <option value="Disactive">Disactive</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="flex md:hidden">
                             <a href="#" class="flex items-center justify-center h-10 w-10 border-transparent">
@@ -261,6 +280,10 @@
                 </div>
             </header>
 
+
+           @*  --------------------------------------------------------- Main Content ---------------------------------------------- *@
+
+
             <div class="main-content flex flex-col flex-grow p-4">
                 <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
                     Students Manage 
@@ -272,20 +295,23 @@
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3"><input type="checkbox" id="select-all" class="form-checkbox"></th>
                                     <th class="px-4 py-3">Num</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Username)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Email)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Status)</th>
-                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Customer.Items[0].Birthday)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Username)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Email)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Status)</th>
+                                    <th class="px-4 py-3">@Html.DisplayNameFor(model => model.Student.Items[0].Birthday)</th>
                                     <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach (var item in Model.Customer.Items)
+                                @{
+                                    int counter = 1;// Khởi tạo biến đếm
+                                }
+                                @foreach (var item in Model.Student.Items)
                                 {
                                     <!-- Repeat this <tr> block for each row in the table -->
-                                    <tr class="text-gray-700 dark:text-gray-400">
+                                    <tr style="cursor: pointer; class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
-                                        <td class="px-4 py-3 text-sm">1</td>
+                                        <td class="px-4 py-3 text-sm">@counter</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <!-- Avatar with inset shadow -->
@@ -309,7 +335,7 @@
                                             @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td class="px-4 py-3 text-xs">
-                                            <button class="toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                            <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                                 @Html.DisplayFor(modelItem => item.Status)
                                             </button>
                                         </td>
@@ -320,7 +346,7 @@
                                             <div class="flex items-center space-x-4 text-sm">
                                                 <a asp-page="./StudentDetail" asp-route-id="@item.UserId">
                                                 <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="View Detail">
+                                                        aria-label="View Detail" onclick="showStudentDetails">
                                                     <svg class="w-5 h-5"
                                                          aria-hidden="true"
                                                          fill="currentColor"
@@ -329,20 +355,17 @@
                                                     </svg>
                                                 </button>
                                                 </a>
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="Delete">
-                                                    <svg class="w-5 h-5"
-                                                         aria-hidden="true"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd"
-                                                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                              clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </button>
+                                                    <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                  clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </button>
                                             </div>
                                         </td>
                                     </tr>
+                                    counter++;
                                     <!-- Repeat block ends -->
                                 }
                             </tbody>
@@ -410,20 +433,54 @@
                     </div>
                 </div>
             </div>
-            
+
+     @*        <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.getElementById('select-all').addEventListener('click', function (event) {
+                        const checkboxes = document.querySelectorAll('.form-checkbox');
+                        checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+                    });
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    var statusButtons = document.querySelectorAll(".statusButton");
+
+                    statusButtons.forEach(function (statusButton) {
+                        var statusText = statusButton.textContent.trim();
+
+                        if (statusText === "Active") {
+                            statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+                        } else {
+                            statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
+                        }
+                    });
+                });
+            </script> *@
             
 
-    <footer class="footer px-4 py-6">
-        <div class="footer-content">
-            <p class="text-sm text-gray-600 text-center">© Rent-Tutor 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group7</a></p>
-        </div>
-    </footer>
+            <footer class="footer px-4 py-6">
+                <div class="footer-content">
+                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
+                </div>
+            </footer>
     </main>
     </div>
 </body>
 </html>
+<div>
+    <a asp-page="/Admin/StudentManager" asp-route-SearchTerm="@Model.SearchTerm" asp-route-PageIndex="@(Model.PageIndex - 1)"
+       class="@(Model.PageIndex == 1 ? "disabled" : "") btn btn-primary">Previous</a>
+
+    <span>Page @Model.Student.Page of @Model.Student.TotalPages </span>
+
+    <a asp-page="/Admin/StudentManager" asp-route-SearchTerm="@Model.SearchTerm" asp-route-PageIndex="@(Model.PageIndex + 1)"
+       class="@(Model.PageIndex == Model.Student.TotalPages ? "disabled" : "") btn btn-primary">Next</a>
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/microsoft/signalr/dist/browser/signalr.js"></script>

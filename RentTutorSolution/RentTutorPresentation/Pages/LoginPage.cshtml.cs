@@ -10,9 +10,9 @@ namespace RentTutorPresentation.Pages
 {
     public class LoginPageModel : PageModel
     {
-        private readonly UserService _userService;
+        private readonly LoginService _userService;
 
-        public LoginPageModel(UserService userService)
+        public LoginPageModel(LoginService userService)
         {
             _userService = userService;
         }
@@ -33,9 +33,14 @@ namespace RentTutorPresentation.Pages
 
             if (user != null)
             {
-                if (user.Status != "Active")
+                if (user.Status == "Disactive")
                 {
-                    ErrorMessage = "You are not allowed access into system";
+                    ErrorMessage = "Your account has been banned for violating the rules or is under review and will be reopened later.";
+                    return Page();
+                }
+                if (user.Status == "Pending")
+                {
+                    ErrorMessage = "You must wait for Admin approval! Please wait within 15 minutes for a response.";
                     return Page();
                 }
                 if (user.Role.Equals("Student"))

@@ -37,8 +37,6 @@ namespace BusinessAccess.DAO
                             if (reader.Read())
                             {
                                 var status = reader.IsDBNull(reader.GetOrdinal("Status")) ? null : reader.GetString(reader.GetOrdinal("Status"));
-                                if (status == "Active")
-                                {
                                     user = new User
                                     {
                                         UserId = reader.IsDBNull(reader.GetOrdinal("UserID")) ? 0 : reader.GetInt32(reader.GetOrdinal("UserID")),
@@ -48,7 +46,6 @@ namespace BusinessAccess.DAO
                                         Role = reader.IsDBNull(reader.GetOrdinal("Role")) ? null : reader.GetString(reader.GetOrdinal("Role")),
                                         Status = status
                                     };
-                                }
                             }
                         }
                     }

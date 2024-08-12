@@ -188,6 +188,7 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(100);
+            entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(255);

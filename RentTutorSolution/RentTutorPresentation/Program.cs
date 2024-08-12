@@ -1,10 +1,10 @@
-using BusinessAccess.Business;
 using BusinessAccess.DAO;
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using RentTutorPresentation;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
@@ -24,9 +24,13 @@ builder.Services.AddSession(options =>
 builder.Services.AddHttpContextAccessor();
 // Add services to the container.s
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IUserBusiness, UserBusiness>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IStudentServices, StudentServices>();
+builder.Services.AddScoped<ITutorServices, TutorServices>();
+builder.Services.AddScoped<IUserApprovalLogService, UserApprovalLogService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
@@ -57,10 +61,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<TutorHub>("/tutorHub");
-});
+
+app.MapHub<SignalrServer>("/signalrServer");
 
 app.MapRazorPages();
 

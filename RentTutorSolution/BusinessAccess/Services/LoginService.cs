@@ -12,14 +12,12 @@ using System.Threading.Tasks;
 namespace BusinessAccess.Services
 {
 
-    public class UserService
+    public class LoginService
     {
-        private readonly UserRepository _userRepository;
-        private readonly RenTurtorToStudentContext _context;
-        public UserService(UserRepository userRepository, RenTurtorToStudentContext context)
+        private readonly LoginRepository _userRepository;
+        public LoginService(LoginRepository userRepository)
         {
             _userRepository = userRepository;
-            _context = context;
         }
 
         public User CheckLogin(string email, string passwordHash)
