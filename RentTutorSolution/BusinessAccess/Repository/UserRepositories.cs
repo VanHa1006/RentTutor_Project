@@ -12,59 +12,43 @@ namespace BusinessAccess.Repository
 {
     public class UserRepositories : GenericRepository<User>
     {
-        public UserRepositories() { }
-
-        public async Task<bool> RemoveCustomerAsync(int userId)
+        private readonly DataAccess.Models.RenTurtorToStudentContext _context;
+        public UserRepositories(DataAccess.Models.RenTurtorToStudentContext context)
         {
+            _context = context;
+        }
+
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+        }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            _context.Attach(user).State = EntityState.Modified;
+
             try
             {
-                var user = await _dbSet.FirstOrDefaultAsync(x => x.UserId == userId && x.Status == "Active");
-                if (user != null)
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(user.UserId))
                 {
-                    user.Status = "Deactive";
-
-                    _dbSet.Update(user);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    Console.WriteLine($"User with ID {userId} not found.");
-                    return false;
+                    throw;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error removing user: {ex.Message}");
-                return false;
             }
         }
 
-		public async Task<bool> ActiveUserAsync(int userId)
-		{
-			try
-			{
-				var user = await _dbSet.FirstOrDefaultAsync(x => x.UserId == userId && x.Status =="Deactive");
-				if (user != null)
-				{
-					user.Status = "Active";
-
-					_dbSet.Update(user);
-					await _context.SaveChangesAsync();
-					return true;
-				}
-				else
-				{
-					Console.WriteLine($"User with ID {userId} not found.");
-					return false;
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error removing user: {ex.Message}");
-				return false;
-			}
-		}
+        private bool UserExists(int id)
+        {
+            return _context.Users.Any(e => e.UserId == id);
+        }
     }
 }
 

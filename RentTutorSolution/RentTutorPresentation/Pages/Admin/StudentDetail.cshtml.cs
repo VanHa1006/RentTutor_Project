@@ -1,4 +1,5 @@
 using BusinessAccess.Business;
+using BusinessAccess.Repository;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,11 +9,11 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentDetailModel : PageModel
     {
-        private readonly DataAccess.Models.RenTurtorToStudentContext _context;
+        private readonly UserRepositories _userRepositories;
 
         public StudentDetailModel(DataAccess.Models.RenTurtorToStudentContext context)
         {
-            _context = context;
+            _userRepositories = new UserRepositories(context);
         }
 
         [BindProperty]
@@ -25,7 +26,7 @@ namespace RentTutorPresentation.Pages.Admin
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            var user = await _userRepositories.GetByIdAsync(id.Value);
             if (user == null)
             {
                 return NotFound();
@@ -34,35 +35,20 @@ namespace RentTutorPresentation.Pages.Admin
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-
-            _context.Attach(User).State = EntityState.Modified;
-
-            try
+            if (!ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
+                return Page();
             }
-            catch (DbUpdateConcurrencyException)
+
+            var success = await _userRepositories.UpdateUserAsync(User);
+            if (!success)
             {
-                if (!UserExists(User.UserId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return RedirectToPage("./StudentManager");
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }
