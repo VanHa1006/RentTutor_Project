@@ -8,7 +8,6 @@ namespace RentTutorPresentation.Pages.Admin
 {
     public class StudentDetailModel : PageModel
     {
-
         private readonly IUserServices _studentServices;
         public StudentDetailModel(IUserServices studentServices)
         {
@@ -24,6 +23,7 @@ namespace RentTutorPresentation.Pages.Admin
             {
                 return NotFound();
             }
+
             var user = await _studentServices.GetByIdAsync(id);
             if (user == null)
             {
@@ -32,6 +32,8 @@ namespace RentTutorPresentation.Pages.Admin
             Student = user.Data as User;
             return Page();
         }
+
+
         public async Task<IActionResult> OnPostAsync()
         {
             try
@@ -48,9 +50,7 @@ namespace RentTutorPresentation.Pages.Admin
                     return Page();
                 }
             }
-
-            var success = await _userRepositories.UpdateUserAsync(User);
-            if (!success)
+            catch (DbUpdateConcurrencyException)
             {
                 if (!await StudentExists(Student.UserId))
                 {
@@ -62,7 +62,6 @@ namespace RentTutorPresentation.Pages.Admin
                 }
             }
         }
-
         private async Task<bool> StudentExists(int id)
         {
             var customer = await _studentServices.GetByIdAsync(id);
