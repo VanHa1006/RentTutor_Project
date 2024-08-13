@@ -1,6 +1,7 @@
 ﻿using Azure;
 using BusinessAccess.Base;
 using DataAccess.Models;
+using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> DeleteUser(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
         Task<IBusinessResult> GetAllStudents(int page, int size);
+        Task<IBusinessResult> GetAllStudentsActive(string searchActive,int page, int size);
         Task<IBusinessResult> GetAllTutor(int page, int size);
 
     }
@@ -266,6 +268,32 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(-1, "Get all students fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllStudentsActive(string searchActive,int page, int size)
+        {
+            try
+            {
+                var user = await _unitOfWork.UserRepository.GetPagingListAsync(
+                selector: x => x,
+                    predicate: x => x.Status.Contains(searchActive) && x.Role.Equals("Student"),
+                    page: page,
+                    size: size
+                    );
+
+                if (user != null)
+                {
+                    return new BusinessResult(1, "Search successfully", user);
+                }
+                else
+                {
+                    return new BusinessResult(1, "Search fail");
                 }
             }
             catch (Exception ex)

@@ -23,6 +23,8 @@ namespace RentTutorPresentation.Pages.Admin
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; } = 1;
         [BindProperty(SupportsGet = true)]
+        public string SelectedStatus { get; set; }
+        [BindProperty(SupportsGet = true)]
         public int Size { get; set; } = 10;
 
         private async Task<Paginate<User>> GetTutors()
