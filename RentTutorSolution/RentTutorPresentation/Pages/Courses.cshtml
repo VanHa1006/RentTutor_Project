@@ -217,19 +217,23 @@
              class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
         @foreach (var course in Model.Course.Items)
         {
+
                 <div onclick="window.location.href='/CoursesDetail';" class="max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                 <a class="courseImageLink">
+            <div class="max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+                <a asp-page="./CoursesDetail" asp-route-id="@course.CourseId">
+
                     <img src="@course.Image" alt="@course.CourseName" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
                 </a>
                 <div class="px-4 py-3">
                     <span class="text-gray-400 mr-3 uppercase text-xs">@course.CourseName</span>
                     <p class="text-lg font-bold text-black capitalize whitespace-normal">@course.CourseName</p>
                     <div class="flex items-center">
-                        <p class="text-lg font-semibold text-black cursor-auto my-3">@course.Price</p>
+                        <p class="text-lg font-semibold text-black cursor-auto my-3">@course.DiscountPrice</p>
                         @if (course.DiscountPrice.HasValue)
                         {
                             <del>
-                                <p class="text-sm text-gray-600 cursor-auto ml-2">@course.DiscountPrice</p>
+                                <p class="text-sm text-gray-600 cursor-auto ml-2">@course.Price</p>
                             </del>
                         }
                         <p class="ml-auto text-lg font-semibold text-black cursor-auto my-3">@course.Hours Hours</p>
