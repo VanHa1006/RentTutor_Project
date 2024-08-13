@@ -1,0 +1,133 @@
+﻿@page
+@model RentTutorPresentation.Pages.Student.CheckoutModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-7xl mx-auto p-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Checkout Section  -->
+            <div class="lg:w-3/5 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Checkout</h2>
+
+                <!-- Payment Method  -->
+                <div class="mb-6">
+                    <label for="payment-method" class="block text-lg font-medium text-gray-700">Payment Method</label>
+                    <select id="payment-method" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="credit-card">Credit/Debit Card</option>
+                        <option value="vnpay">Vnpay</option>
+                        <option value="momo">Momo</option>
+                    </select>
+                </div>
+
+                <!-- Credit Card Form -->
+                <div id="credit-card-form" class="space-y-4">
+                    <div>
+                        <label for="card-number" class="block text-sm font-medium text-gray-700">Card Number</label>
+                        <input type="text" id="card-number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="cvc" class="block text-sm font-medium text-gray-700">CVC/CVV</label>
+                        <input type="text" id="cvc" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="expiry-date" class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                        <input type="text" id="expiry-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="save-card" class="mr-2">
+                        <label for="save-card" class="text-sm text-gray-700">Securely save this card for my later purchase</label>
+                    </div>
+                </div>
+
+                <!-- Vnpay and Momo Form -->
+                <div id="vnpay-form" class="hidden">
+                    <p class="text-sm text-gray-700">You will be redirected to the Vnpay gateway to complete your payment.</p>
+                </div>
+                <div id="momo-form" class="hidden">
+                    <p class="text-sm text-gray-700">You will be redirected to the Momo app to complete your payment.</p>
+                </div>
+
+                <!-- Order List -->
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold mb-4">Order List</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/60" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
+                                <span>Advanced Python Programming</span>
+                            </div>
+                            <span class="font-semibold">$60</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/60" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
+                                <span>Data Science Essentials</span>
+                            </div>
+                            <span class="font-semibold">$70</span>
+                        </div>
+                        <!-- Add more courses as needed -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section (2/5 of the screen) -->
+            <div class="lg:w-2/5 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Summary</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Original Price</span>
+                        <span class="font-semibold">$130</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Discounts</span>
+                        <span class="font-semibold text-red-500">-$10</span>
+                    </div>
+                    <hr class="my-4">
+                    <div class="flex justify-between text-xl font-bold">
+                        <span>Total</span>
+                        <span>$120</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
+                    Complete Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const paymentMethod = document.getElementById('payment-method');
+        const creditCardForm = document.getElementById('credit-card-form');
+        const vnpayForm = document.getElementById('vnpay-form');
+        const momoForm = document.getElementById('momo-form');
+
+        paymentMethod.addEventListener('change', function () {
+            creditCardForm.classList.add('hidden');
+            vnpayForm.classList.add('hidden');
+            momoForm.classList.add('hidden');
+
+            if (this.value === 'credit-card') {
+                creditCardForm.classList.remove('hidden');
+            } else if (this.value === 'vnpay') {
+                vnpayForm.classList.remove('hidden');
+            } else if (this.value === 'momo') {
+                momoForm.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

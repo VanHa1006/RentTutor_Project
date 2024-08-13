@@ -1,0 +1,161 @@
+﻿@page
+@model RentTutorPresentation.Pages.Student.ShoppingcartModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body >
+    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+
+            <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+                <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                    <div class="space-y-6">
+                        <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                            <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                                <a href="#" class="shrink-0 md:order-1">
+                                    <img class="h-40 w-60 dark:hidden" src="https://i.pinimg.com/564x/33/f8/5a/33f85ae4b62c8bbaf20283852fa74655.jpg" alt="Reactjs" />
+                                </a>
+
+                                <div class="flex items-center justify-between md:order-3 md:justify-end">
+                                    
+                                    <div class="text-end md:order-4 md:w-32">
+                                        <p class="text-base font-bold text-gray-900 dark:text-white">$99</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                                    <a href="/CoursesDetail" class="text-base font-medium text-gray-900 hover:underline dark:text-white">React - The Complete Guide 2024 (incl. Next.js, Redux)</a>
+
+                                    <div class="flex items-center gap-4">
+                                        <button type="button" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white">
+                                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                                            </svg>
+                                            Add to Wishlist
+                                        </button>
+
+                                        <button type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                            <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                                <a href="#" class="shrink-0 md:order-1">
+                                    <img class="h-40 w-60 dark:hidden" src="https://i.pinimg.com/564x/9c/c8/7a/9cc87abb7a6d8d3cc916d397ff594d07.jpg" alt="javascript" />
+                                  
+                                </a>
+
+                                <label for="counter-input" class="sr-only">Choose quantity:</label>
+                                <div class="flex items-center justify-between md:order-3 md:justify-end">
+                                  
+                                    <div class="text-end md:order-4 md:w-32">
+                                        <p class="text-base font-bold text-gray-900 dark:text-white">$99</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                                    <a href="/CoursesDetail" class="text-base font-medium text-gray-900 hover:underline dark:text-white">The Complete JavaScript Course 2024: From Zero to Expert!</a>
+
+                                    <div class="flex items-center gap-4">
+                                        <button type="button" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white">
+                                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                                            </svg>
+                                            Add to Wishlist
+                                        </button>
+
+                                        <button type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                                            <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+                    <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                        <p class="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
+
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Original price</dt>
+                                    <dd class="text-base font-medium text-gray-900 dark:text-white">$7,592.00</dd>
+                                </dl>
+
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
+                                    <dd class="text-base font-medium text-green-600">-$299.00</dd>
+                                </dl>
+
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
+                                    <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
+                                </dl>
+
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                                    <dd class="text-base font-medium text-gray-900 dark:text-white">$799</dd>
+                                </dl>
+                            </div>
+
+                            <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                                <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                                <dd class="text-base font-bold text-gray-900 dark:text-white">$8,191.00</dd>
+                            </dl>
+                        </div>
+
+                        <a href="#" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed to Checkout</a>
+
+                        <div class="flex items-center justify-center gap-2">
+                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
+                            <a href="#" title="" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-700 underline hover:no-underline dark:text-indigo-500">
+                                Continue Shopping
+                                <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                        <form class="space-y-4">
+                            <div>
+                                <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Do you have a voucher or gift card? </label>
+                                <input type="text" id="voucher" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="" required />
+                            </div>
+                            <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Apply Code</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
