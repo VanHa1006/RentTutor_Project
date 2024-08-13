@@ -49,8 +49,7 @@ namespace RentTutorPresentation.Pages.Admin
                 }
             }
 
-            var success = await _userRepositories.UpdateUserAsync(User);
-            if (!success)
+            catch (DbUpdateConcurrencyException)
             {
                 if (!await StudentExists(Student.UserId))
                 {
