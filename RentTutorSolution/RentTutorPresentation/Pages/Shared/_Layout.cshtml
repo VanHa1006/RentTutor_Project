@@ -14,6 +14,33 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentTutorPresentation.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Space out the SVGs */
+        .flex.items-center.space-x-6 .ml-6 {
+            margin-left: 12px; /* Adjust spacing as needed */
+        }
+
+        /* Hover effect for SVGs */
+        svg {
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+            svg:hover {
+                transform: scale(1.1);
+                fill: #4A90E2; /* Change the color on hover */
+            }
+
+            svg:hover {
+                transform: scale(1.1);
+                fill: #4A90E2; /* Change the color on hover */
+            }
+            /* Active state when clicked */
+            svg:active {
+                transform: scale(1.2);
+                fill: #FF6B6B; /* Change the color when clicked */
+            }
+    </style>
+
 </head>
 <body class="flex flex-col min-h-screen">
     <header class='flex shadow-md py-1 px-1 sm:px-10 bg-white font-[sans-serif] min-h-[50px] tracking-wide relative z-50'>
@@ -38,16 +65,16 @@
                         <a href='/HomePage' class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/Privacy' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Privacy</a>
+                        <a href='/Courses' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Courses</a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='javascript:void(0)' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>About</a>
+                        <a href='/Tutor' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Tutor</a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Contactus' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/BecomeTutor' class='hover:text-[#0400ff] text-blue-800 block font-semibold text-[19px]'>Become Tutor</a>
+                        <a href='/BecomeTutor' class='hover:text-[#0400ff] text-indigo-800 block font-semibold text-[19px]'>Become Tutor</a>
                     </li>
                 </ul>
             </div>
@@ -71,23 +98,30 @@
                 else
                 {
                     <div class="relative">
-                        <div tabindex="0" role="button" class="flex items-center space-x-3 cursor-pointer m-1" id="avatarDropdownToggle">
+                        <div tabindex="0" role="button" class="flex items-center space-x-6 cursor-pointer m-1">
                             <div class="ml-6">
-                                <svg height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+                                <svg id="svg1" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.1026543,2.69607267 C14.1723908,2.17246378 15.1055573,1.99999846 16.5532309,2.0000161 C20.2579495,2.01535832 23,5.13984465 23,9.11987614 C23,12.1577519 21.3061684,15.0922806 18.1511601,17.9298912 C16.4951061,19.4193443 14.3806781,20.8933233 12.866397,21.6774721 L12,22.1261233 L11.133603,21.6774721 C9.6193219,20.8933233 7.50489394,19.4193443 5.84883985,17.9298912 C2.69383159,15.0922806 1,12.1577519 1,9.11987614 C1,5.09726693 3.71643647,2 7.45454545,2 C8.85027925,2 9.83131847,2.18877527 10.9218108,2.72813403 C11.3014787,2.91591822 11.658192,3.13866136 11.9899709,3.39576047 C12.3350403,3.12339226 12.7066025,2.88992996 13.1026543,2.69607267 Z M16.8137247,16.4428585 C19.5861779,13.9493174 21,11.4998994 21,9.11987614 C21,6.18896383 19.0882067,4.01053125 16.5490834,4.00000753 C15.3870057,4.00000023 14.7458716,4.11849292 13.9819236,4.49242603 C13.5120101,4.72243676 13.095105,5.0329512 12.7314502,5.42754949 L12.0023377,6.21870239 L11.2665312,5.43377128 C10.9108757,5.05437109 10.5000057,4.75076878 10.0351348,4.52084307 C9.24812694,4.13158808 8.56428173,4 7.45454545,4 C4.88364127,4 3,6.14771812 3,9.11987614 C3,11.4998994 4.41382212,13.9493174 7.18627532,16.4428585 C8.69781928,17.8023393 10.6410383,19.1609346 12,19.8736982 C13.3589617,19.1609346 15.3021807,17.8023393 16.8137247,16.4428585 Z" fill-rule="evenodd" />
                                 </svg>
                             </div>
                             <div class="ml-6">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+                                <svg id="svg2" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-6">
+                                <svg id="svg3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
                                     <g id="Line">
                                         <path d="M20,11.7V9c0-.19,0-.37,0-.54a4,4,0,1,0-4.42-6.61A8,8,0,0,0,4,9v2.7L2.56,13.86A3.22,3.22,0,0,0,2,15.7a3.36,3.36,0,0,0,1,2.35A3.34,3.34,0,0,0,5.3,19H7.1a5,5,0,0,0,9.8,0h1.8A3.3,3.3,0,0,0,22,15.7a3.24,3.24,0,0,0-.56-1.83ZM20,5a2,2,0,1,1-2-2A2,2,0,0,1,20,5ZM12,21a3,3,0,0,1-2.83-2h5.66A3,3,0,0,1,12,21Zm6.7-4H5.3a1.29,1.29,0,0,1-.91-.37A1.31,1.31,0,0,1,4,15.7,1.26,1.26,0,0,1,4.22,15l1.61-2.42A1,1,0,0,0,6,12V9a6,6,0,0,1,6-6,6.07,6.07,0,0,1,2.31.47A3.91,3.91,0,0,0,14,5a4,4,0,0,0,4,4v3a1,1,0,0,0,.17.55L19.78,15a1.2,1.2,0,0,1,.22.72A1.3,1.3,0,0,1,18.7,17Z" />
                                     </g>
                                 </svg>
                             </div>
+                            <div class="flex items-center space-x-3 cursor-pointer m-1" id="avatarDropdownToggle">
                             <img src="/img/Avatar01.jpg" alt="Avatar" class="w-10 h-10 rounded-full">
                             <div>
                                 <p class="font-bold text-sm">Nguyen Cuong Thinh</p>
                                 <p class="text-xs text-gray-500">Student</p>
+                            </div>
                             </div>
                             <div class="ml-6">
                                 <button id="toggleOpen" class='lg:hidden'>
@@ -97,15 +131,15 @@
                                 </button>
                             </div>
                         </div>
-                    
 
+                       
                       
                         <ul id="avatarDropdown" tabindex="0" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg w-52 z-[1] p-2">
                             <li><a href="/Student/StudentProfile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Student Profile</a></li>
-                            <li><a href="/MyLearn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learn</a></li>
-                            <li><a href="/OrdersHistory" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders History</a></li>
-                            <li><a href="/AccountSettings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
-                            <li><a href="/HelpAndSupport" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
+                            <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learn</a></li>
+                            <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders History</a></li>
+                            <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
+                            <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
                             <li><a href="/Logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Log out</a></li>
                         </ul>
                         
@@ -155,6 +189,18 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
+        document.querySelectorAll('svg').forEach((svg) => {
+            svg.addEventListener('click', () => {
+                svg.style.transform = 'scale(1.2)';
+                svg.style.fill = '#FF6B6B'; // Change the fill color on click
+                setTimeout(() => {
+                    svg.style.transform = 'scale(1.1)';
+                    svg.style.fill = '#4A90E2'; // Reset to hover color after click
+                }, 200);
+            });
+        });
+
+
         document.addEventListener('DOMContentLoaded', function () {
             // Toggle collapse menu
             var toggleOpen = document.getElementById('toggleOpen');

@@ -1,0 +1,491 @@
+﻿@page
+@model RentTutorPresentation.Pages.CoursesModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+</head>
+<body>
+
+    @*  -----------------Carousel component------------------------- *@
+    <div class="max-w-3xl mx-auto">
+
+        <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <div class="relative h-80 md:h-96" data-carousel-inner>
+                <!-- Item 1 -->
+                <div class=" duration-700 ease-in-out" data-carousel-item>
+                    <img src="~/img/Courses/banner03.jpg"
+                         class="object-cover w-full h-full" alt="Slide 1">
+                </div>
+                <!-- Item 2 -->
+                <div class=" duration-700 ease-in-out" data-carousel-item>
+                    <img src="~/img/Courses/banner02.jpg"
+                         class="object-cover w-full h-full" alt="Slide 2">
+                </div>
+                <!-- Item 3 -->
+                <div class=" duration-700 ease-in-out" data-carousel-item>
+                    <img src="~/img/Courses/Success.jpg"
+                         class="object-cover w-full h-full" alt="Slide 3">
+                </div>
+            </div>
+            <!-- Slider indicators -->
+            <div class="flex absolute bottom-5 left-1/2 z-30 -translate-x-1/2 space-x-2" data-carousel-indicators>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+            </div>
+            <!-- Slider controls -->
+            <button type="button"
+                    class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
+                    data-carousel-prev>
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button type="button"
+                    class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
+                    data-carousel-next>
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+
+    @*  -----------------------Tutors component------------------------- *@
+
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center p-10">
+            <h1 class="font-bold text-3xl mb-4">Popular Instructors</h1>
+            <h1 class="text-2xl">These real-world experts are highly rated by learners like you.s</h1>
+        </div>
+
+        <div class="max-w-8xl mx-auto relative">
+            <div id="tutors-carousel" class="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5" style="overflow-y: hidden;">
+                <div id="tutors-container" class="flex snap-x snap-mandatory gap-4" style="width: max-content;">
+                    <!-- Tutor Cards will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Previous Button -->
+            <button id="prevButton" type="button"
+                    class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+
+            <!-- Next Button -->
+            <button id="nextButton" type="button"
+                    class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+
+    <script>
+        // Tutor data
+        const tutors = [
+            {
+                id: 1,
+                image: 'https://i.pinimg.com/564x/5f/4a/a0/5f4aa0e1047ea8b941971549d3eadd2b.jpg',  // Ensure the correct image file extension
+                fullName: 'John Doe',
+                qualifications: 'B.Sc. in Computer Science, M.Sc. in Software Engineering',
+                rating: '4.9/5',
+                studentNumber: 50,
+                coursesNumber: 10,
+                link: '/404'
+            },
+            {
+                id: 2,
+                image: 'https://i.pinimg.com/736x/18/78/5d/18785dd07c09465d01beef679baf1846.jpg',  // Ensure the correct image file extension
+                fullName: 'Jane Smith',
+                qualifications: 'B.Sc. in Information Technology, Certified Java Developer',
+                rating: '4.8/5',
+                studentNumber: 40,
+                coursesNumber: 8,
+                    link: '/404'
+            },
+            {
+                id: 3,
+                image: 'https://i.pinimg.com/736x/b2/b9/85/b2b98558579d01604ef3580d7cf5022b.jpg',  // Ensure the correct image file extension
+                fullName: 'Michael Johnson',
+                qualifications: 'B.Sc. in Software Engineering, Python Specialist',
+                rating: '4.7/5',
+                studentNumber: 20,
+                coursesNumber: 12,
+                    link: '/404'
+            },
+            {
+                id: 4,
+                image: 'https://i.pinimg.com/564x/da/0c/b7/da0cb713319e97568d8cff1ce1377abb.jpg',  // Ensure the correct image file extension
+                fullName: 'Emily Davis',
+                qualifications: 'B.Sc. in Computer Science, Full-Stack Developer',
+                rating: '4.6/5',
+                studentNumber: 16,
+                coursesNumber: 9,
+                    link: '/404'
+            },
+            {
+                id: 5,
+                image: 'https://i.pinimg.com/564x/aa/4f/69/aa4f693bd7b9a69b21bdb831dcb10c2e.jpg',  // Ensure the correct image file extension
+                fullName: 'Chris Wilson',
+                qualifications: 'B.Sc. in Information Technology, Mobile App Developer',
+                rating: '4.9/5',
+                studentNumber: 22,
+                coursesNumber: 11,
+                    link: '/404'
+            }
+        ];
+
+        // Function to create a tutor card
+        function createTutorCard(tutor) {
+            const card = document.createElement('div');
+            card.className = 'flex-none w-64 snap-center cursor-pointer';
+            card.innerHTML = `
+                    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
+                        <img src="${tutor.image}" alt="${tutor.fullName}" class="w-full h-40 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-lg leading-6 font-bold text-gray-900">${tutor.fullName}</h3>
+                            <p class="text-gray-600 mt-2 text-sm">${tutor.qualifications}</p>
+                            <div class="flex justify-between items-center mt-4">
+                            <span class="text-sm text-gray-500 flex items-center">
+                    Rating: ${tutor.rating}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.29 3.97a1 1 0 00.95.69h4.176c.97 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.29 3.97c.3.921-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.176 0l-3.388 2.46c-.784.57-1.838-.197-1.54-1.118l1.29-3.97a1 1 0 00-.364-1.118L2.146 9.397c-.783-.57-.382-1.81.588-1.81h4.176a1 1 0 00.95-.69l1.29-3.97z" />
+                    </svg>
+                             </span>
+                             <span class="text-sm text-gray-500">Students: ${tutor.studentNumber}</span>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-500">Courses: ${tutor.coursesNumber}</div>
+                        </div>
+                    </div>
+                `;
+            card.addEventListener('click', () => {
+                window.location.href = tutor.link;
+            });
+            return card;
+        }
+
+            function initTutorsCarousel() {
+                const tutorsContainer = document.getElementById('tutors-container');
+                tutors.forEach(tutor => {
+                    tutorsContainer.appendChild(createTutorCard(tutor));
+                });
+
+                const carousel = document.getElementById('tutors-carousel');
+                const prevButton = document.getElementById('prevButton');
+                const nextButton = document.getElementById('nextButton');
+
+                let scrollAmount = 300;
+
+                prevButton.addEventListener('click', () => {
+                    carousel.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+
+                nextButton.addEventListener('click', () => {
+                    carousel.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Initialize the carousel
+            document.addEventListener('DOMContentLoaded', initTutorsCarousel);
+    </script>
+
+
+    @*  -----------------Search Courses component------------------------- *@
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center p-10">
+                <h1 class="font-bold text-3xl mb-4">All Courses</h1>
+            @* <h1 class="text-3xl">All courses</h1> *@
+        </div>
+        <!-- Filter Section Starts Here 👇 -->
+        <div class="w-full max-w-3xl mx-auto flex flex-wrap items-center justify-between p-5 bg-white shadow rounded-lg">
+
+            <!-- Search Bar with Dropdown -->
+            <div class="flex items-center w-full mb-4 lg:w-4/5">
+                <div class="flex w-full">
+                        <h1 class="text-medium">Course Name</h1>
+                    
+                    <input type="text" placeholder="Search..." class="border border-gray-300 p-2 w-full rounded-r-md lg:rounded-none lg:rounded-r-md">
+                </div>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-md ml-2 hover:bg-indigo-700">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m-3.45 1.35a7.5 7.5 0 1 0-10.61 0 7.5 7.5 0 0 0 10.61 0z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <!-- Star Rating Filter -->
+                <div class="flex items-center mb-4 lg:mb-0">
+                    <label for="star-rating" class="mr-2 font-medium">Stars:</label>
+                    <select id="star-rating" class="border border-gray-300 rounded-md p-2">
+                        <option value="all">All</option>
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars & Up</option>
+                        <option value="3">3 Stars & Up</option>
+                    </select>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="flex items-center mb-4 lg:mb-0">
+                    <label for="category" class="mr-2 font-medium">Category:</label>
+                    <select id="category" class="border border-gray-300 rounded-md p-2">
+                        <option value="all">All Categories</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="data-science">Data Science</option>
+                        <option value="software-testing">Software Testing</option>
+                        <option value="database-design">Database Design</option>
+                    </select>
+                </div>
+
+                <!-- Sort By Dropdown -->
+                <div class="flex items-center mb-4 lg:mb-0">
+                    <label for="sort-by" class="mr-2 font-medium">Sort by:</label>
+                    <select id="sort-by" class="border border-gray-300 rounded-md p-2">
+                        <option value="popular">Most Popular</option>
+                        <option value="rating">Highest Rating</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </div>
+        @*  -----------------All Courses component------------------------- *@
+        <div class="max-w-8xl mx-auto relative">
+            <section id="Courses"
+                     class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+                <!-- The course cards will be dynamically inserted here -->
+            </section>
+            @* Pagination *@
+            <div class="flex justify-center mt-10">
+                <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md cursor-pointer disabled:opacity-50" id="prev-page" disabled>Previous</button>
+                <span class="px-4 py-2 mx-2 bg-gray-200 text-gray-700 rounded-md" id="pagination-info">Page 1 of X</span>
+                <button class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md cursor-pointer" id="next-page">Next</button>
+            </div>
+
+            <script>
+                const courses = [
+                    {
+                        id: 1,
+                        image: 'https://i.pinimg.com/564x/3f/f3/38/3ff338fded7cab6c231606b35ebe18ab.jpg',
+                        courseName: 'The Complete JavaScript Course',
+                        categoryID: '5',
+                        rating: '4.8/5',
+                        tutorID: 1,  
+                        price: 50,
+                        hours: 10,
+                        link: '/404'
+                    },
+                    {
+                        id: 2,
+                        image: 'https://i.pinimg.com/564x/17/fa/12/17fa123af066c303b45d7c79afdf99e0.jpg',
+                        courseName: 'Advanced Python Programming',
+                        categoryID: '3',
+                        rating: '4.9/5',
+                        tutorID: 3,  
+                        price: 60,
+                        hours: 15,
+                        link: '/404'
+                    },
+                    {
+                        id: 3,
+                        image: 'https://i.pinimg.com/564x/c4/14/db/c414dbebbd15f8ce3dc6b01749810ec6.jpg',
+                        courseName: 'Full-Stack Web Development',
+                        categoryID: '1',
+                        rating: '4.7/5',
+                        tutorID: 4,  
+                        price: 75,
+                        hours: 20,
+                        link: '/404'
+                    },
+                    {
+                        id: 4,
+                        image: 'https://i.pinimg.com/564x/65/87/91/65879109af288bf8d91382603df6eb47.jpg',
+                        courseName: 'Java for Beginners',
+                        categoryID: '2',
+                        rating: '4.6/5',
+                        tutorID: 2,  
+                        price: 40,
+                        hours: 12,
+                        link: '/404'
+                    },
+                    {
+                        id: 5,
+                        image: 'https://i.pinimg.com/564x/1a/21/af/1a21af59f77cb19f8d45b992e7de6d8c.jpg',
+                        courseName: 'Mobile App Development with Flutter',
+                        categoryID: '4',
+                        rating: '4.8/5',
+                        tutorID: 5,  
+                        price: 65,
+                        hours: 18,
+                        link: '/404'
+                    },
+                    {
+                        id: 6,
+                        image: 'https://i.pinimg.com/564x/a4/df/64/a4df645483f9877ac9e95d189b662d53.jpg',
+                        courseName: 'Data Science and Machine Learning',
+                        categoryID: '6',
+                        rating: '4.9/5',
+                        tutorID: 1,  
+                        price: 80,
+                        hours: 22,
+                        link: '/404'
+                    }
+                ];
+
+                const coursesPerPage = 6; // Number of courses displayed per page
+                let currentPage = 1;
+
+                function createCourseCard(course) {
+                    const card = document.createElement('div');
+                    card.className = 'max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl';
+                    card.innerHTML = `
+                        <a href="${course.link}" class="courseImageLink">
+                            <img src="${course.image}" alt="${course.courseName}" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
+                        </a>
+                        <div class="px-4 py-3">
+                            <span class="text-gray-400 mr-3 uppercase text-xs">Category: ${course.categoryID}</span>
+                            <p class="text-lg font-bold text-black capitalize whitespace-normal">${course.courseName}</p>
+                            <div class="flex items-center">
+                                <p class="text-lg font-semibold text-black cursor-auto my-3">$${course.price}</p>
+                                <del>
+                                    <p class="text-sm text-gray-600 cursor-auto ml-2">$${course.price + 20}</p>
+                                </del>
+                                <p class="ml-auto text-lg font-semibold text-black cursor-auto my-3">${course.hours} hours</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-sm text-gray-500 flex items-center">
+                                    Rating: ${course.rating}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.29 3.97a1 1 0 00.95.69h4.176c.97 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.29 3.97c.3.921-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.176 0l-3.388 2.46c-.784.57-1.838-.197-1.54-1.118l1.29-3.97a1 1 0 00-.364-1.118L2.146 9.397c-.783-.57-.382-1.81.588-1.81h4.176a1 1 0 00.95-.69l1.29-3.97z" />
+                                    </svg>
+                                </span>
+                                <div class="flex items-center space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black-500 cursor-pointer heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                              
+                               
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-500 cursor-pointer cart-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Handle heart icon click
+                    const heartIcon = card.querySelector('.heart-icon');
+                    heartIcon.addEventListener('click', () => {
+                        heartIcon.classList.toggle('text-red-500');
+                    });
+
+                    // Handle cart icon click
+                    const cartIcon = card.querySelector('.cart-icon');
+                    cartIcon.addEventListener('click', () => {
+                        // Example toast message for cart action
+                        const toastMessage = document.createElement('div');
+                        toastMessage.className = 'fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded-md shadow-lg';
+                        toastMessage.textContent = 'Add to cart successfully';
+                        document.body.appendChild(toastMessage);
+                        setTimeout(() => {
+                            document.body.removeChild(toastMessage);
+                        }, 3000);
+                    });
+
+                    // Handle image hover
+                    const link = card.querySelector('.courseImageLink');
+                    const image = card.querySelector('.courseImage');
+
+                    link.addEventListener('mouseover', () => {
+                        image.style.transform = 'scale(1.2)'; // Enlarge the image
+                    });
+
+                    link.addEventListener('mouseout', () => {
+                        image.style.transform = 'scale(1)'; // Reset the image size
+                    });
+
+                    return card;
+                }
+
+                function populateCourses(courses) {
+                    const coursesSection = document.getElementById('Courses');
+                    coursesSection.innerHTML = ""; // Clear previous content
+
+                    // Slice courses for current page
+                    const displayedCourses = courses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage);
+
+                    displayedCourses.forEach(course => {
+                        const courseCard = createCourseCard(course);
+                        coursesSection.appendChild(courseCard);
+                    });
+
+                    updatePaginationButtons();
+                    updatePaginationInfo();
+                }
+
+                function updatePaginationButtons() {
+                    const prevButton = document.getElementById('prev-page');
+                    const nextButton = document.getElementById('next-page');
+
+                    prevButton.disabled = currentPage === 1;
+                    nextButton.disabled = currentPage === Math.ceil(courses.length / coursesPerPage); // Check if on last page
+                }
+
+                function updatePaginationInfo() {
+                    const paginationInfo = document.getElementById('pagination-info');
+                    paginationInfo.textContent = `Page ${currentPage} of ${Math.ceil(courses.length / coursesPerPage)}`;
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    populateCourses(courses);
+
+                    const nextButton = document.getElementById('next-page');
+                    nextButton.addEventListener('click', () => {
+                        if (currentPage < Math.ceil(courses.length / coursesPerPage)) {
+                            currentPage++;
+                            populateCourses(courses);
+                        }
+                    });
+
+                    const prevButton = document.getElementById('prev-page');
+                    prevButton.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            populateCourses(courses);
+                        }
+                    });
+                });
+            </script>
+        </div>
+       
+
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
