@@ -1,0 +1,124 @@
+﻿@page
+@model RentTutorPresentation.Pages.wishlistModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-5xl mx-auto p-4">
+        <h2 class="text-3xl font-bold mb-4">Your Wishlist</h2>
+        <div id="wishlist-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            <!-- Course Cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Fake course data
+        const courses = [
+            {
+                id: 1,
+                image: 'https://i.pinimg.com/564x/d9/c7/88/d9c78817e77664018c43e0a10c65a7fb.jpg',
+                courseName: 'Advanced Python Programming',
+                categoryID: '3',
+                rating: '4.9/5',
+                tutorID: 3,
+                price: 60,
+                hours: 15,
+                link: '/CoursesDetail'
+            },
+            {
+                id: 2,
+                image: 'https://i.pinimg.com/564x/d9/c7/88/d9c78817e77664018c43e0a10c65a7fb.jpg',
+                courseName: 'Data Science Essentials',
+                categoryID: '4',
+                rating: '4.8/5',
+                tutorID: 4,
+                price: 70,
+                hours: 20,
+                link: '/CoursesDetail'
+            },
+            {
+                id: 3,
+                image: 'https://i.pinimg.com/564x/d9/c7/88/d9c78817e77664018c43e0a10c65a7fb.jpg',
+                courseName: 'Web Development Bootcamp',
+                categoryID: '2',
+                rating: '4.7/5',
+                tutorID: 5,
+                price: 80,
+                hours: 25,
+                link: '/CoursesDetail'
+            },
+            {
+                id: 4,
+                image: 'https://i.pinimg.com/564x/d9/c7/88/d9c78817e77664018c43e0a10c65a7fb.jpg',
+                courseName: 'UI/UX Design Fundamentals',
+                categoryID: '1',
+                rating: '4.9/5',
+                tutorID: 6,
+                price: 90,
+                hours: 30,
+                link: '/CoursesDetail'
+            }
+        ];
+
+        // Function to create a course card
+        function createCourseCard(course) {
+            const card = document.createElement('div');
+            card.className = 'max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl';
+            card.innerHTML = `
+                        <a href="${course.link}" class="courseImageLink">
+                            <img src="${course.image}" alt="${course.courseName}" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
+                        </a>
+                        <div class="px-4 py-3">
+                            <span class="text-gray-400 mr-3 uppercase text-xs">Category: ${course.categoryID}</span>
+                            <p class="text-lg font-bold text-black capitalize whitespace-normal">${course.courseName}</p>
+                            <div class="flex items-center">
+                                <p class="text-lg font-semibold text-black cursor-auto my-3">$${course.price}</p>
+                                <del>
+                                    <p class="text-sm text-gray-600 cursor-auto ml-2">$${course.price + 20}</p>
+                                </del>
+                                <p class="ml-auto text-lg font-semibold text-black cursor-auto my-3">${course.hours} hours</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-sm text-gray-500 flex items-center">
+                                    Rating: ${course.rating}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M12 17.27l6.18 3.73-1.64-7.19L21.82 9.5l-7.27-.61L12 2.99l-2.55 5.9-7.27.61 5.46 4.31-1.64 7.19L12 17.27z"></path>
+                                    </svg>
+                                </span>
+                                <div class="flex items-center space-x-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 cursor-pointer heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            return card;
+        }
+
+        // Add courses to wishlist
+        function displayWishlist() {
+            const wishlistContainer = document.getElementById('wishlist-container');
+            courses.forEach(course => {
+                wishlistContainer.appendChild(createCourseCard(course));
+            });
+        }
+
+        // Initialize wishlist display
+        document.addEventListener('DOMContentLoaded', displayWishlist);
+    </script>
+</body>
+
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
