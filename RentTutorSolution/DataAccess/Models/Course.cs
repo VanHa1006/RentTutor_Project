@@ -25,6 +25,12 @@ public partial class Course
 
     public string Status { get; set; }
 
+    public string LinkVideo { get; set; }
+
+    public decimal? DiscountPrice { get; set; }
+
+    public int? Hours { get; set; }
+
     public virtual Category Category { get; set; }
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
