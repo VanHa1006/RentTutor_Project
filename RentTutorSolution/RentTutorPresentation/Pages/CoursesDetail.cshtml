@@ -11,60 +11,55 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-  
-    <div class="max-w-5xl mx-auto p-4">
-        <div id="flash-sale-banner" class="bg-yellow-300 text-black text-center py-2 px-4 rounded-lg shadow-lg">
-            <span> <b>Today only</b> | 24-Hour Flash Sale! Courses from $299.<b> Ends in <span id="countdown">1h 14m 14s</span>.</b></span>
+<div class="max-w-5xl mx-auto p-4">
+    <div id="flash-sale-banner" class="bg-yellow-300 text-black text-center py-2 px-4 rounded-lg shadow-lg">
+        <span> <b>Today only</b> | 24-Hour Flash Sale! Courses from $299.<b> Ends in <span id="countdown">1h 14m 14s</span>.</b></span>
+    </div>
+    <!-- Course Details Card -->
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex justify-center mb-4">
+            <iframe width="600" height="350" class="rounded-t-lg"
+                    src="@Model.Course.LinkVideo"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
         </div>
-        <!-- Course Details Card -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
-            <div class="flex justify-center mb-4">
-                <iframe width="600" height="350" class="rounded-t-lg"
-                        src="https://www.youtube.com/embed/rLRIB6AF2Dg?si=QLE5fvfXuYBzs9Pv"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen>
-                </iframe>
-            </div>
-            <div class="flex justify-between items-center mt-4">
-                <h2 class="text-2xl font-bold">Introduction to Programming</h2>
-                <div>
-                <span class="text-2xl text-green-500 font-semibold">$99.99</span>
-                <del class="text-xl text-black-500 font-semibold">$159.99</del>
-                </div>
-            </div>
-            <div class="flex justify-between items-center mt-2">
-                <div class="flex items-center">
-                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 24 24">
-                        <path d="M12 17.27l6.18 3.73-1.64-7.19L21.82 9.5l-7.27-.61L12 2.99l-2.55 5.9-7.27.61 5.46 4.31-1.64 7.19L12 17.27z">
-                        </path>
-                    </svg>
-                    <span class="ml-1 text-gray-600">4.5 (20 reviews)</span>
-                </div>
-                <span class="text-gray-600">Duration: 4 hours</span>
-            </div>
-            <p class="mt-4 text-gray-700">
-                This course covers the basics of programming, including concepts of variables,
-                loops, functions, and more. It is designed for beginners and will help you build a strong foundation in
-                coding.
-            </p>
-            <div class="flex justify-end mt-6 space-x-4">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" onclick="window.location.href='/Student/Shoppingcart';">
-                    Order now
-                </button>
-                <button class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition">
-                    Add to Cart
-                </button>
-                <button class="bg-white-500 text-black px-4 py-2 rounded-lg  transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black-500 cursor-pointer heart-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                    </svg>
-                </button>
+        <div class="flex justify-between items-center mt-4">
+            <h2 class="text-2xl font-bold">@Model.Course.CourseName</h2>
+            <div>
+                <span class="text-2xl text-green-500 font-semibold">@Model.Course.DiscountPrice</span>
+                <del class="text-xl text-black-500 font-semibold">@Model.Course.Price</del>
             </div>
         </div>
-
+        <div class="flex justify-between items-center mt-2">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 17.27l6.18 3.73-1.64-7.19L21.82 9.5l-7.27-.61L12 2.99l-2.55 5.9-7.27.61 5.46 4.31-1.64 7.19L12 17.27z">
+                    </path>
+                </svg>
+                <span class="ml-1 text-gray-600">4.5 (20 reviews)</span>
+            </div>
+            <span class="text-gray-600">Duration: @Model.Course.Hours hours</span>
+        </div>
+        <p class="mt-4 text-gray-700">
+            @Model.Course.Description
+        </p>
+        <div class="flex justify-end mt-6 space-x-4">
+            <a href="/Student/Shoppingcart" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                Order now
+            </a>
+            <button class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition">
+                Add to Cart
+            </button>
+            <button class="bg-white-500 text-black px-4 py-2 rounded-lg transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black-500 cursor-pointer heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </button>
+        </div>
+    </div>
         <!-------------------------- Instructor Section ------------------------------------------------------->
         <div class="bg-white shadow-lg rounded-lg p-6 mt-8 flex items-center">
             <img src="~/img/Courses/ava.jpg" alt="Tutor Image" class="w-20 h-20 rounded-full">
