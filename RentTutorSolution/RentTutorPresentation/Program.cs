@@ -1,4 +1,4 @@
-using BusinessAccess.DAO;
+﻿using BusinessAccess.DAO;
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
 using DataAccess.Models;
@@ -32,6 +32,7 @@ builder.Services.AddScoped<ITutorServices, TutorServices>();
 builder.Services.AddScoped<IUserApprovalLogService, UserApprovalLogService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICourseServices, CourseService>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
@@ -54,6 +55,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 
 app.UseHttpsRedirection();
