@@ -31,6 +31,12 @@
             });
         });
     </script>
+
+    <script>
+        function submitForm() {
+            document.getElementById('statusForm').submit();
+        }
+    </script>
 </head>
 <body>
     <!-- component -->
@@ -219,7 +225,6 @@
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
             <header class="header bg-white shadow py-4 px-4">
                 <div class="header-content flex items-center flex-row">
-                    <form action="#">
                         <div class="hidden md:flex relative">
                             <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
                                 <svg class="h-6 w-6"
@@ -236,21 +241,21 @@
                                 <div class="input-group">
                                     <input placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
                                 </div>
-
-                               
                             </form>
-                            <!-- Status Select -->
-                            <div class="hidden md:flex relative mt-3 md:mt-0 md:ml-3">
-                                <select id="status" name="status"
-                                        class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
-                                    <option value="">
-                                        &#x39E;  @* Unicode *@
-                                        Status
-                                    </option>
-                                    <option value="Active">Active</option>
-                                    <option value="Disactive">Disactive</option>
-                                </select>
-                            </div>
+
+
+
+
+
+                        <form method="get" id="statusForm">
+                            <select name="SortStatus" onchange="submitForm()">
+                                <option value="" selected="@(Model.SortStatus == null)">Choose Status</option>
+                                @* Generate options with Razor *@
+                                <option value="Active" selected="@(Model.SortStatus == "Active")">Active</option>
+                                <option value="Disactive" selected="@(Model.SortStatus == "Disactive")">Disactive</option>
+                            </select>
+                        </form>
+
                         </div>
                         <div class="flex md:hidden">
                             <a href="#" class="flex items-center justify-center h-10 w-10 border-transparent">
@@ -265,7 +270,6 @@
                                 </svg>
                             </a>
                         </div>
-                    </form>
                     <div class="flex ml-auto">
                         <a href class="flex flex-row items-center">
                             <img src="https://avatars.githubusercontent.com/u/16786985?v=4"
