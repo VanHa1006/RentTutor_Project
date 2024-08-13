@@ -20,7 +20,7 @@
             <div class="relative h-80 md:h-96" data-carousel-inner>
                 <!-- Item 1 -->
                 <div class=" duration-700 ease-in-out" data-carousel-item>
-                    <img src="~/img/Courses/banner03.jpg"
+                    <img src="~/img/Courses/banner01.jpg"
                          class="object-cover w-full h-full" alt="Slide 1">
                 </div>
                 <!-- Item 2 -->
@@ -78,7 +78,7 @@
                 {
                     <div class="flex-none w-64 snap-center cursor-pointer" onclick="window.location.href='./HomePage'">
                         <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
-                            <img src="/img/Avatar02.jpg" alt="@tutor.FullName" class="w-full h-40 object-cover">
+                            <img src="/img/Tutor.jpg" alt="@tutor.FullName" class="w-full h-40 object-cover">
                             <div class="p-4">
                                 <h3 class="text-lg leading-6 font-bold text-gray-900">@tutor.FullName</h3>
                                 <p class="text-gray-600 mt-2 text-sm">@tutor.Tutor.Specialization</p>
@@ -217,8 +217,12 @@
              class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
         @foreach (var course in Model.Course.Items)
         {
+
+                <div onclick="window.location.href='/CoursesDetail';" class="max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+                <a class="courseImageLink">
             <div class="max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                 <a asp-page="./CoursesDetail" asp-route-id="@course.CourseId">
+
                     <img src="@course.Image" alt="@course.CourseName" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
                 </a>
                 <div class="px-4 py-3">
