@@ -111,7 +111,7 @@ namespace BusinessAccess.Services
                 var course = await _unitOfWork.CourseRepository.SingleOrDefaultAsync(
                     selector: x => x,
                     predicate: x => x.CourseId == id,
-                    include: x => x.Include(p => p.Category)
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation).Include(p => p.Tutor)
                     );
                 if (course != null)
                 {
