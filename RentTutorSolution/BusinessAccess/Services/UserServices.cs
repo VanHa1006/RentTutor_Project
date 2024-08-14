@@ -1,5 +1,6 @@
 ﻿using Azure;
 using BusinessAccess.Base;
+using BusinessAccess.Repository;
 using DataAccess.Models;
 using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetAll(int page, int size);
         Task<IBusinessResult> GetByIdAsync(int id);
         Task<IBusinessResult> UpdateAsync(User user);
+        Task<IBusinessResult> UpdateStudentAsync(User user);
         Task<IBusinessResult> Save(User user);
         User GetUserById(int userId);
         Task<IBusinessResult> DeleteAsync(int id);
@@ -183,6 +185,27 @@ namespace BusinessAccess.Services
         }
 
         public async Task<IBusinessResult> UpdateAsync(User customer)
+        {
+            try
+            {
+                var newUser = await _unitOfWork.UserRepository.UpdateAsync(customer);
+                if (newUser != null)
+                {
+                    return new BusinessResult(1, "Update successfully");
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Update fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+
+        public async Task<IBusinessResult> UpdateStudentAsync(User customer)
         {
             try
             {
