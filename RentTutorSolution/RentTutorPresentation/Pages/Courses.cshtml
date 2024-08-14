@@ -151,23 +151,14 @@
     <div class="max-w-3xl mx-auto">
         <div class="text-center p-10">
             <h1 class="font-bold text-3xl mb-4">All Courses</h1>
-
-            @* <h1 class="text-3xl">All courses</h1> *@
         </div>
-        <form method="get">
-            <!-- Filter Section Starts Here 👇 -->
+        <form id="searchForm" method="get" asp-page="./Courses">
             <div class="w-full max-w-3xl mx-auto flex flex-wrap items-center justify-between p-5 bg-white shadow rounded-lg">
-
-                <!-- Search Bar with Dropdown -->
-
                 <div class="flex items-center w-full mb-4 lg:w-4/5">
-
                     <div class="flex w-full">
                         <h1 class="text-medium">Course Name</h1>
-
-                        <input placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
+                        <input name="SearchTerm" id="searchInput" value="@Model.SearchTerm" placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
                     </div>
-
                 </div>
                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md ml-2 hover:bg-indigo-700">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +167,19 @@
                 </button>
             </div>
         </form>
-        <div class="flex items-center space-x-4">
+
+        <script>
+            document.getElementById('searchForm').addEventListener('submit', function (e) {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (!searchTerm) {
+                    // Nếu không có từ khóa tìm kiếm, xóa giá trị trường input và gửi form
+                    document.getElementById('searchInput').value = '';
+                    // Không cần e.preventDefault() vì bạn muốn gửi form
+                }
+            });
+        </script>
+
+        @* <div class="flex items-center space-x-4">
             <!-- Star Rating Filter -->
             <div class="flex items-center mb-4 lg:mb-0">
                 <label for="star-rating" class="mr-2 font-medium">Stars:</label>
@@ -209,8 +212,7 @@
                     <option value="newest">Newest</option>
                 </select>
             </div>
-        </div>
-    </div>
+        </div> *@
     </div>
     @*  -----------------All Courses component------------------------- *@
     <div class="max-w-8xl mx-auto relative">
@@ -269,5 +271,7 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+
     }
 }

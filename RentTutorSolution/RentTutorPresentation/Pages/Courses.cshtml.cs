@@ -1,4 +1,4 @@
-using BusinessAccess.Services;
+﻿using BusinessAccess.Services;
 using DataAccess.Models;
 using DataAccess.Paging;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +10,18 @@ namespace RentTutorPresentation.Pages
     {
         private readonly ICourseServices _courseServices;
         private readonly IUserServices _tutorServices;
-        private readonly ITutorServices _tutorServicesRepository;
-        public CoursesModel(ICourseServices courseServices, IUserServices tutorServices, ITutorServices tutorServicesRepository)
+        private readonly ITutorServices _tutorServicesService;
+        public CoursesModel(ICourseServices courseServices, IUserServices tutorServices, ITutorServices tutorServicesService)
         {
             _courseServices = courseServices;
             _tutorServices = tutorServices;
-            _tutorServicesRepository = tutorServicesRepository;
+            _tutorServicesService = tutorServicesService;
         }
         public Paginate<Course> Course { get; set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
         [BindProperty(SupportsGet = true)]
+
         public int PageIndex { get; set; } = 1;
         [BindProperty(SupportsGet = true)]
         public int Size { get; set; } = 10;
@@ -37,10 +38,9 @@ namespace RentTutorPresentation.Pages
             var result = await _courseServices.GetAll(PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
-                var course = result.Data;
-                return (Paginate<Course>)course;
+                return result.Data as Paginate<Course> ?? new Paginate<Course>();
             }
-            return null;
+            return new Paginate<Course>();
         }
 
         private async Task<Paginate<User>> GetTutors()
@@ -48,24 +48,33 @@ namespace RentTutorPresentation.Pages
             var result = await _tutorServices.GetAllTutor(PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
-
-                var students = result.Data;
-                return (Paginate<User>)students;
+                return result.Data as Paginate<User> ?? new Paginate<User>();
             }
-            return null;
+            return new Paginate<User>();
         }
         private async Task<Paginate<Course>> Search()
         {
-            var result = await _courseServices.Search(SearchTerm, PageIndex, Size);
-            if (result.Status > 0 && result.Data != null)
+            if (string.IsNullOrEmpty(SearchTerm))
             {
-                var course = result.Data;
-                return (Paginate<Course>)course;
+                return await GetCourses(); // Nếu không có từ khóa tìm kiếm, lấy tất cả khóa học
             }
-            return null;
+            else
+            {
+                var result = await _courseServices.Search(SearchTerm, PageIndex, Size);
+                if (result.Status > 0 && result.Data != null)
+                {
+                    return result.Data as Paginate<Course> ?? new Paginate<Course>();
+                }
+                return new Paginate<Course>();
+            }
         }
+    
+
         public async Task OnGetAsync()
         {
+            // Log or debug to check the value of SearchTerm
+            Console.WriteLine($"SearchTerm: {SearchTerm}");
+
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 Course = await Search();
@@ -73,8 +82,9 @@ namespace RentTutorPresentation.Pages
             else
             {
                 Course = await GetCourses();
-                Tutor = await GetTutors();
             }
+
+            Tutor = await GetTutors(); 
             ViewData["SuccessMessage"] = TempData["SuccessMessage"];
         }
     }
