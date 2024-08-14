@@ -80,10 +80,6 @@ namespace RentTutorPresentation.Pages.Admin
             {
                 Student = await Search();
             }
-            if (!string.IsNullOrEmpty(SortStatus))
-            {
-                Student = await GetStausStudents();
-            }
             else
             {
                 Student = await GetStudents();

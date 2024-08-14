@@ -19,13 +19,13 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetByIdAsync(int id);
         Task<IBusinessResult> UpdateAsync(User user);
         Task<IBusinessResult> Save(User user);
+        User GetUserById(int userId);
         Task<IBusinessResult> DeleteAsync(int id);
         Task<IBusinessResult> DeleteUser(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
         Task<IBusinessResult> GetAllStudents(int page, int size);
         Task<IBusinessResult> GetAllStudentsActive(string searchActive,int page, int size);
         Task<IBusinessResult> GetAllTutor(int page, int size);
-
     }
 
     public class UserServices : IUserServices
@@ -300,6 +300,27 @@ namespace BusinessAccess.Services
             {
                 return new BusinessResult(-4, ex.Message);
             }
+        }
+
+        public User GetUserById(int userId)
+        {
+            // Fetch user data from the database
+            var user = _unitOfWork.UserRepository.GetById(userId);
+
+            if (user != null)
+            {
+                return new User
+                {
+                    UserId = user.UserId,
+                    FullName = user.FullName,
+                    Status = user.Status,
+                    Role = user.Role
+
+                    // Map other properties as needed
+                };
+            }
+
+            return null;
         }
     }
 }
