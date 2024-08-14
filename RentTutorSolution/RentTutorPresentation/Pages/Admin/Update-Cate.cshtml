@@ -1,7 +1,8 @@
 ﻿@page
-@model RentTutorPresentation.Pages.Admin.Index1Model
+@model RentTutorPresentation.Pages.Admin.Update_CateModel
 @{
     Layout = null;
+    var userId = HttpContext.Session.GetString("isAdmin");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -25,8 +25,8 @@
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="/Admin"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <a href="#"
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -102,7 +102,7 @@
                     </li>
                     <li class="my-px">
                         <a href="/Admin/CourseManage"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -152,8 +152,6 @@
                         </a>
                     </li>
 
-
-    
                     <li class="my-px">
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
@@ -194,10 +192,6 @@
                 </ul>
             </div>
         </aside>
-
-     
-
-
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
             <header class="header bg-white shadow py-4 px-4">
                 <div class="header-content flex items-center flex-row">
@@ -236,7 +230,7 @@
                         </div>
                     </form>
                     <div class="flex ml-auto">
-                        <a href="#" class="flex flex-row items-center">
+                        <a href class="flex flex-row items-center">
                             <img src="https://avatars.githubusercontent.com/u/16786985?v=4"
                                  alt
                                  class="h-10 w-10 bg-gray-200 border rounded-full" />
@@ -249,98 +243,82 @@
                 </div>
             </header>
 
-            @* -------------------Main Component --------------- *@
-
+            @* ----------------------------- Main -------------------------- *@
             <div class="main-content flex flex-col flex-grow p-4">
+                <h1 class="font-bold text-2xl text-gray-700">Update Category</h1>
+
+                <!-- Toast Message -->
+                <div id="toastMessage" class="hidden mt-4 p-4 bg-red-500 text-white rounded-lg">
+                    Update failure
+                </div>
+
                 
-            
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="font-bold text-2xl text-gray-700">Courses Management</h1>
-                    <div class="flex">
-                        <button id="checkAllButton" class="px-4 py-2 bg-gray-500 text-white rounded mr-2 hover:bg-gray-600">Check all</button>
-                        <button id="deleteButton" class="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M9 6v12m6-12v12m-9 0a2 2 0 002 2h8a2 2 0 002-2V6H9zM10 6V4a2 2 0 012-2h0a2 2 0 012 2v2"></path>
-                            </svg>
-                            
-                        </button>
+                <form id="updateCategoryForm" class="mt-6">
+                    
+                    <div class="mb-4">
+                        <label for="categoryName" class="block text-gray-700 font-semibold mb-2">Category Name</label>
+                        <input type="text" id="categoryName" name="categoryName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" value="Sample Category" required>
                     </div>
 
-                </div>
+                   
+                    <div class="mb-6">
+                        <label for="description" class="block text-gray-700 font-semibold mb-2">Description</label>
+                        <textarea id="description" name="description" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" rows="4" maxlength="150" required>Sample description for the category goes here.</textarea>
+                        <p id="charCount" class="text-sm text-gray-500 mt-1">0/150</p>
+                    </div>
 
-                <!-- Course List -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    @if (Model.Course != null && Model.Course.Items != null && Model.Course.Items.Any())
-{
-                    @foreach (var item in Model.Course.Items)
-                    {
-                        <div data-course-id="@item.CourseId" class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                            <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                                <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                                    <img class="rounded-t-lg h-40 w-full object-cover transition-transform duration-300 courseImage" src="@Html.DisplayFor(modelItem => item.Image)" alt="Course Image" />
-                            </div>
-                            <div class="p-3">
-                                <h5 class="mb-2 text-sm-center font-bold leading-tight">@Html.DisplayFor(modelItem => item.CourseName)</h5>
-                                <p class="text-xs text-gray-500">Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)</p>
-                                <p id="Tutor"><span class="font-bold">Tutor:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
-                                <div id="Status" class="flex items-center">
-                                    <span class="font-bold">Status:</span>
-                                        <p id="statusText" class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
-                                </div>
-                                    <a href="/Admin/Courses-Detail">  <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button> </a>
-                                </div>
-                        </div>
-                    }
-                    }
-                    else
-                    {
-                        <p>No courses available.</p>
-                    }
-                </div>
-
-                <div class="flex justify-between items-center mt-4">
-                    <button id="prevPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="prevPage()">Previous</button>
-                    <span id="pageNumber" class="font-bold text-gray-700"></span>
-                    <button id="nextPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="nextPage()">Next</button>
-                </div>
-
-                <form method="post" id="courseForm">
-                    @Html.AntiForgeryToken()
-                    <div id="coursePopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <!-- Nội dung của popup modal -->
-                            <input type="hidden" id="courseIdInput" name="CourseId" />
-                            <button type="button" onclick="closePopup()" class="mt-4 text-red-500">Close</button>
-                            <button type="submit" class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700">Save</button>
-                        </div>
+                    <!-- Update and Delete Buttons -->
+                    <div class="flex justify-end space-x-4">
+                        <button type="submit" class="px-6 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-700 transition duration-300">Update</button>
+                        <button type="button" id="deleteCategoryButton" class="px-6 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">Delete</button>
                     </div>
                 </form>
-
-                <script>
-                    // Get the status text element
-                    var statusTextElement = document.getElementById("statusText");
-
-                    // Get the status value
-                    var statusValue = statusTextElement.innerText.trim();
-
-                    // Log the status value to the console for debugging
-                    console.log("Status Value:", statusValue);
-
-                    // Define the classes for active and inactive (red) status
-                    var activeClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
-                    var inactiveClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
-
-                    // Check the status and apply the appropriate classes
-                    if (statusValue === "Active") {
-                        statusTextElement.className = activeClasses;
-                    } else {
-                        statusTextElement.className = inactiveClasses;
-                    }
-
-                    // Log the applied class to ensure it's being set
-                    console.log("Applied Classes:", statusTextElement.className);
-                </script>
             </div>
+
+            <script>
+                // Update Character Count on Description Field
+                const description = document.getElementById('description');
+                const charCount = document.getElementById('charCount');
+
+                description.addEventListener('input', function () {
+                    charCount.textContent = `${description.value.length}/150`;
+                });
+
+                // Form Submission 
+                document.getElementById('updateCategoryForm').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    // Simulate success or failure (replace with actual logic)
+                    const success = true; 
+
+                    if (success) {
+                        // Redirect to Categories management
+                        window.location.href = '/Admin/CategoriesCourses'; // Adjust the URL as needed
+                    } else {
+                        // Show failure message
+                        const toast = document.getElementById('toastMessage');
+                        toast.classList.remove('hidden');
+
+                        // Hide the toast message after a few seconds
+                        setTimeout(() => {
+                            toast.classList.add('hidden');
+                        }, 3000);
+                    }
+                });
+
+                // Delete Button Handler
+                document.getElementById('deleteCategoryButton').addEventListener('click', function () {
+                    const confirmation = confirm('Are you sure you want to delete this category?');
+
+                    if (confirmation) {
+                        // Simulate deletion logic (replace with actual deletion logic)
+                        alert('Category deleted!');
+                        window.location.href = '/Admin/CategoriesCourses'; // Adjust the URL as needed
+                    }
+                });
+            </script>
+
+
 
 
             <footer class="footer px-4 py-6">
@@ -352,6 +330,7 @@
 
         </main>
     </div>
+
 </body>
 </html>
 

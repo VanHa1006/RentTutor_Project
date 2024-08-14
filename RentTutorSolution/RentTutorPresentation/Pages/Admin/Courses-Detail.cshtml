@@ -1,7 +1,8 @@
 ﻿@page
-@model RentTutorPresentation.Pages.Admin.Index1Model
+@model RentTutorPresentation.Pages.Admin.Courses_DetailModel
 @{
     Layout = null;
+    var userId = HttpContext.Session.GetString("isAdmin");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- component -->
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -25,8 +25,8 @@
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="/Admin"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <a href="#"
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -102,7 +102,7 @@
                     </li>
                     <li class="my-px">
                         <a href="/Admin/CourseManage"
-                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+                           class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
                                      stroke-linecap="round"
@@ -152,8 +152,6 @@
                         </a>
                     </li>
 
-
-    
                     <li class="my-px">
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
@@ -194,10 +192,6 @@
                 </ul>
             </div>
         </aside>
-
-     
-
-
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
             <header class="header bg-white shadow py-4 px-4">
                 <div class="header-content flex items-center flex-row">
@@ -236,7 +230,7 @@
                         </div>
                     </form>
                     <div class="flex ml-auto">
-                        <a href="#" class="flex flex-row items-center">
+                        <a href class="flex flex-row items-center">
                             <img src="https://avatars.githubusercontent.com/u/16786985?v=4"
                                  alt
                                  class="h-10 w-10 bg-gray-200 border rounded-full" />
@@ -249,99 +243,173 @@
                 </div>
             </header>
 
-            @* -------------------Main Component --------------- *@
+            @* ------------------------------------Main------------------------------------ *@
+            <div class="main-content flex flex-col flex-grow p-4 justify-center items-center min-h-screen">
+                <h1 class="font-bold text-2xl text-gray-700 mb-4">Course Detail</h1>
 
-            <div class="main-content flex flex-col flex-grow p-4">
-                
-            
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="font-bold text-2xl text-gray-700">Courses Management</h1>
-                    <div class="flex">
-                        <button id="checkAllButton" class="px-4 py-2 bg-gray-500 text-white rounded mr-2 hover:bg-gray-600">Check all</button>
-                        <button id="deleteButton" class="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M9 6v12m6-12v12m-9 0a2 2 0 002 2h8a2 2 0 002-2V6H9zM10 6V4a2 2 0 012-2h0a2 2 0 012 2v2"></path>
+                <div class="bg-white shadow rounded-lg p-6" style="max-width: 800px;">
+                    <!-- Image and Video Link -->
+                    <div class="flex justify-center items-center">
+                        <div class="relative" style="width: 500px;">
+                            <img id="courseImage" class="h-auto w-full object-cover rounded-lg" src="/img/Courses/reactjs.jpg" alt="Course Image">
+                            <svg class="absolute inset-0 m-auto h-10 w-10 text-white cursor-pointer" fill="currentColor" viewBox="0 0 20 20" onclick="showVideo()">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11.414V13.414L13 10 9 6.586z" clip-rule="evenodd"></path>
                             </svg>
+                        </div>
+                    </div>
+
+                    <!-- Course Name -->
+                    <div class="mt-4">
+                        <label class="block font-semibold text-gray-700">Course Name:</label>
+                        <p id="courseName" class="text-gray-900">Create native apps for Android, iOS, and more using React</p>
+                        <div>
+                            <label class="block font-semibold text-gray-700">Video Link:</label>
+                            <a id="videoLink" class="text-blue-500 hover:underline" href="https://www.youtube.com/embed/gvkqT_Uoahw?si=OoZdSw0NXY74TPoZ" target="_blank">here</a>
+                        </div>
+                    </div>
+
+                    <!-- CategoryID and TutorID -->
+                    <div class="flex mt-4 space-x-4">
+                        <div class="w-1/2">
+                            <label class="block font-semibold text-gray-700">
+                                Category ID:<p id="categoryID" class="text-gray-900">Mobile Dev</p>
+                            </label>
                             
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Course List -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                    @if (Model.Course != null && Model.Course.Items != null && Model.Course.Items.Any())
-{
-                    @foreach (var item in Model.Course.Items)
-                    {
-                        <div data-course-id="@item.CourseId" class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
-                            <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                                <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                                    <img class="rounded-t-lg h-40 w-full object-cover transition-transform duration-300 courseImage" src="@Html.DisplayFor(modelItem => item.Image)" alt="Course Image" />
-                            </div>
-                            <div class="p-3">
-                                <h5 class="mb-2 text-sm-center font-bold leading-tight">@Html.DisplayFor(modelItem => item.CourseName)</h5>
-                                <p class="text-xs text-gray-500">Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)</p>
-                                <p id="Tutor"><span class="font-bold">Tutor:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
-                                <div id="Status" class="flex items-center">
-                                    <span class="font-bold">Status:</span>
-                                        <p id="statusText" class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
-                                </div>
-                                    <a href="/Admin/Courses-Detail">  <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button> </a>
-                                </div>
                         </div>
-                    }
-                    }
-                    else
-                    {
-                        <p>No courses available.</p>
-                    }
-                </div>
-
-                <div class="flex justify-between items-center mt-4">
-                    <button id="prevPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="prevPage()">Previous</button>
-                    <span id="pageNumber" class="font-bold text-gray-700"></span>
-                    <button id="nextPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="nextPage()">Next</button>
-                </div>
-
-                <form method="post" id="courseForm">
-                    @Html.AntiForgeryToken()
-                    <div id="coursePopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <!-- Nội dung của popup modal -->
-                            <input type="hidden" id="courseIdInput" name="CourseId" />
-                            <button type="button" onclick="closePopup()" class="mt-4 text-red-500">Close</button>
-                            <button type="submit" class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-lg hover:bg-blue-700">Save</button>
+                        <div class="w-1/2">
+                            <label class="block font-semibold text-gray-700">Tutor ID:
+                                <p id="tutorID" class="text-gray-900">Teddy Nguyen</p>
+                            </label>
                         </div>
                     </div>
-                </form>
 
-                <script>
-                    // Get the status text element
-                    var statusTextElement = document.getElementById("statusText");
+                    <!-- Description -->
+                    <div class="mt-4">
+                        <label class="block font-semibold text-gray-700">Description:</label>
+                        <p id="description" class="text-gray-900">React Native brings the best parts of developing with React to native development. It's a best-in-class JavaScript library for building user interfaces.</p>
+                    </div>
 
-                    // Get the status value
-                    var statusValue = statusTextElement.innerText.trim();
+                    <!-- Price, DiscountPrice, Hours -->
+                    <div class="flex mt-4 space-x-4">
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Price:
+                                <p id="price" class="text-gray-900">$59</p>
+                            </label>
+                        </div>
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Discount Price:
+                                <p id="discountPrice" class="text-gray-900">$39</p>
+                            </label>
+                        </div>
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Hours:
+                                <p id="hours" class="text-gray-900">3h</p>
+                            </label>
+                            
+                        </div>
+                    </div>
 
-                    // Log the status value to the console for debugging
-                    console.log("Status Value:", statusValue);
+                    <!-- Status, CreatedAt, UpdatedAt -->
+                    <div class="flex mt-4 space-x-4 items-center">
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Status:</label>
+                            <select id="status" class="ml-2 px-2 py-1 font-semibold leading-tight rounded-full">
+                                <option value="Active" class="text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100">Active</option>
+                                <option value="Disactive" class="text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100">Disactive</option>
+                            </select>
+                        </div>
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Created At:</label>
+                            <p id="createdAt" class="text-gray-900">03/25/2023</p>
+                        </div>
+                        <div class="w-1/3">
+                            <label class="block font-semibold text-gray-700">Updated At:</label>
+                            <p id="updatedAt" class="text-gray-900">03/25/2024</p>
+                        </div>
+                    </div>
 
-                    // Define the classes for active and inactive (red) status
-                    var activeClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
-                    var inactiveClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
-
-                    // Check the status and apply the appropriate classes
-                    if (statusValue === "Active") {
-                        statusTextElement.className = activeClasses;
-                    } else {
-                        statusTextElement.className = inactiveClasses;
-                    }
-
-                    // Log the applied class to ensure it's being set
-                    console.log("Applied Classes:", statusTextElement.className);
-                </script>
+                    <!-- Buttons -->
+                    <div class="flex justify-between mt-6">
+                        <button id="backBtn" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back</button>
+                        <button id="updateBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Update</button>
+                    </div>
+                </div>
             </div>
 
+
+            <!-- Video Popup -->
+            <div id="videoPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <iframe id="videoFrame" width="560" height="315" src="https://www.youtube.com/embed/gvkqT_Uoahw?si=OoZdSw0NXY74TPoZ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <button onclick="closeVideo()" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Close</button>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var statusElement = document.getElementById("status");
+
+                    // Initialize status color
+                    updateStatusColor(statusElement.value);
+
+                    statusElement.addEventListener("change", function () {
+                        updateStatusColor(statusElement.value);
+                    });
+
+                    function updateStatusColor(status) {
+                        if (status === "Active") {
+                            statusElement.className = "ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+                        } else {
+                            statusElement.className = "ml-2 px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
+                        }
+                    }
+
+                    document.getElementById("backBtn").addEventListener("click", function () {
+                        window.location.href = "/Admin/CourseManage";
+                    });
+
+                    document.getElementById("updateBtn").addEventListener("click", function () {
+                        // Simulate update logic here
+                        var success = true; 
+
+                        if (success) {
+                            showToast("Update successfully", "success");
+                        } else {
+                            showToast("Update failure", "error");
+                        }
+                    });
+
+                    function showToast(message, type) {
+                        const toast = document.createElement("div");
+                        toast.className = "fixed bottom-4 right-4 p-4 rounded-lg shadow-lg text-white";
+                        toast.style.backgroundColor = type === "success" ? "#38a169" : "#e53e3e"; // Green for success, red for error
+                        toast.innerText = message;
+
+                        document.body.appendChild(toast);
+
+                        setTimeout(() => {
+                            toast.remove();
+                        }, 3000);
+                    }
+
+                    window.showVideo = function () {
+                        var videoPopup = document.getElementById("videoPopup");
+                        var videoFrame = document.getElementById("videoFrame");
+                        var videoLink = document.getElementById("videoLink").href;
+
+                        videoFrame.src = videoLink;
+                        videoPopup.classList.remove("hidden");
+                    }
+
+                    window.closeVideo = function () {
+                        var videoPopup = document.getElementById("videoPopup");
+                        var videoFrame = document.getElementById("videoFrame");
+
+                        videoFrame.src = "";
+                        videoPopup.classList.add("hidden");
+                    }
+                });
+            </script>
 
             <footer class="footer px-4 py-6">
                 <div class="footer-content">
@@ -352,6 +420,7 @@
 
         </main>
     </div>
+
 </body>
 </html>
 
