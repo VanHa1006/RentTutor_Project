@@ -304,9 +304,10 @@ namespace BusinessAccess.Services
 
         public User GetUserById(int userId)
         {
-            // Fetch user data from the database
             var user = _unitOfWork.UserRepository.GetById(userId);
-
+            // Fetch tutor data if user is a tutor
+            var tutor = user != null ? _unitOfWork.TutorRepository.GetById(userId) : null;
+            // Fetch user data from the database
             if (user != null)
             {
                 return new User
@@ -314,8 +315,19 @@ namespace BusinessAccess.Services
                     UserId = user.UserId,
                     FullName = user.FullName,
                     Status = user.Status,
-                    Role = user.Role
+                    Role = user.Role,
+                    Username = user.Username,
+                    Birthday = user.Birthday,
+                    Address = user.Address,
+                    Phone = user.Phone,
 
+                    Tutor = tutor != null ?new Tutor
+                    {
+                        TutorId = user.Tutor.TutorId,
+                        Qualifications = user.Tutor.Qualifications,
+                        Specialization = user.Tutor.Specialization,
+                        Experience =user.Tutor.Experience
+                    } : null
                     // Map other properties as needed
                 };
             }
