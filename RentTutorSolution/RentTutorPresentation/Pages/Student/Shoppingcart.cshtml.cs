@@ -43,8 +43,10 @@ namespace RentTutorPresentation.Pages.Student
             // Lưu giỏ hàng vào session (nếu cần thiết)
             HttpContext.Session.SetObjectAsJson("Cart", cartData);
             HttpContext.Session.SetObjectAsJson("TotalAmount", cartData.GetTotal());
+            HttpContext.Session.SetObjectAsJson("TotalDiscount", cartData.GetDiscount());
+            HttpContext.Session.SetObjectAsJson("TotalPrice", cartData.Price());
 
-            return RedirectToPage("./Student/Checkout");
+            return RedirectToPage("./Checkout");
         }
     }
 }

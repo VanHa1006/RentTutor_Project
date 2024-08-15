@@ -1,7 +1,15 @@
 ﻿@page
+@using BusinessAccess.Business
+@using DataAccess.CartModel
 @model RentTutorPresentation.Pages.Student.CheckoutModel
 @{
+    ViewData["Title"] = "Create";
+    ShoppingCart cartData = TempData["CartData"] as ShoppingCart;
+    var totalAmount = (decimal?)TempData["TotalAmount"];
+    var totalPrice = (decimal?)TempData["TotalPrice"];
+    var totalDiscount = (decimal?)TempData["TotalDiscount"];
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,21 +67,15 @@
                 <div class="mt-6">
                     <h3 class="text-xl font-bold mb-4">Order List</h3>
                     <div class="space-y-4">
+                        @foreach(var item in cartData.Items){
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
-                                <img src="https://via.placeholder.com/60" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
-                                <span>Advanced Python Programming</span>
+                                    <img src="@Url.Content(item.Image)" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
+                                    <span>@item.CourseName</span>
                             </div>
-                            <span class="font-semibold">$60</span>
+                                <span class="font-semibold">$@(item.Price - item.DiscountPrice)</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <img src="https://via.placeholder.com/60" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
-                                <span>Data Science Essentials</span>
-                            </div>
-                            <span class="font-semibold">$70</span>
-                        </div>
-                        <!-- Add more courses as needed -->
+                        }
                     </div>
                 </div>
             </div>
@@ -84,16 +86,16 @@
                 <div class="space-y-2">
                     <div class="flex justify-between">
                         <span class="text-gray-700">Original Price</span>
-                        <span class="font-semibold">$130</span>
+                        <span class="font-semibold">$@totalPrice.Value</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-700">Discounts</span>
-                        <span class="font-semibold text-red-500">-$10</span>
+                        <span class="font-semibold text-red-500">-$@totalDiscount.Value</span>
                     </div>
                     <hr class="my-4">
                     <div class="flex justify-between text-xl font-bold">
                         <span>Total</span>
-                        <span>$120</span>
+                        <span>@totalAmount.Value</span>
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
