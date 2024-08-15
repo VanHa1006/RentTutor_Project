@@ -72,7 +72,6 @@ namespace RentTutorPresentation.Pages
                 if (user.Role.Equals("Tutor"))
                 {
                     HttpContext.Session.SetInt32("TutorId", user.UserId);
-                    HttpContext.Session.SetString("isTutor", user.Role);
                     return RedirectToPage("Tutor/Index");
                 }
             }
