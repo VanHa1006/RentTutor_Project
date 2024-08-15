@@ -47,12 +47,12 @@ namespace RentTutorPresentation.Pages
                 {
                     try
                     {
-                        /*var cart = HttpContext.Session.GetString("cart");
+                        var cart = HttpContext.Session.GetString("cart");
                         if (cart != null)
                         {
-                            HttpContext.Session.SetInt32("UserID", user.UserId);
+                            HttpContext.Session.SetInt32("StudentId", user.UserId);
                             return RedirectToPage("Cart");
-                        }*/
+                        }
                     }
                     catch
                     {

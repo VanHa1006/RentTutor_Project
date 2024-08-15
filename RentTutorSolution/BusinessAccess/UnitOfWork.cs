@@ -17,6 +17,8 @@ namespace BusinessAccess
         private UserApprovalLogRepository _userApprovalLogRepository;
         private CourseRepository _courseRepository;
         private CategoryRepository _categoryRepository;
+        private OrderDetailRepository _orderDetailRepository;
+        private OrderRepository _orderRepository;
         public UnitOfWork() { }
 
         public UserRepository UserRepository
@@ -24,6 +26,20 @@ namespace BusinessAccess
             get
             {
                 return _userRepository ??= new UserRepository();
+            }
+        }
+        public OrderRepository OrderRepository
+        {
+            get
+            {
+                return _orderRepository ??= new OrderRepository();
+            }
+        }
+        public OrderDetailRepository OrderDetailRepository
+        {
+            get
+            {
+                return _orderDetailRepository ??= new OrderDetailRepository();
             }
         }
 
