@@ -1,5 +1,6 @@
 ﻿using Azure;
 using BusinessAccess.Base;
+using BusinessAccess.Repository;
 using DataAccess.Models;
 using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetAll(int page, int size);
         Task<IBusinessResult> GetByIdAsync(int id);
         Task<IBusinessResult> UpdateAsync(User user);
+        Task<IBusinessResult> UpdateStudentAsync(User user);
         Task<IBusinessResult> Save(User user);
         User GetUserById(int userId);
         Task<IBusinessResult> DeleteAsync(int id);
@@ -186,6 +188,27 @@ namespace BusinessAccess.Services
         {
             try
             {
+                var newUser = await _unitOfWork.UserRepository.UpdateAsync(customer);
+                if (newUser != null)
+                {
+                    return new BusinessResult(1, "Update successfully");
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Update fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+
+        public async Task<IBusinessResult> UpdateStudentAsync(User customer)
+        {
+            try
+            {
                 customer.UpdatedAt = DateTime.Now;
                 var newUser = await _unitOfWork.UserRepository.UpdateAsync(customer);
                 if (newUser != null)
@@ -304,9 +327,10 @@ namespace BusinessAccess.Services
 
         public User GetUserById(int userId)
         {
-            // Fetch user data from the database
             var user = _unitOfWork.UserRepository.GetById(userId);
-
+            // Fetch tutor data if user is a tutor
+            var tutor = user != null ? _unitOfWork.TutorRepository.GetById(userId) : null;
+            // Fetch user data from the database
             if (user != null)
             {
                 return new User
@@ -314,8 +338,19 @@ namespace BusinessAccess.Services
                     UserId = user.UserId,
                     FullName = user.FullName,
                     Status = user.Status,
-                    Role = user.Role
+                    Role = user.Role,
+                    Username = user.Username,
+                    Birthday = user.Birthday,
+                    Address = user.Address,
+                    Phone = user.Phone,
 
+                    Tutor = tutor != null ?new Tutor
+                    {
+                        TutorId = user.Tutor.TutorId,
+                        Qualifications = user.Tutor.Qualifications,
+                        Specialization = user.Tutor.Specialization,
+                        Experience =user.Tutor.Experience
+                    } : null
                     // Map other properties as needed
                 };
             }
