@@ -33,6 +33,8 @@ builder.Services.AddScoped<IUserApprovalLogService, UserApprovalLogService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICourseServices, CourseService>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<IOrderDetailServices, OrderDetailServices>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 
