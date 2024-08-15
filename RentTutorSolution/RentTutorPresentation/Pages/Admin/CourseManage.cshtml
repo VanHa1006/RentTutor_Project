@@ -135,7 +135,7 @@
                         </a>
                     </li>
                     <li class="my-px">
-                        <a href="/Admin/AdsTutorManage"
+                        <a href="/Admin/OrdersManage"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-green-400">
                                 <svg fill="none"
@@ -148,7 +148,7 @@
                                     <path d="M11 5h8M11 12h8M11 19h8M5 6h.01M5 12h.01M5 18h.01" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Ads Tutor Manage</span>
+                            <span class="ml-3">Orders Manage</span>
                         </a>
                     </li>
 
@@ -252,8 +252,6 @@
             @* -------------------Main Component --------------- *@
 
             <div class="main-content flex flex-col flex-grow p-4">
-                
-            
                 <div class="flex justify-between items-center mb-4">
                     <h1 class="font-bold text-2xl text-gray-700">Courses Management</h1>
                     <div class="flex">
@@ -265,12 +263,11 @@
                             
                         </button>
                     </div>
-                    
-                   
+
                 </div>
 
                 <!-- Course List -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                     @if (Model.Course != null && Model.Course.Items != null && Model.Course.Items.Any())
 {
                     @foreach (var item in Model.Course.Items)
@@ -278,7 +275,7 @@
                         <div data-course-id="@item.CourseId" class="block max-w-[15.75rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
                             <div class="relative overflow-hidden bg-cover bg-no-repeat">
                                 <input type="checkbox" class="form-checkbox absolute top-2 left-2 h-4 w-4 text-gray-600 rounded-full" />
-                                <img class="rounded-t-lg" src="@Html.DisplayFor(modelItem => item.Image)" style="width: 100%; height: auto;" />
+                                    <img class="rounded-t-lg h-40 w-full object-cover transition-transform duration-300 courseImage" src="@Html.DisplayFor(modelItem => item.Image)" alt="Course Image" />
                             </div>
                             <div class="p-3">
                                 <h5 class="mb-2 text-sm-center font-bold leading-tight">@Html.DisplayFor(modelItem => item.CourseName)</h5>
@@ -286,10 +283,10 @@
                                 <p id="Tutor"><span class="font-bold">Tutor:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
                                 <div id="Status" class="flex items-center">
                                     <span class="font-bold">Status:</span>
-                                    <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
+                                        <p id="statusText" class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
                                 </div>
-                                <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button>
-                            </div>
+                                    <a href="/Admin/Courses-Detail">  <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button> </a>
+                                </div>
                         </div>
                     }
                     }
@@ -297,6 +294,12 @@
                     {
                         <p>No courses available.</p>
                     }
+                </div>
+
+                <div class="flex justify-between items-center mt-4">
+                    <button id="prevPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="prevPage()">Previous</button>
+                    <span id="pageNumber" class="font-bold text-gray-700"></span>
+                    <button id="nextPageBtn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg" onclick="nextPage()">Next</button>
                 </div>
 
                 <form method="post" id="courseForm">
@@ -312,70 +315,29 @@
                 </form>
 
                 <script>
-                    function openPopup(courseId) {
-                        // Lấy thông tin của khóa học dựa trên courseId
-                        var courseData = document.querySelector(`[data-course-id="${courseId}"]`);
+                    // Get the status text element
+                    var statusTextElement = document.getElementById("statusText");
 
-                        if (!courseData) {
-                            console.error('Course data not found for ID:', courseId);
-                            return;
-                        }
+                    // Get the status value
+                    var statusValue = statusTextElement.innerText.trim();
 
-                        // Lấy phần tử status trong danh sách khóa học và cập nhật form
-                        var statusElement = courseData.querySelector('#Status p');
-                        if (statusElement) {
-                            var status = statusElement.textContent.trim();
-                            var selectElement = document.getElementById('popupStatus');
-                            selectElement.value = status === 'Active' ? 'Active' : 'Disactive';
-                        }
+                    // Log the status value to the console for debugging
+                    console.log("Status Value:", statusValue);
 
-                        // Cập nhật courseId vào hidden input trong form
-                        document.getElementById('courseIdInput').value = courseId;
+                    // Define the classes for active and inactive (red) status
+                    var activeClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+                    var inactiveClasses = "ml-2 px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
 
-                        // Hiển thị popup modal
-                        document.getElementById('coursePopup').classList.remove('hidden');
-                    }
-                    function closePopup() {
-                        // Ẩn popup modal
-                        document.getElementById('coursePopup').classList.add('hidden');
+                    // Check the status and apply the appropriate classes
+                    if (statusValue === "Active") {
+                        statusTextElement.className = activeClasses;
+                    } else {
+                        statusTextElement.className = inactiveClasses;
                     }
 
-                    document.getElementById('courseForm').addEventListener('submit', function (event) {
-                        event.preventDefault(); // Ngăn không cho form gửi theo cách mặc định
-
-                        var courseId = document.getElementById('courseIdInput').value;
-                        var status = document.getElementById('popupStatus').value;
-                        var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-                        if (!courseId) {
-                            console.error('CourseId is missing.');
-                            return;
-                        }
-
-                        fetch('/Admin/Index1?handler=Edit', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'RequestVerificationToken': token
-                            },
-                            body: JSON.stringify({ CourseId: courseId, Status: status })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    console.log('Status updated successfully:', data.message);
-                                    closePopup();
-                                    location.reload(); // Tải lại trang để cập nhật danh sách khóa học
-                                } else {
-                                    console.error('Failed to update status:', data.message);
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    });
+                    // Log the applied class to ensure it's being set
+                    console.log("Applied Classes:", statusTextElement.className);
                 </script>
-
-
-                
             </div>
 
 

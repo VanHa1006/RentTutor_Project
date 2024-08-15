@@ -135,7 +135,7 @@
                         </a>
                     </li>
                     <li class="my-px">
-                        <a href="/Admin/AdsTutorManage"
+                        <a href="/Admin/OrdersManage"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-green-400">
                                 <svg fill="none"
@@ -148,7 +148,7 @@
                                     <path d="M11 5h8M11 12h8M11 19h8M5 6h.01M5 12h.01M5 18h.01" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Ads Tutor Manage</span>
+                            <span class="ml-3">Orders Manage</span>
                         </a>
                     </li>
 
@@ -252,14 +252,20 @@
                     Categories Manage
                 </h4>
                 <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <div class="flex justify-between mb-4">
-                        <button class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-full hover:bg-blue-700">
+                    <div class="flex justify-end space-x-2 mb-4">
+                        <a href="/Admin/Create-Cate" class="px-4 py-2 font-semibold leading-tight text-white bg-blue-600 rounded-full hover:bg-blue-700">
                             Create
-                        </button>
-                        <button class="delete-selected px-4 py-2 font-semibold leading-tight text-white bg-red-600 rounded-full hover:bg-red-700">
+                        </a>
+                        <a href="/Admin/Update-Cate" class="px-4 py-2 font-semibold leading-tight text-white bg-green-600 rounded-full hover:bg-green-700">
+                            Update
+                        </a>
+                        <a href="/Admin/Delete-Cate" class="delete-selected px-4 py-2 font-semibold leading-tight text-white bg-red-600 rounded-full hover:bg-red-700">
                             Delete
-                        </button>
+                        </a>
                     </div>
+                </div>
+
+
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
@@ -344,6 +350,11 @@
                         </span>
                     </div>
                 </div>
+            <footer class="footer px-4 py-6">
+                <div class="footer-content">
+                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
+                </div>
+            </footer>
             </div>
 
 
@@ -360,11 +371,7 @@
                         });
                     });
             </script>
-            <footer class="footer px-4 py-6">
-                <div class="footer-content">
-                    <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
-                </div>
-            </footer>
+          
             <script src="~/js/site.js" asp-append-version="true"></script>
         </main>
     </div>

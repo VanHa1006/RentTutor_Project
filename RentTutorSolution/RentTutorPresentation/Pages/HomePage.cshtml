@@ -2,6 +2,7 @@
 @model RentTutorPresentation.Pages.HomePageModel
 @{
     ViewData["Title"] = "Home Page";
+    
 }
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,21 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css" />
-    <title>Landing | Tailwind Starter Kit by Creative Tim</title>
+    <title>Homepage</title>
 </head>
 <body class="text-gray-800 antialiased">
-
     <main>
+       
+            <div class="flex justify-left bg-gray-100">
+                <div class="rounded-lg p-6 flex items-center space-x-4">
+                    <img src="~/img/Avatar01.jpg" alt="Student Image" class="w-24 h-24 rounded-full">
+                    <div class="text-left">
+                        <h2 class="text-xl font-semibold mb-1">Welcome back, Thinh</h2>
+                        <p class="text-gray-600">Student</p>
+                    </div>
+                </div>
+            </div>
+       
         <div class="relative pt-16 pb-32 flex content-center items-center justify-center"
              style="min-height: 75vh;">
             <div class="absolute top-0 w-full h-full bg-center bg-cover"
@@ -349,7 +360,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
 </body>
