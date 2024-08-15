@@ -32,6 +32,7 @@ namespace RentTutorPresentation.Pages.Student
                 CourseName = course.CourseName,
                 Image = course.Image,
                 Price = course.Price,
+                DiscountPrice = course.DiscountPrice,
                 Quantity = 1 // Default quantity to add to cart
             });
             TempData["SuccessMessage"] = $"{course.CourseName} is added to cart";

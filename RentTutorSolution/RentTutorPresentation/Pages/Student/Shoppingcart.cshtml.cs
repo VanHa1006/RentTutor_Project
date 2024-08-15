@@ -44,7 +44,7 @@ namespace RentTutorPresentation.Pages.Student
             HttpContext.Session.SetObjectAsJson("Cart", cartData);
             HttpContext.Session.SetObjectAsJson("TotalAmount", cartData.GetTotal());
 
-            return RedirectToPage("./Create");
+            return RedirectToPage("./Student/Checkout");
         }
     }
 }

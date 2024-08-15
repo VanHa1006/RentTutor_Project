@@ -11,8 +11,6 @@ public partial class Course
 
     public string Description { get; set; }
 
-    public decimal Price { get; set; }
-
     public int CategoryId { get; set; }
 
     public int TutorId { get; set; }
@@ -30,6 +28,8 @@ public partial class Course
     public int? Hours { get; set; }
 
     public decimal DiscountPrice { get; set; }
+
+    public decimal Price { get; set; }
 
     public virtual Category Category { get; set; }
 
