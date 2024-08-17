@@ -37,7 +37,7 @@ builder.Services.AddScoped<IOrderDetailServices, OrderDetailServices>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSignalR();
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
-
+builder.Services.AddSingleton<VNPayService>();
 var configuration = builder.Configuration;
 
 // Register UserDAO with a factory method to inject the connection string

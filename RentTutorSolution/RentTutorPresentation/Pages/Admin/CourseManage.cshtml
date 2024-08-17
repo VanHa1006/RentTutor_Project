@@ -285,7 +285,9 @@
                                     <span class="font-bold">Status:</span>
                                         <p id="statusText" class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@Html.DisplayFor(modelItem => item.Status)</p>
                                 </div>
-                                    <a href="/Admin/Courses-Detail">  <button class="mt-2 text-blue-500" onclick="openPopup('@item.CourseId')">View Details</button> </a>
+                                    <a asp-page="./Courses-Detail" asp-route-id="@item.CourseId">  
+                                        <button class=" mt-2 text-blue-500">View Details</button> 
+                                        </a>
                                 </div>
                         </div>
                     }

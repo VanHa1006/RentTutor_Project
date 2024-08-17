@@ -62,27 +62,5 @@ namespace RentTutorPresentation.Pages.Admin
             }
             ViewData["SuccessMessage"] = TempData["SuccessMessage"];
         }
-
-
-        public async Task<IActionResult> OnPostEditAsync()
-        {
-            var json = await new StreamReader(Request.Body).ReadToEndAsync();
-            var data = JsonConvert.DeserializeObject<CourseUpdateModel>(json);
-
-            if (data == null)
-            {
-                return new JsonResult(new { success = false, message = "Invalid data" });
-            }
-
-            var result = await _courseServices.UpdateAsync(data.CourseID, data.Status);
-
-            return new JsonResult(result);
-        }
-
-        public class CourseUpdateModel
-        {
-            public int CourseID { get; set; }
-            public string Status { get; set; }
-        }
     }
 }

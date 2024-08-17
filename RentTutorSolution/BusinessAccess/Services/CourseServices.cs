@@ -16,7 +16,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetAllCourses();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> FindId(int id);
-        Task<IBusinessResult> UpdateAsync(int id, string status);
+        Task<IBusinessResult> UpdateAsync(Course course);
         Task<IBusinessResult> Save(Course course);
         Task<IBusinessResult> DeleteAsync(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
@@ -194,20 +194,19 @@ namespace BusinessAccess.Services
             }
         }
 
-        public async Task<IBusinessResult> UpdateAsync(int id, string status)
+        public async Task<IBusinessResult> UpdateAsync(Course course)
         {
             try
             {
-                var course = await _unitOfWork.CourseRepository.GetByIdAsync(id);
-                if (course == null)
+                int result = await _unitOfWork.CourseRepository.UpdateAsync(course);
+                if (result > 0)
                 {
-                    return new BusinessResult(1, "Course not found");
+                    return new BusinessResult(1, Const.SUCCESS_UPDATE_MSG);
                 }
-
-                course.Status = status;
-                await _unitOfWork.CourseRepository.SaveAsync();
-
-                return new BusinessResult(1, "Success update");
+                else
+                {
+                    return new BusinessResult(2, "fail");
+                }
             }
             catch (Exception ex)
             {
