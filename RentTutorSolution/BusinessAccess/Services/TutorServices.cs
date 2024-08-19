@@ -18,6 +18,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetAllTutorsPending(int page, int size);
         Task<IBusinessResult> SearchPending(string searchTerm, int page, int size);
         Task<IBusinessResult> GetTutorById(int id);
+        Task<IBusinessResult> GetAllTutors();
     }
 
     public class TutorServices : ITutorServices
@@ -172,6 +173,30 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(-1, "Get tutor fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllTutors()
+        {
+            try
+            {
+                #region Business rule
+                #endregion
+
+                //var currencies = _DAO.GetAll();
+                var tutor = await _unitOfWork.TutorRepository.GetAllAsync();
+                if (tutor == null)
+                {
+                    return new BusinessResult(4, "No currency data");
+                }
+                else
+                {
+                    return new BusinessResult(1, "Get currency list success", tutor);
                 }
             }
             catch (Exception ex)

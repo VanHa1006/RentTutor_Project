@@ -13,7 +13,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="MailKit" Version="4.7.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.34" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.4" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
 		<PackageReference Include="MimeKit" Version="4.7.1" />

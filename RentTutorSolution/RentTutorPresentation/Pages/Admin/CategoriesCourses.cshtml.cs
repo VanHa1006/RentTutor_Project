@@ -66,20 +66,5 @@ namespace RentTutorPresentation.Pages.Admin
                 Category = await GetCategoryPage();
             }
         }
-
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
-            var deletecategory = await _categoryServices.DeleteAsync((int)id);
-            if (deletecategory.Status > 0)
-            {
-                return new JsonResult(new { success = true, message = "Category deleted successfully" });
-            }
-            else
-            {
-                return new JsonResult(new { success = false, message = "!!!!!!!!!!!!" });
-            }
-        }
-
-
     }
 }

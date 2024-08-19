@@ -17,6 +17,7 @@ namespace BusinessAccess.Services
     public interface IUserServices
     {
         Task<IBusinessResult> GetAll(int page, int size);
+        Task<IBusinessResult> GetAllUsers();
         Task<IBusinessResult> GetByIdAsync(int id);
         Task<IBusinessResult> UpdateAsync(User user);
         Task<IBusinessResult> UpdateStudentAsync(User user);
