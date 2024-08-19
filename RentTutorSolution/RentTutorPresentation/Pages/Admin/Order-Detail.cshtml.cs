@@ -1,4 +1,4 @@
-using BusinessAccess.Services;
+﻿using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,6 +18,7 @@ namespace RentTutorPresentation.Pages.Admin
         }
 
         public Order Order { get; set; } = default!;
+        public List<Course> Courses { get; set; }
         public IEnumerable<OrderDetail> OrderDetails { get; set; } = default!;
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -25,18 +26,28 @@ namespace RentTutorPresentation.Pages.Admin
             {
                 return NotFound();
             }
-            var order = (Order)(await _orderBusiness.GetById(id.Value)).Data;
 
+            var order = (Order)(await _orderBusiness.GetById(id.Value)).Data;
             if (order == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Order = order;
-                OrderDetails = await _context.OrderDetails.Where(od => od.OrderId == order.OrderId).ToListAsync();
-            }
+
+            Order = order;
+
+            // Lấy danh sách OrderDetails
+            OrderDetails = await _context.OrderDetails
+                .Where(od => od.OrderId == order.OrderId)
+                .ToListAsync();
+
+            // Lấy thông tin từ bảng Course cho từng OrderDetail
+            var courseIds = OrderDetails.Select(od => od.CourseId).ToList();
+            Courses = await _context.Courses
+                .Where(c => courseIds.Contains(c.CourseId))
+                .ToListAsync();
+
             return Page();
         }
+
     }
 }

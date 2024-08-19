@@ -19,48 +19,39 @@ namespace RentTutorPresentation.Pages.Admin
 
         public string Message { get; set; } = default!;
         public Paginate<User> Student { get; set; } = default!;
+
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public int PageIndex { get; set; } = 1;
+
         [BindProperty(SupportsGet = true)]
         public int Size { get; set; } = 10;
 
         [BindProperty(SupportsGet = true)]
         public string SortStatus { get; set; }
-        
 
         private async Task<Paginate<User>> GetStudents()
         {
             var result = await _studentServices.GetAllStudents(PageIndex, Size);
 
-
             if (result.Status > 0 && result.Data != null)
             {
-
-                var students = result.Data;
-                return (Paginate<User>)students;
+                return (Paginate<User>)result.Data;
             }
             return null;
         }
 
-        private async Task<Paginate<User>> GetStausStudents()
+        private async Task<Paginate<User>> GetStatusStudents()
         {
-            var result = await _studentServices.GetAllStudentsActive(SortStatus, PageIndex, Size);
-
+            var result = await _studentServices.GetAllStudentsByStatus(SortStatus, PageIndex, Size);
 
             if (result.Status > 0 && result.Data != null)
             {
-
-                var students = result.Data;
-                return (Paginate<User>)students;
+                return (Paginate<User>)result.Data;
             }
             return null;
-        }
-
-        private bool IsSelectStatus(string status)
-        {
-            return SortStatus == status;
         }
 
         private async Task<Paginate<User>> Search()
@@ -68,8 +59,7 @@ namespace RentTutorPresentation.Pages.Admin
             var result = await _studentServices.Search(SearchTerm, PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
-                var customer = result.Data;
-                return (Paginate<User>)customer;
+                return (Paginate<User>)result.Data;
             }
             return null;
         }
@@ -79,6 +69,10 @@ namespace RentTutorPresentation.Pages.Admin
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 Student = await Search();
+            }
+            else if (!string.IsNullOrEmpty(SortStatus))
+            {
+                Student = await GetStatusStudents();
             }
             else
             {

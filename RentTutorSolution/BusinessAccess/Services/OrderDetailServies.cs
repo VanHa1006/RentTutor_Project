@@ -119,15 +119,28 @@ namespace BusinessAccess.Services
         {
             try
             {
+                // Lấy thông tin chi tiết đơn hàng
                 var orderDetail = await _unitOfWork.OrderDetailRepository.GetByIdAsync(id);
                 if (orderDetail == null)
                 {
                     return new BusinessResult(4, "No order detail found");
                 }
-                else
+
+                // Lấy thông tin sản phẩm (khóa ngoại tới bảng Course)
+                var course = await _unitOfWork.CourseRepository.GetByIdAsync(orderDetail.CourseId);
+                if (course == null)
                 {
-                    return new BusinessResult(1, "Get order detail success", orderDetail);
+                    return new BusinessResult(4, "No course found for this order detail");
                 }
+
+                // Trả về thông tin đơn hàng kèm theo thông tin sản phẩm
+                var resultData = new
+                {
+                    OrderDetail = orderDetail,
+                    Course = course
+                };
+
+                return new BusinessResult(1, "Get order detail and course info success", resultData);
             }
             catch (Exception ex)
             {

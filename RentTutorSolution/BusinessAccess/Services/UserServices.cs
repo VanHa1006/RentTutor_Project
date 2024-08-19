@@ -2,6 +2,7 @@
 using BusinessAccess.Base;
 using BusinessAccess.Repository;
 using DataAccess.Models;
+using DataAccess.Paging;
 using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +22,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetByIdAsync(int id);
         Task<IBusinessResult> UpdateAsync(User user);
         Task<IBusinessResult> UpdateStudentAsync(User user);
+        Task<IBusinessResult> GetAllStudentsByStatus(string status, int page, int size);
         Task<IBusinessResult> Save(User user);
         User GetUserById(int userId);
         Task<IBusinessResult> DeleteAsync(int id);
@@ -358,5 +360,31 @@ namespace BusinessAccess.Services
 
             return null;
         }
+
+        public async Task<IBusinessResult> GetAllStudentsByStatus(string status, int page, int size)
+        {
+            try
+            {
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.UserRepository.GetPagingListAsync(
+                   selector: x => x.Status == status ? x : null,
+                   page: page,
+                   size: size
+                   );
+                if (users != null)
+                {
+                    return new BusinessResult(1, "Get all user successfully", users);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get all user fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
     }
 }

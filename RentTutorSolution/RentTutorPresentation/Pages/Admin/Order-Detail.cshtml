@@ -264,12 +264,11 @@
                             <div class="flex justify-between items-center mb-6">
                                 <div>
                                     <h2 class="text-xl font-bold text-gray-700">Invoice</h2>
-                                    <p class="text-sm text-gray-500">Order Date: 2024-08-15</p>
+                                    <p class="text-sm text-gray-500">Order Date: @Model.Order.OrderDate</p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-sm text-gray-500">Invoice #: INV-12345</p>
-                                    <p class="text-sm text-gray-500">StudentID: @Html.DisplayNameFor(model => model.Order.Student.StudentNavigation.FullName)</p>
-                                    <p class="text-sm text-gray-500">CourseID:  1</p>
+                                    <p class="text-sm text-gray-500">Invoice #: @Model.Order.OrderId</p>
+                                    <p class="text-sm text-gray-500">StudentID: @Model.Order.StudentId</p>
                                 </div>
                             </div>
 
@@ -277,24 +276,29 @@
                             {
                             <!-- Order Details -->
                             <table class="w-full text-left text-gray-500 mb-6">
-                                <thead>
-                                    <tr>
-                                        <th class="py-2">Description</th>
-                                            <th class="py-2 text-right">@detail.Course.Description</th>
-                                    </tr>
-                                </thead>
+                                    <thead>
+                                        <tr>
+                                            <th class="py-2">Course Name:</th>
+                                            <th class="py-2 text-right">@detail.Course.CourseName</th>
+                                        </tr>
+                                    </thead>
                                 <tbody>
+                                        <tr>
+                                            <td class="py-2">Description</td>
+                                            <td class="py-2 text-right">@detail.Course.Description</td>
+                                        </tr>
                                     <tr>
                                         <td class="py-2">Original Price</td>
-                                            <td class="py-2 text-right">@detail.Course.Price</td>
+                                            <td class="py-2 text-right">@detail.UnitPrice</td>
                                     </tr>
+
                                     <tr>
                                         <td class="py-2">Savings</td>
                                             <td class="py-2 text-right">@detail.Course.DiscountPrice</td>
                                     </tr>
                                     <tr class="font-bold">
                                         <td class="py-2">Total Amount</td>
-                                            <td class="py-2 text-right">@Html.DisplayNameFor(model => model.Order.TotalAmount)</td>
+                                            <td class="py-2 text-right">@detail.TotalPrice</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -303,8 +307,8 @@
                             <div class="mb-6">
                                 <p class="text-sm font-medium text-gray-700">Status:</p>
                                 <div class="mt-1 inline-flex items-center px-2 py-1 font-semibold leading-tight text-sm rounded-full
-                    bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100">
-                                    @Html.DisplayNameFor(model => model.Order.Status)
+                                    bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100">
+                                    @Model.Order.Status
                                 </div>
                             </div>
                             
