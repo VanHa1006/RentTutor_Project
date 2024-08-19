@@ -51,7 +51,7 @@
 
                                 <div class="flex items-center justify-between md:w-32">
                                     <div class="text-end">
-                                        <p class="text-base font-bold text-gray-900 dark:text-white">$@item.DiscountPrice</p>
+                                        <p class="text-base font-bold text-gray-900 dark:text-white">$@(item.Price - item.DiscountPrice)</p>
                                     </div>
                                     <div class="text-end">
                                         <del class="text-base font-bold text-gray-900 dark:text-white">$@item.Price</del>
@@ -80,13 +80,13 @@
 
                                 <dl class="flex items-center justify-between gap-4">
                                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
-                                    <dd class="text-base font-medium text-green-600">-$@Model.Cart.GetTotal()</dd>
+                                    <dd class="text-base font-medium text-green-600">-$@Model.Cart.GetDiscount()</dd>
                                 </dl>
                             </div>
 
                             <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                 <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                                <dd class="text-base font-bold text-gray-900 dark:text-white">$@Model.Cart.GetDiscount()</dd>
+                                <dd class="text-base font-bold text-gray-900 dark:text-white">$@Model.Cart.GetTotal()</dd>
                             </dl>
                         </div>
 

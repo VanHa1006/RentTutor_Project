@@ -75,7 +75,7 @@ namespace BusinessAccess.DAO
 
         public async Task<int> CreateAsync(T entity)
         {
-            _dbSet.Add(entity);
+            _dbSet.AddRangeAsync(entity);
             return await _context.SaveChangesAsync();
         }
 

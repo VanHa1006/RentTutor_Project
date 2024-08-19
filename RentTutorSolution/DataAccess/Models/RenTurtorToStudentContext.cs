@@ -35,9 +35,7 @@ public partial class RenTurtorToStudentContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-
-        => optionsBuilder.UseSqlServer("Server=havansendo1006.ddns.net;Uid=Sendo_Havan*127.0.0.0*1;Pwd=Sendo_havan1006;Database=RenTurtorToStudent; TrustServerCertificate=True");
-
+        => optionsBuilder.UseSqlServer("Server=havansendo1006.ddns.net,1433;Uid=Sendo_Havan*127.0.0.0*1;Pwd=Sendo_havan1006;Database=RenTurtorToStudent; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -134,9 +132,7 @@ public partial class RenTurtorToStudentContext : DbContext
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.TotalPrice)
-                .HasComputedColumnSql("([UnitPrice]*[Quantity])", false)
-                .HasColumnType("decimal(29, 2)");
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.Course).WithMany(p => p.OrderDetails)
