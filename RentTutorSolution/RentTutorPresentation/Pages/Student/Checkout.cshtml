@@ -22,10 +22,9 @@
     <div class="max-w-7xl mx-auto p-6">
         <div class="flex flex-col lg:flex-row gap-6">
             <!-- Checkout Section  -->
-            <form method="post">
             <div class="lg:w-3/5 bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-4">Checkout</h2>
-                
+
                 <!-- Payment Method  -->
                 <div class="mb-6">
                     <label for="payment-method" class="block text-lg font-medium text-gray-700">Payment Method</label>
@@ -63,19 +62,20 @@
                 <div id="momo-form" class="hidden">
                     <p class="text-sm text-gray-700">You will be redirected to the Momo app to complete your payment.</p>
                 </div>
-                
+
                 <!-- Order List -->
                 <div class="mt-6">
                     <h3 class="text-xl font-bold mb-4">Order List</h3>
                     <div class="space-y-4">
-                        @foreach(var item in cartData.Items){
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
+                        @foreach (var item in cartData.Items)
+                        {
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
                                     <img src="@Url.Content(item.Image)" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
                                     <span>@item.CourseName</span>
-                            </div>
+                                </div>
                                 <span class="font-semibold">$@(item.Price - item.DiscountPrice)</span>
-                        </div>
+                            </div>
                         }
                     </div>
                 </div>
@@ -91,22 +91,19 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-700">Discounts</span>
-                        <span class="font-semibold text-red-500">-$@totalAmount.Value</span>
+                        <span class="font-semibold text-red-500">-$@totalDiscount.Value</span>
                     </div>
                     <hr class="my-4">
                     <div class="flex justify-between text-xl font-bold">
                         <span>Total</span>
-                        <span>@totalDiscount.Value</span>
+                        <span>@totalAmount.Value</span>
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
-                    <input type="hidden" asp-for="UserID" />
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
                     Complete Checkout
                 </button>
-                
             </div>
-            </form>
         </div>
     </div>
 
