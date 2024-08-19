@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using BusinessAccess.Business
 @using DataAccess.CartModel
 @model RentTutorPresentation.Pages.Student.CheckoutModel
@@ -51,7 +51,7 @@
                         <input type="text" id="expiry-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
                     <div>
-                        <input type="checkbox" id="save-card" class="mr-2">
+<input type="checkbox" id="save-card" class="mr-2">
 <label for="save-card" class="text-sm text-gray-700">Securely save this card for my later purchase</label>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
     </div>
 
     <script>
-        const paymentMethod = document.getElementById('payment-method');
+const paymentMethod = document.getElementById('payment-method');
         const creditCardForm = document.getElementById('credit-card-form');
 const vnpayForm = document.getElementById('vnpay-form');
         const momoForm = document.getElementById('momo-form');
