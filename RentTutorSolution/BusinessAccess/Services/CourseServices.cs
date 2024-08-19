@@ -1,6 +1,7 @@
 ﻿using BusinessAccess.Base;
 using Common;
 using DataAccess.Models;
+using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,7 @@ namespace BusinessAccess.Services
                 var courses = await _unitOfWork.CourseRepository.GetPagingListAsync(
                     selector: x => x,
                     page: page,
+                    predicate: x => x.Status.Equals("Active"),
                     size: size,
                     include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
                     );

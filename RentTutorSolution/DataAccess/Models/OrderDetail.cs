@@ -15,7 +15,7 @@ public partial class OrderDetail
 
     public int Quantity { get; set; }
 
-    public decimal? TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     public virtual Course Course { get; set; }
 
