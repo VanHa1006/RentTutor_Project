@@ -268,44 +268,46 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="text-sm text-gray-500">Invoice #: INV-12345</p>
-                                    <p class="text-sm text-gray-500">StudentID: S12345</p>
-                                    <p class="text-sm text-gray-500">CourseID: C67890</p>
+                                    <p class="text-sm text-gray-500">StudentID: @Html.DisplayNameFor(model => model.Order.Student.StudentNavigation.FullName)</p>
+                                    <p class="text-sm text-gray-500">CourseID:  1</p>
                                 </div>
                             </div>
 
+                            @foreach (var detail in Model.OrderDetails)
+                            {
                             <!-- Order Details -->
                             <table class="w-full text-left text-gray-500 mb-6">
                                 <thead>
                                     <tr>
                                         <th class="py-2">Description</th>
-                                        <th class="py-2 text-right">Amount</th>
+                                            <th class="py-2 text-right">@detail.Course.Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="py-2">Original Price</td>
-                                        <td class="py-2 text-right">$200.00</td>
+                                            <td class="py-2 text-right">@detail.Course.Price</td>
                                     </tr>
                                     <tr>
                                         <td class="py-2">Savings</td>
-                                        <td class="py-2 text-right">-$50.00</td>
+                                            <td class="py-2 text-right">@detail.Course.DiscountPrice</td>
                                     </tr>
                                     <tr class="font-bold">
                                         <td class="py-2">Total Amount</td>
-                                        <td class="py-2 text-right">$150.00</td>
+                                            <td class="py-2 text-right">@Html.DisplayNameFor(model => model.Order.TotalAmount)</td>
                                     </tr>
                                 </tbody>
                             </table>
-
+                            }
                             <!-- Status -->
                             <div class="mb-6">
                                 <p class="text-sm font-medium text-gray-700">Status:</p>
                                 <div class="mt-1 inline-flex items-center px-2 py-1 font-semibold leading-tight text-sm rounded-full
                     bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100">
-                                    Paid
+                                    @Html.DisplayNameFor(model => model.Order.Status)
                                 </div>
                             </div>
-
+                            
                             <!-- Closing Note -->
                             <div class="border-t border-gray-200 pt-6">
                                 <p class="text-center text-gray-500">

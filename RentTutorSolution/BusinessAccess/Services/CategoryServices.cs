@@ -19,6 +19,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> DeleteAsync(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
         Task<IBusinessResult> GetAllCategories();
+        Task<IBusinessResult> GetById(int id);
     }
     public class CategoryServices : ICategoryServices
     {
@@ -46,7 +47,7 @@ namespace BusinessAccess.Services
             catch (Exception)
             {
 
-                throw;
+                return new BusinessResult(0, "Category has at least 1 course");
             }
         }
 
@@ -95,6 +96,26 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(1, "Get currency list success", category);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetById(int id)
+        {
+            try
+            {
+                var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
+                if (category != null)
+                {
+                    return new BusinessResult(1, "Get course category successfully", category);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get course category fail");
                 }
             }
             catch (Exception ex)

@@ -61,6 +61,8 @@ namespace RentTutorPresentation.Pages.Student
             //List<CartItem> cartItems = JsonConvert.DeserializeObject<List<CartItem>>(Cart);
             var cartData = HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
             var totalAmount = HttpContext.Session.GetObjectFromJson<decimal>("TotalAmount");
+            var totalDiscount = HttpContext.Session.GetObjectFromJson<decimal>("TotalDiscount");
+            var totalPrice = HttpContext.Session.GetObjectFromJson<decimal>("TotalPrice");
             var userIdFromSession = HttpContext.Session.GetInt32("StudentId");
             if (userIdFromSession.HasValue)
             {
@@ -102,7 +104,7 @@ namespace RentTutorPresentation.Pages.Student
                     CourseId = item.CourseId,
                     Quantity = item.Quantity,
                     UnitPrice = item.Price,
-                    TotalPrice = item.DiscountPrice
+                    TotalPrice =item.Price - item.DiscountPrice
                 });
             }
 
