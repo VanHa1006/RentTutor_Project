@@ -1,6 +1,7 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Student.Orders_historyModel
 @{
+    var userId = HttpContext.Session.GetString("StudentId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -41,13 +42,18 @@
 
                    
                     <!-- Order 1 -->
+                    @{
+                        int counter = 1;// Khởi tạo biến đếm
+                    }
+                    @foreach (var item in Model.Order.Items)
+                    {
                     <div class="mt-6 p-4 border-b border-gray-200">
                         <!-- Order Summary -->
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold">Order #01</h3>
-                            <p class="text-sm text-gray-600">Order Creation Time: 2024-08-20 14:35</p>
-                            <p class="text-sm text-gray-600">Total Amount: $250</p>
-                            <a href="/Student/View-invoice" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm mt-2 inline-block">View Invoice</a>
+                            <h3 class="text-lg font-semibold">Order #@counter</h3>
+                                <p class="text-sm text-gray-600">Order Creation Time: @Html.DisplayFor(modelItem => item.OrderDate)</p>
+                                <p class="text-sm text-gray-600">Total Amount: @Html.DisplayFor(modelItem => item.TotalAmount)</p>
+                                <a asp-page="./View-invoice" asp-route-id="@item.OrderId" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm mt-2 inline-block">View Invoice</a>
                         </div>
 
                         <!-- Table -->
@@ -55,80 +61,40 @@
                             <table class="min-w-full bg-white">
                                 <thead>
                                     <tr>
-                                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Course Name</th>
+                                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Course Name</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Price</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Discount Price</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Info</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex items-center">
-                                            <img class="h-10 w-10 rounded-md mr-4" src="/img/Courses/Nodejs.jpg" alt="Course Image">
-                                            <div>
-                                                <div class="text-sm leading-5 font-medium text-gray-900">Course Name 1</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">$150</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">$100</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm">View Course</a>
-                                        </td>
-                                    </tr>
-                                   
-                                </tbody>
+                                        @foreach (var detail in item.OrderDetails)
+                                        {
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex items-center">
+                                                    <img class="h-10 w-10 rounded-md mr-4" src="@detail.Course.Image">
+                                                    <div>
+                                                        <div class="text-sm leading-5 font-medium text-gray-900">@detail.Course.CourseName</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 text-gray-900">$@detail.Course.Price</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <div class="text-sm leading-5 text-gray-900">$@detail.Course.DiscountPrice</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                    <a asp-page="../CoursesDetail" asp-route-id="@detail.CourseId" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm">View Course</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
                             </table>
                         </div>
                     </div>
-
-                    <!-- Order 2 -->
-                    <div class="mt-6 p-4 border-b border-gray-200">
-                      
-                        <div class="mb-4">
-                            <h3 class="text-lg font-semibold">Order #02</h3>
-                            <p class="text-sm text-gray-600">Order Creation Time: 2024-08-21 10:15</p>
-                            <p class="text-sm text-gray-600">Total Amount: $300</p>
-                            <a href="/Student/View-invoice" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm mt-2 inline-block">View Invoice</a>
-                        </div>
-
-                        
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white">
-                                <thead>
-                                    <tr>
-                                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Course Name</th>
-                                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Price</th>
-                                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Discount Price</th>
-                                        <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Info</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex items-center">
-                                            <img class="h-10 w-10 rounded-md mr-4" src="/img/Courses/Javascript.jpg" alt="Course Image">
-                                            <div>
-                                                <div class="text-sm leading-5 font-medium text-gray-900">Course Name 2</div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">$200</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">$150</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm">View Course</a>
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        counter++;
+                        <!-- Repeat block ends -->
+                    }
                 </div>
             </div>
         </main>

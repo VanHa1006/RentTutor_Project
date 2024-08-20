@@ -13,6 +13,7 @@ namespace BusinessAccess.Services
     public interface IOrderService
     {
         Task<IBusinessResult> GetAll(int page, int size);
+        Task<IBusinessResult> GetAllForStudent(int page, int size, int? studentId);
         Task<IBusinessResult> GetAll();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> FindById(int id);
@@ -101,6 +102,34 @@ namespace BusinessAccess.Services
             try
             {
                 var orders = await _unitOfWork.OrderRepository.GetAllAsync();
+                if (orders == null)
+                {
+                    return new BusinessResult(4, "No order data");
+                }
+                else
+                {
+                    //orders = orders.Include(o => o.User).ToList();
+
+                    return new BusinessResult(1, "Get order list success", orders);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllForStudent(int page, int size, int? studentId)
+        {
+            try
+            {
+                var orders = await _unitOfWork.OrderRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    predicate: x => x.StudentId == studentId,
+                    size: size,
+                    include: x => x.Include(p => p.OrderDetails).ThenInclude(od => od.Course)
+                    );
                 if (orders == null)
                 {
                     return new BusinessResult(4, "No order data");
