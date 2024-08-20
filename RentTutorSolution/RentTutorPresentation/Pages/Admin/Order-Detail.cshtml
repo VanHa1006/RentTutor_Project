@@ -260,11 +260,11 @@
 
                         <!-- Invoice Information -->
                         <div class="space-y-4">
-                            
                             <div class="flex justify-between items-center mb-6">
                                 <div>
                                     <h2 class="text-xl font-bold text-gray-700">Invoice</h2>
                                     <p class="text-sm text-gray-500">Order Date: @Model.Order.OrderDate</p>
+                                    <p class="text-sm text-gray-500">Total Amount: @* Hay thêm Total Amount ở đayyyyyy *@  $500</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-sm text-gray-500">Invoice #: @Model.Order.OrderId</p>
@@ -272,38 +272,40 @@
                                 </div>
                             </div>
 
-                            @foreach (var detail in Model.OrderDetails)
+                            @if (Model.OrderDetails.Any())
                             {
-                            
-                            <table class="w-full text-left text-gray-500 mb-6">
-                                    <thead>
-                                        <tr>
-                                            <th class="py-2">Course Name:</th>
-                                            <th class="py-2 text-right">@detail.Course.CourseName</th>
-                                        </tr>
-                                    </thead>
-                                <tbody>
-                                        <tr>
-                                            <td class="py-2">Description</td>
-                                            <td class="py-2 text-right">@detail.Course.Description</td>
-                                        </tr>
-                                    <tr>
-                                        <td class="py-2">Original Price</td>
-                                            <td class="py-2 text-right">@detail.UnitPrice</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="py-2">Savings</td>
-                                            <td class="py-2 text-right">@detail.Course.DiscountPrice</td>
-                                    </tr>
-                                    <tr class="font-bold">
-                                        <td class="py-2">Total Amount</td>
-                                            <td class="py-2 text-right">@detail.TotalPrice</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <div class="mb-6">
+                                    @foreach (var detail in Model.OrderDetails.Select((d, i) => new { Detail = d, Index = i + 1 }))
+                                    {
+                                        <table class="w-full text-left text-gray-500 mb-6">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="py-2 text-lg font-semibold">Course #@detail.Index: @detail.Detail.Course.CourseName</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="py-2">Original Price</td>
+                                                    <td class="py-2 text-right">@detail.Detail.UnitPrice</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="py-2">Savings</td>
+                                                    <td class="py-2 text-right">@detail.Detail.Course.DiscountPrice</td>
+                                                </tr>
+                                                <tr class="font-bold">
+                                                    <td class="py-2">Total Price</td>
+                                                    <td class="py-2 text-right">@detail.Detail.TotalPrice</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
                             }
-                            
+                            else
+                            {
+                                <p class="text-gray-500">No course details available.</p>
+                            }
+
                             <div class="mb-6">
                                 <p class="text-sm font-medium text-gray-700">Status:</p>
                                 <div class="mt-1 inline-flex items-center px-2 py-1 font-semibold leading-tight text-sm rounded-full
@@ -311,8 +313,7 @@
                                     @Model.Order.Status
                                 </div>
                             </div>
-                            
-                            
+
                             <div class="border-t border-gray-200 pt-6">
                                 <p class="text-center text-gray-500">
                                     Thank you for your business!<br>
@@ -320,6 +321,7 @@
                                 </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
