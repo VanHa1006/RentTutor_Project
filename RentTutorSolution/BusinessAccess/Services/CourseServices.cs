@@ -14,6 +14,7 @@ namespace BusinessAccess.Services
     public interface ICourseServices
     {
         Task<IBusinessResult> GetAll(int page, int size);
+        Task<IBusinessResult> GetAllToAdmin(int page, int size);
         Task<IBusinessResult> GetAllCourses();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> FindId(int id);
@@ -208,6 +209,35 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(2, "fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllToAdmin(int page, int size)
+        {
+            try
+            {
+                #region Business rule
+                #endregion
+
+                //var currencies = _DAO.GetAll();
+                var courses = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    size: size,
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                    );
+                if (courses == null)
+                {
+                    return new BusinessResult(4, "No currency data");
+                }
+                else
+                {
+                    return new BusinessResult(1, "Get currency list success", courses);
                 }
             }
             catch (Exception ex)

@@ -29,7 +29,7 @@
         <div class="flex justify-between items-center mt-4">
             <h2 class="text-2xl font-bold">@Model.Course.CourseName</h2>
             <div>
-                <span class="text-2xl text-green-500 font-semibold">@Model.Course.DiscountPrice</span>
+                    <span class="text-2xl text-green-500 font-semibold">@(Model.Course.Price - Model.Course.DiscountPrice)</span>
                 <del class="text-xl text-black-500 font-semibold">@Model.Course.Price</del>
             </div>
         </div>

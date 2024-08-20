@@ -32,7 +32,7 @@ namespace RentTutorPresentation.Pages.Admin
 
         private async Task<Paginate<Course>> GetCourses()
         {
-            var result = await _courseServices.GetAll(PageIndex, Size);
+            var result = await _courseServices.GetAllToAdmin(PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
                 var course = result.Data;
