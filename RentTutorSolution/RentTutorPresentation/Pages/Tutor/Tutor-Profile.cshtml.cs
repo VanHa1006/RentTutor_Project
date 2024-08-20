@@ -40,5 +40,30 @@ namespace RentTutorPresentation.Pages.Tutor
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+
+            try
+            {
+                var result = await _studentServices.UpdateStudentAsync(Student);
+
+                if (result.Status > 0)
+                {
+                    ViewData["SuccessMessage"] = result.Message;
+                    return Page();
+                }
+                else
+                {
+                    ViewData["ErrorMessage"] = result.Message;
+                    return Page();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+                return Page();
+            }
+        }
     }
 }

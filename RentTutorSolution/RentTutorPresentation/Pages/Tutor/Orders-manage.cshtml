@@ -1,6 +1,7 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Tutor.Orders_manageModel
 @{
+    var userId = HttpContext.Session.GetString("TutorId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -59,9 +60,11 @@
                     <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold">Courses Manage</h2>
                         <div class="flex space-x-4">
-                           
                         </div>
                     </div>
+
+                    @if (Model.Order != null && Model.Order.Items.Any())
+                    {
                     <table class="min-w-full bg-white border border-gray-200 mt-4">
                         <thead>
                             <tr class="border-b border-gray-200">
@@ -77,31 +80,34 @@
                                 <th class="px-4 py-2 w-2/12">Action</th>
                             </tr>
                         </thead>
+                        
                         <tbody id="courseTable">
-                            @* @{
+                            @{
                                 int counter = 1;
-                            } *@
-                           @*  @foreach (var item in Model.Course.Items)
-                            { *@
+                            }
+                            @foreach (var item in Model.Order.Items)
+                            {
+                                    @foreach (var orderDetail in item.OrderDetails.Where(od => od.Course.TutorId == Model.TutorId))
+                                    {
                                 <tr class="text-center border-b border-gray-200">
                                     <td class="px-4 py-2">
                                         <input type="checkbox" class="form-checkbox checkItem">
                                     </td>
-                                    <td class="px-4 py-2">@* @counter *@ 1 </td>
-                                    <td class="px-4 py-2">Nguyen Cuong Thinh</td>
-                                    <td class="px-4 py-2"> 001</td>
+                                    <td class="px-4 py-2">@counter</td>
+                                    <td class="px-4 py-2">@item.Student.StudentNavigation.FullName</td>
+                                    <td class="px-4 py-2">@item.OrderId </td>
                                     <td class="px-4 py-2">
-                                        <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">@* @Html.DisplayFor(modelItem => item.Status) *@ Active</span>
+                                        <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">@item.Status</span>
                                     </td>
+
                                     <td class="px-4 py-2">
                                         @* @{
                                             var displayName = item.CourseName.Length > 25
                                             ? item.CourseName.Substring(0, 25) + "..."
                                             : item.CourseName;
                                         } *@
-                                        @* @displayName *@ Reactjs Reactjs Reactjs Reactjs
-                                    </td>
-                                    <td class="px-4 py-2"> $100 </td>
+                                                @* @displayName *@ @orderDetail.Course.CourseName
+                                            <td class="px-4 py-2"> @(orderDetail.Course.Price - orderDetail.Course.DiscountPrice)</td>
                                     <td class="px-4 py-2 flex justify-center space-x-2">
                                         <a asp-page="./Detail-Course" >
                                             <button class="flex items-center px-2 py-1 text-blue-500 hover:text-blue-700">
@@ -122,12 +128,17 @@
                                     </a>
                                     </td>
                                 </tr>
-                            @*     counter++;
-                            } *@
+                                counter++;
+                                }
+                            }
                         </tbody>
                     </table>
+                        }
+                        else
+                        {
+                        <div>No orders available.</div>
+                        }
                 </div>
-
             </div>
         </main>
     </div>
