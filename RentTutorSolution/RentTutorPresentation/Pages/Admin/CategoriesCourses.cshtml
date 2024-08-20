@@ -282,7 +282,15 @@
                                     <tr  class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3"><input type="checkbox" class="form-checkbox"></td>
                                         <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                                        <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.Description)</td>
+                                       @*  <td class="px-4 py-3 text-sm">@Html.DisplayFor(modelItem => item.Description)</td> *@
+                                    <td class="px-4 py-3 text-sm">
+                                        @{
+                                            var displayDescription = item.Description.Length > 100
+                                            ? item.Description.Substring(0, 100) + "..."
+                                            : item.Description;
+                                        }
+                                        @displayDescription
+                                    </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center space-x-4 text-sm">
                                             <a asp-page="./Update-Cate" asp-route-id="@item.CategoryId" class="btn btn-sm btn-warning">Edit</a>
