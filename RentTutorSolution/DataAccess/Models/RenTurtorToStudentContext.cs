@@ -35,7 +35,7 @@ public partial class RenTurtorToStudentContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=havansendo1006.ddns.net;Uid=Sendo_Havan*127.0.0.0*1;Pwd=Sendo_havan1006; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=TEZZY;Uid=sa;Pwd=1234567890;Initial Catalog=RenTurtorToStudent; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
