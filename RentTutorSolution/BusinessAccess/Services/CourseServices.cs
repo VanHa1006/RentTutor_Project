@@ -2,6 +2,7 @@
 using Common;
 using DataAccess.Models;
 using MailKit.Search;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace BusinessAccess.Services
     public interface ICourseServices
     {
         Task<IBusinessResult> GetAll(int page, int size);
+        Task<IBusinessResult> GetAllCourseToTutor(int page, int size, int? tutorId);
+        Task<IBusinessResult> Search(string searchTerm, int page, int size, int? tutorId);
         Task<IBusinessResult> GetAllToAdmin(int page, int size);
         Task<IBusinessResult> GetAllCourses();
         Task<IBusinessResult> GetById(int id);
@@ -49,7 +52,7 @@ namespace BusinessAccess.Services
             catch (Exception)
             {
 
-                throw;
+                return new BusinessResult(0, "Course has at least 1 orders");
             }
         }
 
@@ -238,6 +241,60 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(1, "Get currency list success", courses);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllCourseToTutor(int page, int size, int? tutorId)
+        {
+            try
+            {
+                var courses = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    predicate: x => x.TutorId == tutorId,
+                    size: size,
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                );
+
+                if (courses == null)
+                {
+                    return new BusinessResult(4, "Không có dữ liệu khóa học");
+                }
+                else
+                {
+                    return new BusinessResult(1, "Lấy danh sách khóa học thành công", courses);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> Search(string searchTerm, int page, int size, int? tutorId)
+        {
+            try
+            {
+                var courses = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    predicate: x => x.Status.Equals("Active") && x.TutorId == tutorId,
+                    size: size,
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                );
+
+                if (courses == null || !courses.Items.Any())
+                {
+                    return new BusinessResult(4, "Không có dữ liệu khóa học");
+                }
+                else
+                {
+                    return new BusinessResult(1, "Tìm kiếm khóa học thành công", courses);
                 }
             }
             catch (Exception ex)

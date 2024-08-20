@@ -1,7 +1,7 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Tutor.Courses_manageModel
 @{
-
+    var userId = HttpContext.Session.GetString("TutorId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +83,7 @@
                         <h2 class="text-2xl font-bold">Courses Manage</h2>
                         <div class="flex space-x-4">
                             <!-- Add Course Button -->
-                            <a href="/Tutor/Create-Course">
+                            <a asp-page="Create-Course">
                             <button id="addCourseButton" class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -91,13 +91,6 @@
                                 <span>Create</span>
                             </button>
                             </a>
-                            <!-- Trash Can Button -->
-                            <button id="deleteSelectedButton" class="flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-1.414 1.414M5 7L3.586 8.414M19 13v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6m14-6V4a2 2 0 00-2-2H7a2 2 0 00-2 2v1M4 7h16" />
-                                </svg>
-                                <span>Delete </span>
-                            </button>
                         </div>
                     </div>
                     <table class="min-w-full bg-white border border-gray-200">
@@ -107,36 +100,56 @@
                                     <input type="checkbox" id="checkAll" class="form-checkbox">
                                 </th>
                                 <th class="px-4 py-2 border-r">Num</th>
-                                <th class="px-4 py-2 border-r">CourseName</th>
-                                <th class="px-4 py-2 border-r">CategoryID</th>
-                                <th class="px-4 py-2 border-r">Status</th>
-                                <th class="px-4 py-2 border-r">Price</th>
+                                <th class="px-4 py-2 border-r">@Html.DisplayNameFor(model => model.Course.Items[0].CourseName)</th>
+                                <th class="px-4 py-2 border-r">@Html.DisplayNameFor(model => model.Course.Items[0].CategoryId)</th>
+                                <th class="px-4 py-2 border-r">@Html.DisplayNameFor(model => model.Course.Items[0].Status)</th>
+                                <th class="px-4 py-2 border-r">@Html.DisplayNameFor(model => model.Course.Items[0].DiscountPrice)</th>
+                                <th class="px-4 py-2 border-r">@Html.DisplayNameFor(model => model.Course.Items[0].Price)</th>
                                 <th class="px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody id="courseTable">
                             <!-- Sample Row -->
+                             @{
+                                    int counter = 1;// Khởi tạo biến đếm
+                                }
+                                @foreach (var item in Model.Course.Items)
+                                {
                             <tr class="text-center border-b">
                                 <td class="px-4 py-2 border-r">
                                     <input type="checkbox" class="form-checkbox checkItem">
                                 </td>
-                                <td class="px-4 py-2 border-r">1</td>
-                                <td class="px-4 py-2 border-r">Asp.Net</td>
-                                <td class="px-4 py-2 border-r">Program Language</td>
+                                <td class="px-4 py-2 border-r">@counter</td>
+                                    <td class="px-4 py-2 border-r">@Html.DisplayFor(modelItem => item.CourseName)</td>
+                                    <td class="px-4 py-2 border-r">@Html.DisplayFor(modelItem => item.Category.CategoryName)</td>
                                 <td class="px-4 py-2 border-r">
-                                    <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100 status-toggle cursor-pointer">Active</span>
+                                        <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100 status-toggle cursor-pointer">@Html.DisplayFor(modelItem => item.Status)</span>
                                 </td>
-                                <td class="px-4 py-2 border-r">$199.99</td>
+                                    <td class="px-4 py-2 border-r">$@Html.DisplayFor(modelItem => item.DiscountPrice)</td>
+                                    <td class="px-4 py-2 border-r">$@Html.DisplayFor(modelItem => item.Price)</td>
                                 <td class="px-4 py-2">
-                                 <a href="/Tutor/Detail-Course"><button >
+                                        <a asp-page="./Detail-Course" asp-route-id="@item.CourseId">
+                                            <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 hover:text-blue-700 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 0a3 3 0 106 0 3 3 0 00-6 0zm-2 0a5 5 0 1110 0 5 5 0 01-10 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                         </button>
                                     </a>
+                                    <a asp-page="./Delete-Course" asp-route-id="@item.CourseId" class="btn btn-sm btn-warning">
+                                        <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        </a>
                                 </td>
                             </tr>
+                                counter++;
+                                <!-- Repeat block ends -->
+                            }
                         </tbody>
                     </table>
                 </div>

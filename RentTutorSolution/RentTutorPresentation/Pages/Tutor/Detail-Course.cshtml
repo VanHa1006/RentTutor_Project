@@ -81,64 +81,55 @@
 
                     <h2 class="text-2xl font-bold sm:text-xl mb-6 text-center">Course Details</h2>
 
-                <form id="courseForm">
+                <form method="post" id="courseForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Course.CourseId" />
+                    <input type="hidden" asp-for="Course.CreatedAt" />
+                    <input type="hidden" asp-for="Course.CategoryId" />
+                    <input type="hidden" asp-for="Course.Status" />
                     <div class="mb-4">
-                        <label for="courseImage" class="block text-gray-700 font-medium mb-2">Course Image</label>
-                        <input type="text" id="courseImage" class="w-full px-4 py-2 border rounded-lg" readonly>
-                        <img id="imagePreview" src="/img/Courses/reactjs.jpg" alt="Course Image" class="mt-2 w-full h-auto">
+                        <label asp-for="Course.Image" class="block text-gray-700 font-medium mb-2">Course Image</label>
+                        <input asp-for="Course.Image" type="text" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        <span asp-validation-for="Course.Image" class="text-danger"></span>
+                        <img id="imagePreview" src="@Model.Course.Image" alt="Course Image" class="mt-2 w-full h-auto">
                     </div>
                     <div class="mb-4">
-                        <label for="courseName" class="block text-gray-700 font-medium mb-2">Course Name</label>
-                        <input type="text" id="courseName" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        <label asp-for="Course.CourseName" class="block text-gray-700 font-medium mb-2">Course Name</label>
+                        <input type="text" asp-for="Course.CourseName" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        <span asp-validation-for="Course.CourseName" class="text-danger"></span>
                     </div>
                     <div class="mb-4">
-                        <label for="description" class="block text-gray-700 font-medium mb-2">Description</label>
-                        <textarea id="description" class="w-full px-4 py-2 border rounded-lg" rows="4" readonly></textarea>
+                        <label asp-for="Course.Description" class="block text-gray-700 font-medium mb-2">Description</label>
+                        <textarea asp-for="Course.Description" class="w-full px-4 py-2 border rounded-lg" rows="4" readonly></textarea>
+                        <span asp-validation-for="Course.Description" class="text-danger"></span>
                     </div>
                     <div class="mb-4 flex space-x-4">
-                        <div class="w-1/3">
-                            <label for="categoryID" class="block text-gray-700 font-medium mb-2">Category</label>
-                            <select id="categoryID" class="w-full px-4 py-2 border rounded-lg" disabled>
-                                <option value="Programming">Programming</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="Design">Design</option>
+                        <div class="w-1/2">
+                            <label  asp-for="Course.CategoryId" class="block text-gray-700 font-medium mb-2">Category</label>
+                            <select  asp-for="Course.CategoryId" asp-items="ViewBag.CategoryId" class="w-full px-4 py-2 border rounded-lg" disabled>
                             </select>
                         </div>
-                        <div class="w-1/3">
-                            <label for="status" class="block text-gray-700 font-medium mb-2">Status</label>
-                            <select id="status" class="w-full px-4 py-2 border rounded-lg" onchange="updateStatusColor()" disabled>
-                                <option value="Active" class="text-green-600">Active</option>
-                                <option value="Disactive" class="text-red-600">Disactive</option>
-                            </select>
-                        </div>
-                        <div class="w-1/3">
-                            <label for="hours" class="block text-gray-700 font-medium mb-2">Hours</label>
-                            <input type="number" id="hours" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        <div class="w-1/2">
+                            <label asp-for="Course.Hours" class="block text-gray-700 font-medium mb-2">Hours</label>
+                            <input asp-for="Course.Hours"  type="number" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            <span asp-validation-for="Course.Hours" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mb-4 flex space-x-4">
                         <div class="w-1/2">
-                            <label for="discountPrice" class="block text-gray-700 font-medium mb-2">Discount Price</label>
-                            <input type="text" id="discountPrice" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            <label asp-for="Course.DiscountPrice" class="block text-gray-700 font-medium mb-2">Discount Price</label>
+                            <input asp-for="Course.DiscountPrice" type="text" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            <span asp-validation-for="Course.DiscountPrice" class="text-danger"></span>
                         </div>
                         <div class="w-1/2">
-                            <label for="price" class="block text-gray-700 font-medium mb-2">Price</label>
-                            <input type="text" id="price" class="w-full px-4 py-2 border rounded-lg" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-4 flex space-x-4">
-                        <div class="w-1/2">
-                            <label for="createdAt" class="block text-gray-700 font-medium mb-2">Created At</label>
-                            <input type="text" id="createdAt" class="w-full px-4 py-2 border rounded-lg" readonly>
-                        </div>
-                        <div class="w-1/2">
-                            <label for="updatedAt" class="block text-gray-700 font-medium mb-2">Updated At</label>
-                            <input type="text" id="updatedAt" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            <label asp-for="Course.Price" class="block text-gray-700 font-medium mb-2">Price</label>
+                            <input asp-for="Course.Price" type="text" class="w-full px-4 py-2 border rounded-lg" readonly>
+                            <span asp-validation-for="Course.Price" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="linkVideo" class="block text-gray-700 font-medium mb-2">Course Video Link</label>
-                        <input type="text" id="linkVideo" class="w-full px-4 py-2 border rounded-lg" readonly>
+                        <label asp-for="Course.LinkVideo" class="block text-gray-700 font-medium mb-2">Course Video Link</label>
+                        <input asp-for="Course.LinkVideo" type="text" class="w-full px-4 py-2 border rounded-lg" readonly>
                         <small class="block text-gray-600 mt-2">
                             Instructions for getting video link:<br>
                             b1: Select your video on YT<br>
@@ -148,7 +139,7 @@
                     </div>
                     <div class="mb-4 flex space-x-4">
                         <button type="button" id="editButton" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Edit</button>
-                        <button type="button" id="saveButton" class="px-4 py-2 bg-green-500 text-white rounded-lg hidden">Save</button>
+                        <button type="submit" id="saveButton" class="px-4 py-2 bg-green-500 text-white rounded-lg hidden">Save</button>
                         <button type="button" id="cancelButton" class="px-4 py-2 bg-gray-500 text-white rounded-lg hidden">Cancel</button>
                     </div>
                 </form>
