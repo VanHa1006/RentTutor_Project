@@ -22,7 +22,7 @@
     <div class="max-w-7xl mx-auto p-6">
         <div class="flex flex-col lg:flex-row gap-6">
             <!-- Checkout Section  -->
-            <form method="post">
+              <form method="post">
             <div class="lg:w-3/5 bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold mb-4">Checkout</h2>
 
@@ -30,31 +30,12 @@
                 <div class="mb-6">
                     <label for="payment-method" class="block text-lg font-medium text-gray-700">Payment Method</label>
                     <select id="payment-method" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="credit-card">Credit/Debit Card</option>
                         <option value="vnpay">Vnpay</option>
                         <option value="momo">Momo</option>
                     </select>
                 </div>
 
-                <!-- Credit Card Form -->
-                <div id="credit-card-form" class="space-y-4">
-                    <div>
-                        <label for="card-number" class="block text-sm font-medium text-gray-700">Card Number</label>
-                        <input type="text" id="card-number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="cvc" class="block text-sm font-medium text-gray-700">CVC/CVV</label>
-                        <input type="text" id="cvc" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="expiry-date" class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                        <input type="text" id="expiry-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div>
-<input type="checkbox" id="save-card" class="mr-2">
-<label for="save-card" class="text-sm text-gray-700">Securely save this card for my later purchase</label>
-                    </div>
-                </div>
+                
 
                 <!-- Vnpay and Momo Form -->
                 <div id="vnpay-form" class="hidden">
@@ -101,20 +82,18 @@
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
-                <input type="hidden" asp-for="UserID" />
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
+                    <input type="hidden" asp-for="UserID" />
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
                     Complete Checkout
                 </button>
-                
             </div>
             </form>
         </div>
     </div>
 
     <script>
-const paymentMethod = document.getElementById('payment-method');
-        const creditCardForm = document.getElementById('credit-card-form');
-const vnpayForm = document.getElementById('vnpay-form');
+        const paymentMethod = document.getElementById('payment-method');
+        const vnpayForm = document.getElementById('vnpay-form');
         const momoForm = document.getElementById('momo-form');
 
         paymentMethod.addEventListener('change', function () {

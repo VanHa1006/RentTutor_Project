@@ -243,24 +243,24 @@
                 </div>
             </header>
 
-            @* ----------------------------- Main -------------------------- *@
+            @* ------------------------ Main -------------------------- *@
             <div class="main-content flex flex-col flex-grow p-4">
                 <h1 class="font-bold text-2xl text-gray-700">Orders Detail</h1>
 
-                <!-- Toast Message -->
+                <!-- Toast -->
                 <div id="toastMessage" class="hidden mt-4 p-4 bg-red-500 text-white rounded-lg">
                     Update failure
                 </div>
                 <div class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
                     <div class="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-xl">
-                        <!-- Logo -->
+                        
                         <div class="flex justify-center mb-8">
                             <img src="/img/graduation.png" alt="Graduation Logo" class="h-28 w-28">
                         </div>
 
                         <!-- Invoice Information -->
                         <div class="space-y-4">
-                            <!-- Invoice Header -->
+                            
                             <div class="flex justify-between items-center mb-6">
                                 <div>
                                     <h2 class="text-xl font-bold text-gray-700">Invoice</h2>
@@ -274,7 +274,7 @@
 
                             @foreach (var detail in Model.OrderDetails)
                             {
-                            <!-- Order Details -->
+                            
                             <table class="w-full text-left text-gray-500 mb-6">
                                     <thead>
                                         <tr>
@@ -303,7 +303,7 @@
                                 </tbody>
                             </table>
                             }
-                            <!-- Status -->
+                            
                             <div class="mb-6">
                                 <p class="text-sm font-medium text-gray-700">Status:</p>
                                 <div class="mt-1 inline-flex items-center px-2 py-1 font-semibold leading-tight text-sm rounded-full
@@ -312,7 +312,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Closing Note -->
+                            
                             <div class="border-t border-gray-200 pt-6">
                                 <p class="text-center text-gray-500">
                                     Thank you for your business!<br>
@@ -326,22 +326,22 @@
             </div>
 
             <script>
-                // Form Submission
+                // Form 
                 document.getElementById('updateOrderForm').addEventListener('submit', function (event) {
                     event.preventDefault();
 
-                    // Simulate success or failure (replace with actual logic)
+                    
                     const success = true;
 
                     if (success) {
-                        // Redirect to Orders management
-                        window.location.href = '/Admin/OrdersManage'; // Adjust the URL as needed
+                        
+                        window.location.href = '/Admin/OrdersManage'; 
                     } else {
-                        // Show failure message
+                        
                         const toast = document.getElementById('toastMessage');
                         toast.classList.remove('hidden');
 
-                        // Hide the toast message after a few seconds
+                       
                         setTimeout(() => {
                             toast.classList.add('hidden');
                         }, 3000);
