@@ -120,7 +120,7 @@ namespace RentTutorPresentation.Pages.Student
 
             TempData.Remove("CartData");
             TempData.Remove("TotalAmount");
-            return RedirectToPage("../Courses");
+            return RedirectToPage("./Payment-successful");
         }
     }
 }
