@@ -18,8 +18,7 @@
             <!-- Card Section A (2nd position) -->
             <div class="col-span-1 bg-white shadow-lg rounded-lg p-4 text-center ">
                 <img src="/img/Tutor.jpg" alt="Tutor's Image" class="w-24 h-24 mx-auto rounded-full">
-                <h2 class="text-xl font-semibold mt-4">Avannguyen </h2>
-                <p class="text-gray-600 mt-2">Web Development</p>
+                <h2 class="text-xl font-semibold mt-4">@Model.Tutor.TutorNavigation.Username </h2>
 
                 <div class="flex items-center justify-center">
                     <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -46,27 +45,25 @@
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Tutor Info -->
                     <div>
-                        <h3 class="text-lg font-semibold">Nguyen Van A</h3>
-                        <p class="text-gray-600 mt-2">Address: Tan Phu</p>
+                        <h3 class="text-lg font-semibold">@Model.Tutor.TutorNavigation.FullName</h3>
+                        <p class="text-gray-600 mt-2">Address: @Model.Tutor.TutorNavigation.Address</p>
                         
                     </div>
                     <!-- Experience and Specialization -->
                     <div>
-                        <p class="text-gray-600 mt-2">Experience: 4 year</p>
-                        <p class="text-gray-600 mt-2">Birthday: 12/02/2000</p>
+                        <p class="text-gray-600 mt-2">Experience: @Model.Tutor.Experience</p>
+                        <p class="text-gray-600 mt-2">Birthday: @Model.Tutor.TutorNavigation.Birthday</p>
                         
                     </div>
                   
                 </div>
                 <p class="text-gray-600 mt-2">
-                    <b> Specialization:</b>  a country can produce bananas at a lower cost than oranges,
-                    it can choose to specialize and dedicate all its resources to the production of bananas,
-                    using some of them to trade for oranges.
+                    <b> Specialization:</b>  @Model.Tutor.Specialization
                 </p>
                 <!-- Qualifications -->
                 <div class="mt-4 flex item-center ">
                     <h3 class="text-lg font-semibold">Qualifications</h3>
-                    <img src="https://aecalumni.net/wp-content/uploads/2020/07/Sample-Certificate.png"
+                    <img src="@Model.Tutor.Qualifications"
                          alt="Qualification Certificate"
                          class="w-50 h-50 mt-4 rounded-lg border-2 border-gray-300 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
                 </div>

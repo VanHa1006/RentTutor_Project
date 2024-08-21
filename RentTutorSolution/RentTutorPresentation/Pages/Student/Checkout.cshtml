@@ -1,4 +1,4 @@
-@page
+﻿@page
 @using BusinessAccess.Business
 @using DataAccess.CartModel
 @model RentTutorPresentation.Pages.Student.CheckoutModel
@@ -83,11 +83,18 @@
                 </div>
                 <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
                 <form method="post">
-                    <input type="hidden" asp-for="UserID" />
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full mt-4">
-                        Complete Checkout
-                    </button>
+                    <input type="hidden" asp-for="UserID"/>
+
+                    <div>
+                        <label for="amount">Money Pay:</label>
+                        <!-- Đảm bảo giá trị này là số nguyên khi gửi đi -->
+                        <input id="amount" name="Amount" value="@totalAmount.Value" readonly/>
+                    </div>
+
+                    <button type="submit">Pay with VNPAY</button>
                 </form>
+
+
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetAllStudents(int page, int size);
         Task<IBusinessResult> GetAllStudentsActive(string searchActive,int page, int size);
         Task<IBusinessResult> GetAllTutor(int page, int size);
+        Task<IBusinessResult> GetAllTutorActive(int page, int size);
     }
 
     public class UserServices : IUserServices
@@ -386,5 +387,31 @@ namespace BusinessAccess.Services
             }
         }
 
+        public async Task<IBusinessResult> GetAllTutorActive(int page, int size)
+        {
+            try
+            {
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.UserRepository.GetPagingListAsync(
+                   selector: x => x,
+                   predicate: x => x.Role == "Tutor" && x.Status == "Active",
+                   page: page,
+                   size: size,
+                   include: x => x.Include(p => p.Tutor)
+                   );
+                if (users != null)
+                {
+                    return new BusinessResult(1, "Get all Tutors successfully", users);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get all Tutors fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
     }
 }

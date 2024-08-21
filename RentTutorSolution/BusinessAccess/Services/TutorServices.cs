@@ -164,7 +164,8 @@ namespace BusinessAccess.Services
             {
                 var tutor = await _unitOfWork.TutorRepository.SingleOrDefaultAsync(
                     selector: x => x,
-                    predicate: x => x.TutorId == id
+                    predicate: x => x.TutorId == id,
+                    include: x => x.Include(p => p.TutorNavigation).Include(p => p.UserApprovalLogs)
                     );
                 if (tutor != null)
                 {

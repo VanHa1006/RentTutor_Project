@@ -2,9 +2,12 @@
 using BusinessAccess.Repository;
 using BusinessAccess.Services;
 using DataAccess.Models;
+using DataAccess.VnPayModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RentTutorPresentation;
+using RentTutorPresentation.Helpers;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
@@ -13,7 +16,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     // Set a short timeout for easy testing.
@@ -36,8 +39,13 @@ builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<IOrderDetailServices, OrderDetailServices>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSignalR();
+
 builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/HomePage", ""); });
 builder.Services.AddSingleton<VNPayService>();
+
+builder.Services.AddTransient<Utils>();
+builder.Services.AddHttpContextAccessor();
+
 var configuration = builder.Configuration;
 
 // Register UserDAO with a factory method to inject the connection string
@@ -66,7 +74,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
-
 app.MapHub<SignalrServer>("/signalrServer");
 
 app.MapRazorPages();

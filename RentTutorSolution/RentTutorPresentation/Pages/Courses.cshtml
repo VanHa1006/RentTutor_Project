@@ -77,7 +77,8 @@
                 <div id="tutors-container" class="flex snap-x snap-mandatory gap-4" style="width: max-content;">
                     @foreach (var tutor in Model.Tutor.Items)
                     {
-                        <div class="flex-none w-64 snap-center cursor-pointer" onclick="window.location.href='./HomePage'">
+                         <a asp-page="./TutorDetail" asp-route-id="@tutor.Tutor.TutorId">
+                        <div class="flex-none w-64 snap-center cursor-pointer">
                             <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
 
                                 <img src="/img/Tutor.jpg" alt="@tutor.FullName" class="w-full h-40 object-cover">
@@ -98,6 +99,7 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     }
                     @* Repeat this block for each tutor *@
                 </div>

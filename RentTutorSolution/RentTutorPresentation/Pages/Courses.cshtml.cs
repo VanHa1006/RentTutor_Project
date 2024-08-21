@@ -49,7 +49,7 @@ namespace RentTutorPresentation.Pages
 
         private async Task<Paginate<User>> GetTutors()
         {
-            var result = await _tutorServices.GetAllTutor(PageIndex, Size);
+            var result = await _tutorServices.GetAllTutorActive(PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
                 return result.Data as Paginate<User> ?? new Paginate<User>();
