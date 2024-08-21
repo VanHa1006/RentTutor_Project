@@ -13,6 +13,21 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
+    @if (string.IsNullOrEmpty(userId))
+{
+    <body class="bg-gray-100 flex items-center justify-center h-screen">
+
+        <div class="text-center">
+            <img src="https://cdn.dribbble.com/userupload/8726277/file/still-90096ae0b20436af7d475737af5b86e5.gif?resize=400x0" alt="404 Not Found" class="mx-auto w-1/2 md:w-1/3 lg:w-1/4">
+            <h1 class="text-4xl font-bold text-gray-800 mt-8">Oops! Page Not Found</h1>
+            <p class="text-gray-600 mt-4">The page you are looking for does not exist or has been moved.</p>
+            <a href="/" class="mt-6 inline-block px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600">Go Back to Home</a>
+        </div>
+
+    </body>
+}
+else
+{
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -59,7 +74,7 @@
                                 </svg>
                             </span>
                             <span class="ml-3">Student Manage</span>
-                            <span class="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto">22</span>
+                            
                         </a>
                     </li>
                     <li class="my-px">
@@ -156,7 +171,7 @@
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
                     <li class="my-px">
-                        <a href="/Admin/Profile"
+                        <a href="/Admin/Admin-Profile"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
@@ -441,7 +456,7 @@
 
         </main>
     </div>
-
+    }
 </body>
 </html>
 

@@ -29,7 +29,7 @@ namespace RentTutorPresentation.Pages
         public int PageIndex { get; set; } = 1;
 
         [BindProperty(SupportsGet = true)]
-        public int Size { get; set; } = 10;
+        public int Size { get; set; } = 12;
 
         [BindProperty(SupportsGet = true)]
         public Paginate<User> Tutor { get; set; } = default!;

@@ -324,7 +324,7 @@ namespace BusinessAccess.Services
                 // Assuming there's only one course associated with the order
                 var courseName = order.OrderDetails.FirstOrDefault()?.Course?.CourseName;
 
-                order.Status = "Active";
+                order.Status = "Studying";
                 _unitOfWork.OrderRepository.Update(order);
                 await _unitOfWork.OrderRepository.SaveAsync();
 

@@ -1,0 +1,134 @@
+﻿@page
+@model RentTutorPresentation.Pages.Student.My_learningModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="bg-white w-full flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row text-[#161931]">
+        <aside class="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
+            <div class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12">
+                <h2 class="pl-3 mb-4 text-2xl font-semibold">Settings</h2>
+
+                <a href="/Student/StudentProfile" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
+                    Public Profile
+                </a>
+                <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
+                    My Learnning
+                </a>
+                <a href="/Student/Orders-history" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
+                    Orders History
+                </a>
+            </div>
+        </aside>
+        <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
+            <div class="p-2 md:p-4">
+                <div class="max-w-5xl mx-auto p-4">
+                    <h2 class="text-3xl font-bold mb-4">My Learnning</h2>
+                    <div id="learning-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                        <!-- Course Cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <script>
+                    // Fake course data
+                    const courses = [
+                        {
+                            id: 1,
+                            image: 'https://i.pinimg.com/736x/0f/bc/7c/0fbc7c345732e1f9141e530721cdfb50.jpg',
+                            courseName: 'Advanced Python Programming',
+                            categoryID: '3',
+                            tutorID: 3,
+                            price: 60,
+                            status: 'Done',
+                            link: '/CoursesDetail'
+                        },
+                        {
+                            id: 2,
+                            image: 'https://i.pinimg.com/736x/0b/d9/41/0bd941c0c962ceba3b08adf4a6ab7756.jpg',
+                            courseName: 'Data Science Essentials',
+                            categoryID: '4',
+                            tutorID: 4,
+                            price: 70,
+                            status: 'Disapprove',
+                            link: '/CoursesDetail'
+                        },
+                        {
+                            id: 3,
+                            image: 'https://i.pinimg.com/564x/a0/43/23/a0432330247cb5148d14701a7af8f047.jpg',
+                            courseName: 'Web Development Bootcamp',
+                            categoryID: '2',
+                            tutorID: 5,
+                            price: 80,
+                            status: 'Studying',
+                            link: '/CoursesDetail'
+                        },
+                        {
+                            id: 4,
+                            image: 'https://i.pinimg.com/736x/47/98/25/47982592c88710ef93ba2aa5e12c130d.jpg',
+                            courseName: 'UI/UX Design Fundamentals',
+                            categoryID: '1',
+                            tutorID: 6,
+                            price: 90,
+                            status: 'Spending',
+                            link: '/CoursesDetail'
+                        }
+                    ];
+
+                    // Function to create a course card
+                    function createCourseCard(course) {
+                        const card = document.createElement('div');
+                        card.className = 'max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl';
+                        card.innerHTML = `
+                                                    <a href="${course.link}" class="courseImageLink">
+                                                        <img src="${course.image}" alt="${course.courseName}" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
+                                                    </a>
+                                                    <div class="px-4 py-3">
+                                                        <span class="text-gray-400 mr-3 uppercase text-xs">Category: ${course.categoryID}</span>
+                                                        <p class="text-lg font-bold text-black capitalize whitespace-normal">${course.courseName}</p>
+                                                                            <div class="flex items-center justify-between">
+                                                            <p class="text-lg font-semibold text-black cursor-auto my-3">Tutor: ${course.tutorID}</p>
+                                                            <p class="text-sm text-gray-600 cursor-auto ml-2">$${course.price}</p>
+                                                           
+                                                        </div>
+                                                                            <div class="flex items-center justify-between">
+                                                                            <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">${course.status}</p>
+                                    <button class="ml-auto btn border border-secondary rounded-pill px-3 text-primary bg-indigo-500 text-white">
+                                        Done
+                                    </button>
+                                                        </div>
+                                                    </div>
+                                                `;
+                        return card;
+                    }
+
+                    // Add courses to learning
+                    function displayWishlist() {
+                        const wishlistContainer = document.getElementById('learning-container');
+                        courses.forEach(course => {
+                            wishlistContainer.appendChild(createCourseCard(course));
+                        });
+                    }
+
+                    // Initialize learning display
+                    document.addEventListener('DOMContentLoaded', displayWishlist);
+                </script>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
