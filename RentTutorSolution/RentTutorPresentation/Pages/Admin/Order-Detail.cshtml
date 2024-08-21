@@ -11,8 +11,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            // Change status button color
+            const statusButtons = document.querySelectorAll(".statusButton");
+            statusButtons.forEach(function (statusButton) {
+                var statusText = statusButton.textContent.trim().toLowerCase(); // Trim and convert to lowercase
+                if (statusText === "studying") {
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+                } else if (statusText === "disapprove") {
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
+                } else if (statusText === "pending") {
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-100";
+                } else {
+
+                    // Default styling for other statuses
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-indigo-700 bg-indigo-100 rounded-full dark:bg-indigo-700 dark:text-indigo-100";
+                }
+            });
+        });
+    </script>
 </head>
 <body>
+    @if (string.IsNullOrEmpty(userId))
+{
+    <body class="bg-gray-100 flex items-center justify-center h-screen">
+
+        <div class="text-center">
+            <img src="https://cdn.dribbble.com/userupload/8726277/file/still-90096ae0b20436af7d475737af5b86e5.gif?resize=400x0" alt="404 Not Found" class="mx-auto w-1/2 md:w-1/3 lg:w-1/4">
+            <h1 class="text-4xl font-bold text-gray-800 mt-8">Oops! Page Not Found</h1>
+            <p class="text-gray-600 mt-4">The page you are looking for does not exist or has been moved.</p>
+            <a href="/" class="mt-6 inline-block px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600">Go Back to Home</a>
+        </div>
+
+    </body>
+}
+else
+{
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-blue-700">
             <div class="sidebar-header flex items-center justify-center py-4">
@@ -59,7 +96,7 @@
                                 </svg>
                             </span>
                             <span class="ml-3">Student Manage</span>
-                            <span class="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto">22</span>
+                          
                         </a>
                     </li>
                     <li class="my-px">
@@ -156,7 +193,7 @@
                         <span class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Account</span>
                     </li>
                     <li class="my-px">
-                        <a href="/Admin/Profile"
+                        <a href="/Admin/Admin-Profile"
                            class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none"
@@ -308,10 +345,9 @@
 
                             <div class="mb-6">
                                 <p class="text-sm font-medium text-gray-700">Status:</p>
-                                <div class="mt-1 inline-flex items-center px-2 py-1 font-semibold leading-tight text-sm rounded-full
-                                    bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100">
+                                    <button class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                     @Model.Order.Status
-                                </div>
+                                </button>
                             </div>
 
                             <div class="border-t border-gray-200 pt-6">
@@ -351,10 +387,6 @@
                 });
             </script>
 
-
-
-
-
             <footer class="footer px-4 py-6">
                 <div class="footer-content">
                     <p class="text-sm text-gray-600 text-center">© Graduation 2024. All rights reserved. <a href="https://github.com/VanHa1006/RentTutor_Project.git">by Group-7</a></p>
@@ -364,7 +396,7 @@
 
         </main>
     </div>
-
+    }
 </body>
 </html>
 

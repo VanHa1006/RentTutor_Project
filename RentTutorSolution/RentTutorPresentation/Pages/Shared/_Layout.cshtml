@@ -68,9 +68,9 @@
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Courses' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Courses</a>
                     </li>
-                    <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
+                    @* <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Tutor' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Tutor</a>
-                    </li>
+                    </li> *@
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                         <a href='/Contactus' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
                     </li>
@@ -80,6 +80,11 @@
                 @if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(tutorId))
                 {
                     <div class='flex max-lg:ml-auto space-x-3'>
+                        <a class="ml-6" onclick="window.location.href='/Student/Shoppingcart';">
+                            <svg id="svg2" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </a>
                         <a href='/LoginPage' class='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 bg-blue-500 hover:bg-blue-700'>
                             Login
                         </a>
@@ -129,7 +134,7 @@
 
                         <ul id="avatarDropdown" tabindex="0" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg w-52 z-[1] p-2">
                             <li><a asp-page="/Student/StudentProfile"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Student Profile</a></li>
-                            <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learn</a></li>
+                            <li><a asp-page="/Student/My-learning" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learning</a></li>
                             <li><a asp-page="/Student/Orders-history" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders History</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
