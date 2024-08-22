@@ -25,7 +25,9 @@ namespace RentTutorPresentation.Pages.Admin
         [BindProperty(SupportsGet = true)]
         public string SelectedStatus { get; set; }
         [BindProperty(SupportsGet = true)]
-        public int Size { get; set; } = 10;
+        public int Size { get; set; } = 100;
+        [BindProperty(SupportsGet = true)]
+        public string SortStatus { get; set; }
 
         private async Task<Paginate<User>> GetTutors()
         {
@@ -39,9 +41,20 @@ namespace RentTutorPresentation.Pages.Admin
             return null;
         }
 
+        private async Task<Paginate<User>> GetStatusTutors()
+        {
+            var result = await _tutorServices.GetAllTutorsByStatus(SortStatus, PageIndex, Size);
+
+            if (result.Status > 0 && result.Data != null)
+            {
+                return (Paginate<User>)result.Data;
+            }
+            return null;
+        }
+
         private async Task<Paginate<User>> Search()
         {
-            var result = await _tutorServices.Search(SearchTerm, PageIndex, Size);
+            var result = await _tutorServices.SearchTutors(SearchTerm, PageIndex, Size);
             if (result.Status > 0 && result.Data != null)
             {
                 var customer = result.Data;
@@ -54,6 +67,10 @@ namespace RentTutorPresentation.Pages.Admin
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 Tutor = await Search();
+            }
+            else if (!string.IsNullOrEmpty(SortStatus))
+            {
+                Tutor = await GetStatusTutors();
             }
             else
             {

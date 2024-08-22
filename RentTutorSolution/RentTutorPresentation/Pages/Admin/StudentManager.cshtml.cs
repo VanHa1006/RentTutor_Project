@@ -27,7 +27,7 @@ namespace RentTutorPresentation.Pages.Admin
         public int PageIndex { get; set; } = 1;
 
         [BindProperty(SupportsGet = true)]
-        public int Size { get; set; } = 10;
+        public int Size { get; set; } = 100;
 
         [BindProperty(SupportsGet = true)]
         public string SortStatus { get; set; }

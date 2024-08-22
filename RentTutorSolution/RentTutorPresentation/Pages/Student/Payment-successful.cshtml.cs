@@ -58,7 +58,7 @@ namespace RentTutorPresentation.Pages.Student
                 StudentId = UserID,
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "Pending"
+                Status = "Success"
                 // Thiết lập các thuộc tính khác của Order nếu có
             };
 

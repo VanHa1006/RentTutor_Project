@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessAccess.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace BusinessAccess.Services
 {
@@ -14,11 +15,14 @@ namespace BusinessAccess.Services
     {
         Task<IBusinessResult> GetAll(int page, int size);
         Task<IBusinessResult> GetAllForStudent(int page, int size, int? studentId);
+        Task<IBusinessResult> GetAllCourseForStudentStudy(int page, int size, int? studentId);
+        Task<IBusinessResult> GetStatusOrdersByStudentId(string status, int page, int size, int? studentId);
         Task<IBusinessResult> GetAll();
         Task<IBusinessResult> GetById(int id);
         Task<IBusinessResult> FindById(int id);
         Task<IBusinessResult> UpdateAsync(Order order);
         Task<IBusinessResult> AcceptRequestForStudent(int id, string decision, string reason);
+        Task<IBusinessResult> DoneCourseForStudent(int id);
         Task<IBusinessResult> RejectRequestForStudent(int id, string decision, string reason);
         Task<IBusinessResult> Save(Order order);
         Task<IBusinessResult> DeleteAsync(int id);
@@ -375,6 +379,101 @@ namespace BusinessAccess.Services
                            $"Best regards,\nThe Admin Team";
 
                 await _emailService.SendEmailAsync(order.Student.StudentNavigation.Email, subject, body);
+                return new BusinessResult(1, "Send request successfully");
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllCourseForStudentStudy(int page, int size, int? studentId)
+        {
+            try
+            {
+                var orders = await _unitOfWork.OrderRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    predicate: x => x.StudentId == studentId,
+                    size: size,
+                    include: x => x
+                            .Include(p => p.OrderDetails)
+                            .ThenInclude(od => od.Course)        
+                            .ThenInclude(c => c.Category)          
+                            .Include(p => p.OrderDetails)
+                            .ThenInclude(od => od.Course)
+                            .ThenInclude(c => c.Tutor.TutorNavigation));             
+                if (orders == null)
+                {
+                    return new BusinessResult(4, "No order data");
+                }
+                else
+                {
+                    //orders = orders.Include(o => o.User).ToList();
+
+                    return new BusinessResult(1, "Get order list success", orders);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetStatusOrdersByStudentId(string status, int page, int size, int? studentId)
+        {
+            try
+            {
+                var orders = await _unitOfWork.OrderRepository.GetPagingListAsync(
+                    selector: x => x,
+                    page: page,
+                    predicate: x => x.StudentId == studentId && x.Status == status,
+                    size: size,
+                    include: x => x
+                            .Include(p => p.OrderDetails)
+                            .ThenInclude(od => od.Course)
+                            .ThenInclude(c => c.Category)
+                            .Include(p => p.OrderDetails)
+                            .ThenInclude(od => od.Course)
+                            .ThenInclude(c => c.Tutor.TutorNavigation));
+                if (orders == null)
+                {
+                    return new BusinessResult(4, "No order data");
+                }
+                else
+                {
+                    //orders = orders.Include(o => o.User).ToList();
+
+                    return new BusinessResult(1, "Get order list success", orders);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> DoneCourseForStudent(int id)
+        {
+            try
+            {
+                var order = await _unitOfWork.OrderRepository.SingleOrDefaultAsync(selector: x => x,
+                    predicate: x => x.OrderId == id,
+                    include: x => x.Include(x => x.OrderDetails)
+                       .ThenInclude(od => od.Course)
+                       .Include(x => x.Student.StudentNavigation));
+
+                if (order == null)
+                {
+                    return new BusinessResult(-1, "Order not found");
+                }
+
+                // Assuming there's only one course associated with the order
+                var courseName = order.OrderDetails.FirstOrDefault()?.Course?.CourseName;
+
+                order.Status = "Done";
+                _unitOfWork.OrderRepository.Update(order);
+                await _unitOfWork.OrderRepository.SaveAsync();
                 return new BusinessResult(1, "Send request successfully");
             }
             catch (Exception ex)

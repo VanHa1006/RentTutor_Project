@@ -33,11 +33,6 @@
         });
     </script>
 
-    <script>
-        function submitForm() {
-            document.getElementById('statusForm').submit();
-        }
-    </script>
 </head>
 <body>
     @if (string.IsNullOrEmpty(userId))
@@ -263,13 +258,21 @@ else
 
 
 
-                        <form method="get" id="statusForm">
-                            <select name="SortStatus" onchange="submitForm()">
-                                <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Choose Status</option>
-                                <option value="Active" selected="@(Model.SortStatus == "Active")">Active</option>
-                                <option value="Disactive" selected="@(Model.SortStatus == "Disactive")">Disactive</option>
-                            </select>
-                        </form>
+                            <!-- Status Select -->
+                            <div class="hidden md:flex relative mt-3 md:mt-0 md:ml-3">
+                                <form method="get" id="statusForm">
+                                    <select name="SortStatus" onchange="submitForm()"
+                                            class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
+                                        <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">
+                                            &#x39E;  @* Unicode *@
+                                            Status
+                                        </option>
+
+                                        <option value="Active" selected="@(Model.SortStatus == "Active")">Active</option>
+                                        <option value="Disactive" selected="@(Model.SortStatus == "Disactive")">Disactive</option>
+                                    </select>
+                                </form>
+                            </div>
 
                         <script>
                             function submitForm() {

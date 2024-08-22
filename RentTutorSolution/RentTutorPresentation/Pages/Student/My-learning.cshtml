@@ -28,100 +28,93 @@
             </div>
         </aside>
         <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
-            <div class="p-2 md:p-4">
-                <div class="max-w-5xl mx-auto p-4">
-                    <h2 class="text-3xl font-bold mb-4">My Learnning</h2>
-                    <div id="learning-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            <div class="p-4 md:p-6">
+                <div class="max-w-5xl mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
+                    <h2 class="text-4xl font-extrabold mb-6 text-center text-indigo-600">My Learning</h2>
+                    <div id="learning-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         <!-- Course Cards will be dynamically inserted here -->
                     </div>
                 </div>
 
+
+                <!-- Test Sort Status-->
+                <form method="get" id="statusForm">
+                    <select name="SortStatus" onchange="submitForm()" class="px-4 py-2 border rounded-md">
+                        <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Sort By</option>
+                        <option value="Pending" selected="@(Model.SortStatus == "Pending")">Pending</option>
+                        <option value="Studying" selected="@(Model.SortStatus == "Studying")">Studying</option>
+                        <option value="Disapprove" selected="@(Model.SortStatus == "Disapprove")">Disapprove</option>
+                    </select>
+                </form>
                 <script>
-                    // Fake course data
-                    const courses = [
-                        {
-                            id: 1,
-                            image: 'https://i.pinimg.com/736x/0f/bc/7c/0fbc7c345732e1f9141e530721cdfb50.jpg',
-                            courseName: 'Advanced Python Programming',
-                            categoryID: '3',
-                            tutorID: 3,
-                            price: 60,
-                            status: 'Done',
-                            link: '/CoursesDetail'
-                        },
-                        {
-                            id: 2,
-                            image: 'https://i.pinimg.com/736x/0b/d9/41/0bd941c0c962ceba3b08adf4a6ab7756.jpg',
-                            courseName: 'Data Science Essentials',
-                            categoryID: '4',
-                            tutorID: 4,
-                            price: 70,
-                            status: 'Disapprove',
-                            link: '/CoursesDetail'
-                        },
-                        {
-                            id: 3,
-                            image: 'https://i.pinimg.com/564x/a0/43/23/a0432330247cb5148d14701a7af8f047.jpg',
-                            courseName: 'Web Development Bootcamp',
-                            categoryID: '2',
-                            tutorID: 5,
-                            price: 80,
-                            status: 'Studying',
-                            link: '/CoursesDetail'
-                        },
-                        {
-                            id: 4,
-                            image: 'https://i.pinimg.com/736x/47/98/25/47982592c88710ef93ba2aa5e12c130d.jpg',
-                            courseName: 'UI/UX Design Fundamentals',
-                            categoryID: '1',
-                            tutorID: 6,
-                            price: 90,
-                            status: 'Spending',
-                            link: '/CoursesDetail'
-                        }
-                    ];
-
-                    // Function to create a course card
-                    function createCourseCard(course) {
-                        const card = document.createElement('div');
-                        card.className = 'max-w-xs max-h-xs bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl';
-                        card.innerHTML = `
-                                                    <a href="${course.link}" class="courseImageLink">
-                                                        <img src="${course.image}" alt="${course.courseName}" class="h-60 w-full object-cover rounded-t-xl transition-transform duration-300 courseImage" />
-                                                    </a>
-                                                    <div class="px-4 py-3">
-                                                        <span class="text-gray-400 mr-3 uppercase text-xs">Category: ${course.categoryID}</span>
-                                                        <p class="text-lg font-bold text-black capitalize whitespace-normal">${course.courseName}</p>
-                                                                            <div class="flex items-center justify-between">
-                                                            <p class="text-lg font-semibold text-black cursor-auto my-3">Tutor: ${course.tutorID}</p>
-                                                            <p class="text-sm text-gray-600 cursor-auto ml-2">$${course.price}</p>
-                                                           
-                                                        </div>
-                                                                            <div class="flex items-center justify-between">
-                                                                            <p class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">${course.status}</p>
-                                    <button class="ml-auto btn border border-secondary rounded-pill px-3 text-primary bg-indigo-500 text-white">
-                                        Done
-                                    </button>
-                                                        </div>
-                                                    </div>
-                                                `;
-                        return card;
+                    function submitForm() {
+                        document.getElementById("statusForm").submit();
                     }
-
-                    // Add courses to learning
-                    function displayWishlist() {
-                        const wishlistContainer = document.getElementById('learning-container');
-                        courses.forEach(course => {
-                            wishlistContainer.appendChild(createCourseCard(course));
-                        });
-                    }
-
-                    // Initialize learning display
-                    document.addEventListener('DOMContentLoaded', displayWishlist);
                 </script>
+                <div id="learning-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    <!-- Course Cards will be dynamically inserted here -->
+                </div>
+            </div>
+
+                @foreach (var item in Model.Order.Items)
+                {
+                    @foreach (var detail in item.OrderDetails)
+                    {
+                        <div class="course-card bg-white shadow-md rounded-xl duration-300 transform hover:scale-105 hover:shadow-2xl transition-all">
+                            <a href="@detail.Course.LinkVideo" class="block overflow-hidden rounded-t-xl">
+                                <img src="@detail.Course.Image" class="h-60 w-full object-cover transition-transform duration-300 hover:scale-110" />
+                            </a>
+                            <div class="p-4">
+                                <span class="text-gray-500 block mb-2 text-sm uppercase tracking-wider">Category: @detail.Course.Category.CategoryName</span>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">@detail.Course.CourseName</h3>
+                                <p class="text-lg font-semibold text-gray-700 mb-4">Tutor: @detail.Course.Tutor.TutorNavigation.FullName</p>
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-lg font-bold text-gray-900">$@(detail.Course.Price - detail.Course.DiscountPrice)</p>
+                                    <p class="text-sm text-green-600 bg-green-100 px-3 py-1 rounded-full">@item.Status</p>
+                                </div>
+                            @if (item.Status == "Studying")
+                            {
+                                <form method="post" asp-page-handler="DoneCourse">
+                                    <input type="hidden" name="OrderId" value="@item.OrderId" />
+                                    <button type="submit" class="w-full py-2 mt-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition-all">
+                                    Done
+                                </button>
+                                </form>
+                            }
+                            </div>
+                        </div>
+                    }
+                }
+
+            <script>
+                // Filter courses by status
+                const filterByStatus = () => {
+                    const selectedStatus = document.getElementById('statusFilter').value;
+                    const courseCards = document.querySelectorAll('.course-card');
+
+                    courseCards.forEach(card => {
+                        const status = card.getAttribute('data-status').toLowerCase();
+                        if (selectedStatus === 'all' || status === selectedStatus) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                };
+
+                // Add event listener to the dropdown
+                document.getElementById('statusFilter').addEventListener('change', filterByStatus);
+
+                // Initialize learning display
+                document.addEventListener('DOMContentLoaded', () => {
+                    filterByStatus();
+                    displayWishlist();
+                });
+            </script>
 
             </div>
         </main>
+
     </div>
 
 </body>

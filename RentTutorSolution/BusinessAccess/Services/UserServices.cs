@@ -23,11 +23,13 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> UpdateAsync(User user);
         Task<IBusinessResult> UpdateStudentAsync(User user);
         Task<IBusinessResult> GetAllStudentsByStatus(string status, int page, int size);
+        Task<IBusinessResult> GetAllTutorsByStatus(string status, int page, int size);
         Task<IBusinessResult> Save(User user);
         User GetUserById(int userId);
         Task<IBusinessResult> DeleteAsync(int id);
         Task<IBusinessResult> DeleteUser(int id);
         Task<IBusinessResult> Search(string searchTerm, int page, int size);
+        Task<IBusinessResult> SearchTutors(string searchTerm, int page, int size);
         Task<IBusinessResult> GetAllStudents(int page, int size);
         Task<IBusinessResult> GetAllStudentsActive(string searchActive,int page, int size);
         Task<IBusinessResult> GetAllTutor(int page, int size);
@@ -368,7 +370,8 @@ namespace BusinessAccess.Services
             {
                 //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
                 var users = await _unitOfWork.UserRepository.GetPagingListAsync(
-                   selector: x => x.Status == status ? x : null,
+                   selector: x => x,
+                   predicate: x => x.Status == status && x.Role.Equals("Student"),
                    page: page,
                    size: size
                    );
@@ -406,6 +409,58 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(-1, "Get all Tutors fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllTutorsByStatus(string status, int page, int size)
+        {
+            try
+            {
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.UserRepository.GetPagingListAsync(
+                   selector: x => x,
+                   predicate: x => x.Status == status && x.Role.Equals("Tutor"),
+                   page: page,
+                   size: size
+                   );
+                if (users != null)
+                {
+                    return new BusinessResult(1, "Get all user successfully", users);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get all user fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> SearchTutors(string searchTerm, int page, int size)
+        {
+            try
+            {
+                var user = await _unitOfWork.UserRepository.GetPagingListAsync(
+                    selector: x => x,
+                    predicate: x => x.Username.Contains(searchTerm) && x.Role.Equals("Tutor"),
+                    page: page,
+                    size: size
+                    );
+
+                if (user != null)
+                {
+                    return new BusinessResult(1, "Search successfully", user);
+                }
+                else
+                {
+                    return new BusinessResult(1, "Search fail");
                 }
             }
             catch (Exception ex)
