@@ -266,22 +266,23 @@
                         Create failure
                     </div>
                     <form method="post" class="mt-6">
-                        <!-- Category Name Field -->
+                        
                         <div class="mb-4">
                             <label asp-for="Category.CategoryName" class="block text-gray-700 font-semibold mb-2">Category Name</label>
                             <input asp-for="Category.CategoryName" type="text" id="categoryName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter Category Name" required>
                             <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
                         </div>
 
-                        <!-- Description Field -->
+
                         <div class="mb-6">
                             <label asp-for="Category.Description" class="block text-gray-700 font-semibold mb-2">Description</label>
                             <textarea asp-for="Category.Description" id="description" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter Description" rows="4" maxlength="150" required></textarea>
-                            <p id="charCount" class="text-sm text-gray-500 mt-1">0/150</p>
+                            <p id="charCount" class="text-sm text-gray-500 mt-1">0/255 characters </p>
                             <span asp-validation-for="Category.Description" class="text-danger"></span>
                         </div>
 
-                        <!-- Create Button -->
+
+                       
                         <div class="flex justify-end">
                             <button type="submit" value="Create" class="px-6 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300">Create</button>
                         </div>
@@ -292,18 +293,18 @@
                     document.getElementById('createCategoryForm').addEventListener('submit', function (event) {
                     event.preventDefault();
 
-                    // Simulate a success or failure response (replace with actual logic)
-                    const success = false; // Set this to true if successful
+                    
+                    const success = false; 
 
                     if (success) {
-                    // Redirect to Categories management page
+                    
                     window.location.href = '/Admin/CategoriesCourses';
                     } else {
-                    // Show failure message
+                    
                     const toast = document.getElementById('toastMessage');
                     toast.classList.remove('hidden');
 
-                    // Optionally, hide the toast message after a few seconds
+                    
                     setTimeout(() => {
                     toast.classList.add('hidden');
                     }, 3000);
@@ -314,7 +315,7 @@
                     const charCount = document.getElementById('charCount');
 
                     description.addEventListener('input', function () {
-                    charCount.textContent = `${description.value.length}/150 characters used`;
+                        charCount.textContent = `${description.value.length}/255 characters `;
                     });
                 </script>
 

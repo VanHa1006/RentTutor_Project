@@ -63,18 +63,31 @@
                         </a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/HomePage' class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Home</a>
+                        <a href='/HomePage' class='flex items-center gap-x-2 text-black hover:text-[#007bff] active:text-[#007bff] block font-semibold text-[15px]'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="text-black hover:text-[#007bff] active:text-[#007bff]">
+                                <path d="M20 7.093v-5.093h-3v2.093l3 3zm4 5.907l-12-12-12 12h3v10h18v-10h3zm-5 8h-14v-10.26l7-6.912 7 6.99v10.182zm-5-1h-4v-6h4v6z" />
+                            </svg>
+                            Home
+                        </a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/Courses' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Courses</a>
+                        <a href='/Courses' class='flex items-center gap-x-2 text-black hover:text-[#007bff] active:text-[#007bff] block font-semibold text-[15px]'>
+                            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="text-black hover:text-[#007bff] active:text-[#007bff]">
+                                <path d="M22 24h-17c-1.657 0-3-1.343-3-3v-18c0-1.657 1.343-3 3-3h17v24zm-2-4h-14.505c-1.375 0-1.375 2 0 2h14.505v-2zm0-18h-15v16h15v-16zm-3 3v3h-9v-3h9z" />
+                            </svg>
+                            Courses
+                        </a>
                     </li>
-                    @* <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/Tutor' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Tutor</a>
-                    </li> *@
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
-                        <a href='/Contactus' class='hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]'>Contact</a>
+                        <a href='/Contactus' class='flex items-center gap-x-2 text-black hover:text-[#007bff] active:text-[#007bff] block font-semibold text-[15px]'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="text-black hover:text-[#007bff] active:text-[#007bff]">
+                                <path d="M12 2.02c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 12.55l-5.992-4.57h11.983l-5.991 4.57zm0 1.288l-6-4.629v6.771h12v-6.771l-6 4.629z" />
+                            </svg>
+                            Contact
+                        </a>
                     </li>
                 </ul>
+
             </div>
             <div class="header-action">
                 @if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(tutorId))
