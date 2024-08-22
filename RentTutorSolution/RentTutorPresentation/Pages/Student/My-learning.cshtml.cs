@@ -10,12 +10,15 @@ namespace RentTutorPresentation.Pages.Student
     public class My_learningModel : PageModel
     {
         private readonly IOrderService _orderBusiness;
+        private readonly IOrderDetailServices _orderDetailService;
 
-        public My_learningModel(IOrderService orderBusiness)
+        public My_learningModel(IOrderService orderBusiness, IOrderDetailServices orderDetailService)
         {
             _orderBusiness = orderBusiness;
+            _orderDetailService = orderDetailService;
         }
 
+        public Paginate<OrderDetail> OrderDetail { get; set; } = default!;
         public Paginate<Order> Order { get; set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -33,13 +36,13 @@ namespace RentTutorPresentation.Pages.Student
         public string SortStatus { get; set; }
 
 
-        private async Task<Paginate<Order>> GetOrder()
+        private async Task<Paginate<OrderDetail>> GetOrder()
         {
-            var result = await _orderBusiness.GetAllCourseForStudentStudy(PageIndex, Size, StudentId);
+            var result = await _orderDetailService.GetAllCourseForStudentStudy(PageIndex, Size, StudentId);
             if (result.Status > 0 && result.Data != null)
             {
                 var order = result.Data;
-                return (Paginate<Order>)order;
+                return (Paginate<OrderDetail>)order;
             }
             return null;
         }
@@ -55,13 +58,13 @@ namespace RentTutorPresentation.Pages.Student
             return null;
         }
 
-        private async Task<Paginate<Order>> GetStatusOrdersByStudentId()
+        private async Task<Paginate<OrderDetail>> GetStatusOrdersByStudentId()
         {
-            var result = await _orderBusiness.GetStatusOrdersByStudentId(SortStatus, PageIndex, Size,StudentId);
+            var result = await _orderDetailService.GetStatusOrdersByStudentId(SortStatus, PageIndex, Size,StudentId);
 
             if (result.Status > 0 && result.Data != null)
             {
-                return (Paginate<Order>)result.Data;
+                return (Paginate<OrderDetail>)result.Data;
             }
             return null;
         }
@@ -81,11 +84,11 @@ namespace RentTutorPresentation.Pages.Student
             }
             else if (!string.IsNullOrEmpty(SortStatus))
             {
-                Order = await GetStatusOrdersByStudentId();
+                OrderDetail = await GetStatusOrdersByStudentId();
             }
             else
             {
-                Order = await GetOrder();
+                OrderDetail = await GetOrder();
             }
         }
 
@@ -93,12 +96,12 @@ namespace RentTutorPresentation.Pages.Student
         {
             try
             {
-                var result = await _orderBusiness.DoneCourseForStudent(OrderId);
+                var result = await _orderDetailService.DoneCourseForStudent(OrderId);
                 if (result.Status > 0)
                 {
-                    var user = await _orderBusiness.GetById(OrderId);
                     ViewData["SuccessMessage"] = result.Message;
-                    return RedirectToPage("./Orders-manage");
+                    await OnGetAsync();  // Gọi lại OnGetAsync để tải lại dữ liệu
+                    return Page();
                 }
                 else
                 {

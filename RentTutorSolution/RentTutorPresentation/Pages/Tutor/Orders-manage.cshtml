@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses management</title>
+    <title>Orders management</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    @if (Model.Order != null && Model.Order.Items.Any())
+                    @if (Model.OrderDetail?.Items != null && Model.OrderDetail.Items.Any())
                     {
                     <table class="min-w-full bg-white border border-gray-200 mt-4">
                         <thead>
@@ -85,19 +85,17 @@
                             @{
                                 int counter = 1;
                             }
-                            @foreach (var item in Model.Order.Items)
+                            @foreach (var item in Model.OrderDetail.Items)
                             {
-                                    @foreach (var orderDetail in item.OrderDetails.Where(od => od.Course.TutorId == Model.TutorId))
-                                    {
                                 <tr class="text-center border-b border-gray-200">
                                     <td class="px-4 py-2">
                                         <input type="checkbox" class="form-checkbox checkItem">
                                     </td>
                                     <td class="px-4 py-2">@counter</td>
-                                    <td class="px-4 py-2">@item.Student.StudentNavigation.FullName</td>
+                                        <td class="px-4 py-2">@item.Order.Student.StudentNavigation.FullName</td>
                                     <td class="px-4 py-2">@item.OrderId </td>
                                     <td class="px-4 py-2">
-                                                <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">@orderDetail.Status</span>
+                                            <span class="ml-2 px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">@item.Status</span>
                                     </td>
 
                                     <td class="px-4 py-2">
@@ -106,8 +104,8 @@
                                             ? item.CourseName.Substring(0, 25) + "..."
                                             : item.CourseName;
                                         } *@
-                                                @* @displayName *@ @orderDetail.Course.CourseName
-                                            <td class="px-4 py-2"> @(orderDetail.Course.Price - orderDetail.Course.DiscountPrice)</td>
+                                            @* @displayName *@ @item.Course.CourseName
+                                        <td class="px-4 py-2"> @(item.Course.Price - item.Course.DiscountPrice)</td>
                                     <td class="px-4 py-2 flex justify-center space-x-2">
                                         <a asp-page="./Detail-Course" >
                                             <button class="flex items-center px-2 py-1 text-blue-500 hover:text-blue-700">
@@ -130,7 +128,7 @@
                                 </tr>
                                 counter++;
                                 }
-                            }
+                            
                         </tbody>
                     </table>
                         }

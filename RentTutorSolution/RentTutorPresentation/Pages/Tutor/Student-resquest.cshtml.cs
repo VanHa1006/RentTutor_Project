@@ -10,12 +10,14 @@ namespace RentTutorPresentation.Pages.Tutor
     public class Student_resquestModel : PageModel
     {
         private readonly IOrderService _orderBusiness;
+        private readonly IOrderDetailServices _orderDetailBusiness;
 
-        public Student_resquestModel(IOrderService orderBusiness)
+        public Student_resquestModel(IOrderService orderBusiness, IOrderDetailServices orderDetailBusiness)
         {
             _orderBusiness = orderBusiness;
+            _orderDetailBusiness = orderDetailBusiness;
         }
-
+        public Paginate<OrderDetail> OrderDetail { get; set; } = default!;
         public Paginate<Order> Order { get; set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -28,13 +30,13 @@ namespace RentTutorPresentation.Pages.Tutor
 
         public Order Orders { get; set; } = default!;
 
-        private async Task<Paginate<Order>> GetOrder()
+        private async Task<Paginate<OrderDetail>> GetOrderDetailStudent()
         {
-            var result = await _orderBusiness.GetAllForTutorPending(PageIndex, Size, TutorId);
+            var result = await _orderDetailBusiness.GetAllForTutorPending(PageIndex, Size, TutorId);
             if (result.Status > 0 && result.Data != null)
             {
                 var order = result.Data;
-                return (Paginate<Order>)order;
+                return (Paginate<OrderDetail>)order;
             }
             return null;
         }
@@ -64,18 +66,18 @@ namespace RentTutorPresentation.Pages.Tutor
             }
             else
             {
-                Order = await GetOrder();
+                OrderDetail = await GetOrderDetailStudent();
             }
         }
 
-        public async Task<IActionResult> OnPostAcceptAsync(int OrderId, string Decision, string Reason)
+        public async Task<IActionResult> OnPostAcceptAsync(int OrderDetailId, string Decision, string Reason)
         {
             try
             {
-                var result = await _orderBusiness.AcceptRequestForStudent(OrderId, Decision, Reason);
+                var result = await _orderDetailBusiness.AcceptRequestForStudent(OrderDetailId, Decision, Reason);
                 if (result.Status > 0)
                 {
-                    var user = await _orderBusiness.GetById(OrderId);
+                    var user = await _orderBusiness.GetById(OrderDetailId);
                     ViewData["SuccessMessage"] = result.Message;
                     return RedirectToPage("./Orders-manage");
                 }
@@ -93,14 +95,14 @@ namespace RentTutorPresentation.Pages.Tutor
 
         }
 
-        public async Task<IActionResult> OnPostRejectAsync(int OrderId, string Decision, string Reason)
+        public async Task<IActionResult> OnPostRejectAsync(int OrderDetailId, string Decision, string Reason)
         {
             try
             {
-                var result = await _orderBusiness.RejectRequestForStudent(OrderId, Decision, Reason);
+                var result = await _orderDetailBusiness.RejectRequestForStudent(OrderDetailId, Decision, Reason);
                 if (result.Status > 0)
                 {
-                    var user = await _orderBusiness.GetById(OrderId);
+                    var user = await _orderBusiness.GetById(OrderDetailId);
                     ViewData["SuccessMessage"] = result.Message;
                     return RedirectToPage("./Orders-manage");
                 }

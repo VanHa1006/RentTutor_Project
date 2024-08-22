@@ -8,14 +8,15 @@ namespace RentTutorPresentation.Pages.Tutor
 {
     public class Orders_manageModel : PageModel
     {
-        private readonly IOrderService _orderBusiness;
+        private readonly IOrderDetailServices _orderDetailServices;
 
-        public Orders_manageModel(IOrderService orderBusiness)
+        public Orders_manageModel(IOrderDetailServices orderDetailServices)
         {
-            _orderBusiness = orderBusiness;
+            _orderDetailServices = orderDetailServices;
         }
 
         public Paginate<Order> Order { get; set; } = default!;
+        public Paginate<OrderDetail> OrderDetail { get; set; } = default!;
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -25,24 +26,13 @@ namespace RentTutorPresentation.Pages.Tutor
         public int Size { get; set; } = 100;
         public int? TutorId { get; set; }
 
-        private async Task<Paginate<Order>> GetOrder()
+        private async Task<Paginate<OrderDetail>> GetOrderDetail()
         {
-            var result = await _orderBusiness.GetAllForTutorActive(PageIndex, Size, TutorId);
+            var result = await _orderDetailServices.GetAllForTutorActive(PageIndex, Size, TutorId);
             if (result.Status > 0 && result.Data != null)
             {
                 var order = result.Data;
-                return (Paginate<Order>)order;
-            }
-            return null;
-        }
-
-        private async Task<Paginate<Order>> Search()
-        {
-            var result = await _orderBusiness.Search(SearchTerm, PageIndex, Size);
-            if (result.Status > 0 && result.Data != null)
-            {
-                var order = result.Data;
-                return (Paginate<Order>)order;
+                return (Paginate<OrderDetail>)order;
             }
             return null;
         }
@@ -54,14 +44,9 @@ namespace RentTutorPresentation.Pages.Tutor
             {
                 // Xử lý trường hợp tutorId không có trong session
             }
-
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-                Order = await Search();
-            }
             else
             {
-                Order = await GetOrder();
+                OrderDetail = await GetOrderDetail();
             }
         }
     }

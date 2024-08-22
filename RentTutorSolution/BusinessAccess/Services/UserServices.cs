@@ -259,7 +259,7 @@ namespace BusinessAccess.Services
                 //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
                 var users = await _unitOfWork.UserRepository.GetPagingListAsync(
                    selector: x => x,
-                   predicate: x => x.Role == "Tutor",
+                   predicate: x => (x.Role == "Tutor" && x.Status == "Active") || (x.Role == "Tutor" && x.Status == "Disactive"),
                    page: page,
                    size: size,
                    include: x => x.Include(p => p.Tutor)

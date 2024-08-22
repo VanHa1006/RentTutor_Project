@@ -43,25 +43,23 @@
         <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
             <div class="p-2 md:p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                 <!-- Card -->
-                @foreach (var item in Model.Order.Items)
+                @foreach (var item in Model.OrderDetail.Items)
                 {
-                    @foreach (var orderDetail in item.OrderDetails.Where(od => od.Course.TutorId == Model.TutorId))
-                    {
-                        var reasonInputId = $"decisionInput_{item.OrderId}_{orderDetail.Course.CourseId}";
-                        var decisionInputId = $"reasonInput_{item.OrderId}_{orderDetail.Course.CourseId}";
-                        var acceptFormId = $"acceptForm_{item.OrderId}_{orderDetail.Course.CourseId}";
-                        var rejectFormId = $"rejectForm_{item.OrderId}_{orderDetail.Course.CourseId}";
+                    var reasonInputId = $"decisionInput_{item.OrderDetailId}_{item.Course.CourseId}";
+                    var decisionInputId = $"reasonInput_{item.OrderDetailId}_{item.Course.CourseId}";
+                    var acceptFormId = $"acceptForm_{item.OrderDetailId}_{item.Course.CourseId}";
+                    var rejectFormId = $"rejectForm_{item.OrderDetailId}_{item.Course.CourseId}";
 
                         <div class="bg-white p-4 rounded-lg shadow-lg w-[300px]">
                             <div class="flex items-center mb-4">
                                 <img src="/img/Avatar07.jpg" alt="Student Image" class="w-32 h-32 rounded-lg border-2 border-gray-300 mr-4">
 
-                                <div>
-                                    <h4 class="text-lg font-semibold">OrderID: @item.OrderId</h4>
-                                    <p class="text-gray-600">Username: @item.Student.StudentNavigation.FullName</p>
-                                    <p class="text-gray-600">Course: @orderDetail.Course.CourseName</p>
-                                    <p class="text-gray-600">Order-Date: @item.OrderDate</p>
-                                </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">OrderID: @item.OrderId</h4>
+                                <p class="text-gray-600">Username: @item.Order.Student.StudentNavigation.FullName</p>
+                                <p class="text-gray-600">Course: @item.Course.CourseName</p>
+                                <p class="text-gray-600">Order-Date: @item.Order.OrderDate</p>
+                            </div>
                             </div>
 
                             <div class="mb-4">
@@ -74,16 +72,16 @@
                             </div>
 
                             <form id="@acceptFormId" method="post" asp-page-handler="Accept">
-                                <input type="hidden" name="OrderId" value="@item.OrderId" />
+                            <input type="hidden" name="OrderDetailId" value="@item.OrderDetailId" />
                                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg" onclick="submitForm('@acceptFormId', '@decisionInputId', '@reasonInputId', event)">Accept</button>
                             </form>
 
                             <form id="@rejectFormId" method="post" asp-page-handler="Reject">
-                                <input type="hidden" name="OrderId" value="@item.OrderId" />
+                            <input type="hidden" name="OrderDetailId" value="@item.OrderDetailId" />
                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg" onclick="submitForm('@rejectFormId', '@decisionInputId', '@reasonInputId', event)">Reject</button>
                             </form>
                         </div>
-                    }
+                    
                 }
                     <script>
                         function submitForm(formId, decisionInputId, reasonInputId, event) {
