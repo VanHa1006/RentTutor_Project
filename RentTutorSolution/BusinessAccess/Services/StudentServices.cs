@@ -68,6 +68,13 @@ namespace BusinessAccess.Services
         {
             try
             {
+                // Kiểm tra email có tồn tại trong database không
+                var existingUser = await _unitOfWork.StudentRepository.FindAsync(u => u.StudentNavigation.Email == user.StudentNavigation.Email);
+                if (existingUser != null)
+                {
+                    return new BusinessResult(-2, "Email is already registered");
+                }
+
                 user.StudentNavigation.Status = "Active";
                 user.StudentNavigation.Role = "Student";
                 user.StudentNavigation.Username = "Student";
@@ -76,6 +83,7 @@ namespace BusinessAccess.Services
                 user.StudentNavigation.Birthday = DateOnly.MinValue;
                 user.StudentNavigation.CreatedAt = DateTime.Now;
                 user.StudentNavigation.UpdatedAt = DateTime.Now;
+
                 var newUser = await _unitOfWork.StudentRepository.CreateAsync(user);
                 if (newUser >= 1)
                 {

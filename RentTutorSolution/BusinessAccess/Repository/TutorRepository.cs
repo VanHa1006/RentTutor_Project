@@ -1,9 +1,11 @@
 ﻿using BusinessAccess.DAO;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +35,11 @@ namespace BusinessAccess.Repository
                 Console.WriteLine($"Error removing customer: {ex.Message}");
                 return false;
             }
+        }
+
+        public async Task<Tutor?> FindAsync(Expression<Func<Tutor, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
         }
     }
 }

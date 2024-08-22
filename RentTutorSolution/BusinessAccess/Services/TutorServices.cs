@@ -112,6 +112,13 @@ namespace BusinessAccess.Services
         {
             try
             {
+                // Kiểm tra email có tồn tại trong database không
+                var existingUser = await _unitOfWork.StudentRepository.FindAsync(u => u.StudentNavigation.Email == user.TutorNavigation.Email);
+                if (existingUser != null)
+                {
+                    return new BusinessResult(-2, "Email is already registered");
+                }
+
                 user.TutorNavigation.Role = "Tutor";
                 user.TutorNavigation.UpdatedAt = DateTime.Now;
                 user.TutorNavigation.CreatedAt = DateTime.Now;
