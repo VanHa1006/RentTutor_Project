@@ -75,6 +75,7 @@ namespace RentTutorPresentation.Pages.Student
                     CourseId = item.CourseId,
                     Quantity = item.Quantity,
                     UnitPrice = item.Price,
+                    Status = "Pending",
                     TotalPrice = item.Price - item.DiscountPrice
                 });
             }

@@ -38,6 +38,14 @@ namespace BusinessAccess.Services
                 user.Role = "Student";
                 _unitOfWork.UserRepository.Update(user);
 
+                var student = new Student
+                {
+                    StudentId = user.UserId,  // Assuming UserId is used as a foreign key in Student
+                };
+
+                _unitOfWork.StudentRepository.Create(student);
+                await _unitOfWork.StudentRepository.SaveAsync();
+
                 // Step 2: Create and save the approval log entry
                 var approvalLog = new UserApprovalLog
                 {

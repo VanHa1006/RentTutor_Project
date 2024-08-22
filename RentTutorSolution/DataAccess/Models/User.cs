@@ -31,6 +31,11 @@ public partial class User
 
     public string FullName { get; set; }
 
+    [NotMapped]
+    [Compare("PasswordHash", ErrorMessage = "The password and confirmation password do not match.")]
+    [DataType(DataType.Password)]
+    public string ConfirmPassword { get; set; }
+
     public virtual Student Student { get; set; }
 
     public virtual Tutor Tutor { get; set; }

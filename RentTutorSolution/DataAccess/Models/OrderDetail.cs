@@ -17,6 +17,8 @@ public partial class OrderDetail
 
     public decimal TotalPrice { get; set; }
 
+    public string Status { get; set; }
+
     public virtual Course Course { get; set; }
 
     public virtual Order Order { get; set; }

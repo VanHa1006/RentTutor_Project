@@ -103,7 +103,7 @@ namespace BusinessAccess.Services
                     selector: x => x,
                     page: page,
                     size: size,
-                    predicate: x => x.OrderDetails.Any(od => od.Course.TutorId == tutorId) && x.Status == "Pending",
+                    predicate: x => x.OrderDetails.Any(od => od.Course.TutorId == tutorId && od.Status == "Pending"),
                     include: x => x.Include(o => o.OrderDetails).ThenInclude(od => od.Course).Include(p => p.Student.StudentNavigation)
                 );
 
@@ -328,8 +328,13 @@ namespace BusinessAccess.Services
                 // Assuming there's only one course associated with the order
                 var courseName = order.OrderDetails.FirstOrDefault()?.Course?.CourseName;
 
-                order.Status = "Studying";
-                _unitOfWork.OrderRepository.Update(order);
+                // Update the status of each order detail
+                foreach (var orderDetail in order.OrderDetails)
+                {
+                    orderDetail.Status = "Studying";
+                    _unitOfWork.OrderDetailRepository.Update(orderDetail);
+                }
+
                 await _unitOfWork.OrderRepository.SaveAsync();
 
                 var subject = $"{decision}";  // Set the email's subject to the course name
@@ -367,14 +372,19 @@ namespace BusinessAccess.Services
                 // Assuming there's only one course associated with the order
                 var courseName = order.OrderDetails.FirstOrDefault()?.Course?.CourseName;
 
-                order.Status = "Disapprove";
-                _unitOfWork.OrderRepository.Update(order);
+                // Update the status of each order detail
+                foreach (var orderDetail in order.OrderDetails)
+                {
+                    orderDetail.Status = "Disapprove";
+                    _unitOfWork.OrderDetailRepository.Update(orderDetail);
+                }
+
                 await _unitOfWork.OrderRepository.SaveAsync();
 
                 var subject = $"{decision}";  // Set the email's subject to the course name
                 var body = $"Dear {order.Student.StudentNavigation.FullName},\n\n" +
                            $"I have received your course {courseName} support letter.\n\n" +
-                           $"Thank you for your interest in our course. There is currently a problem with this course.\n\n" +
+                           $"I will meet you on this link, be on time so we can get started right away.\n\n" +
                            $"{reason}\n\n" +
                            $"Best regards,\nThe Admin Team";
 
@@ -471,8 +481,13 @@ namespace BusinessAccess.Services
                 // Assuming there's only one course associated with the order
                 var courseName = order.OrderDetails.FirstOrDefault()?.Course?.CourseName;
 
-                order.Status = "Done";
-                _unitOfWork.OrderRepository.Update(order);
+                // Update the status of each order detail
+                foreach (var orderDetail in order.OrderDetails)
+                {
+                    orderDetail.Status = "Done";
+                    _unitOfWork.OrderDetailRepository.Update(orderDetail);
+                }
+
                 await _unitOfWork.OrderRepository.SaveAsync();
                 return new BusinessResult(1, "Send request successfully");
             }
