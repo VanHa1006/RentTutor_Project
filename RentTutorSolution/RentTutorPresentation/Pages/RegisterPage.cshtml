@@ -10,6 +10,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `max-w-xs w-full px-4 py-2 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white`;
+            toast.innerText = message;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 5000); 
+        }
+
+        function handleStudentRegistrationOutcome(isSuccess, message) {
+            showToast(message, isSuccess ? 'success' : 'error');
+            if (isSuccess) {
+                setTimeout(() => {
+                    window.location.href = '/LoginPage';
+                }, 1500); 
+            }
+        }
+
+        function handleTutorRegistrationOutcome(isSuccess, message) {
+            showToast(message, isSuccess ? 'success' : 'error');
+            if (isSuccess) {
+                setTimeout(() => {
+                    window.location.href = '/LoginPage';
+                }, 1500); 
+            }
+        }
+    </script>
+
+
 </head>
 <body>
     <div class="font-[sans-serif]">
@@ -27,7 +61,7 @@
                         <button id="tutorTabBtn" class="bg-gray-200 text-gray-800 py-2 px-4 rounded-r" onclick="showTab('tutor')">Become Tutor</button>
                     </div>
                     <div id="studentTab" class="tab-content">
-                        <form class="space-y-4" method="post" asp-page-handler="RegisterStudent">
+                        <form class="space-y-4" method="post" asp-page-handler="RegisterStudent" onsubmit="event.preventDefault(); submitStudentForm();">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Student.StudentNavigation.Status"/>
                             <input type="hidden" asp-for="Student.StudentId" />
@@ -59,7 +93,7 @@
                         </form>
                     </div>
                     <div id="tutorTab" class="tab-content hidden">
-                        <form class="space-y-4" method="post" asp-page-handler="RegisterTutor">
+                        <form class="space-y-4" method="post" asp-page-handler="RegisterTutor" onsubmit="event.preventDefault(); submitTutorForm();">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Tutor.TutorId" />
                             <div class="flex space-x-4">
@@ -139,6 +173,7 @@
                             </div>
                         </form>
                     </div>
+                    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-4"></div>
                     <p class="text-sm mt-8 text-center text-gray-800">
                         Already have an account?
                         <a href="/LoginPage" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign in here</a>
@@ -175,6 +210,35 @@
             }
         }
     </script>
+    <script>
+        async function submitStudentForm() {
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            const result = await response.json();
+            handleStudentRegistrationOutcome(result.isSuccess, result.message);
+        }
+
+        async function submitTutorForm() {
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            const result = await response.json();
+            handleTutorRegistrationOutcome(result.isSuccess, result.message);
+        }
+    </script>
+
+
 </body>
 </html>
 @section Scripts {

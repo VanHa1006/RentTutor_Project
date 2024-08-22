@@ -70,13 +70,16 @@ namespace RentTutorPresentation.Pages
             var result = await _userServices.Save(Student);
             if (result.Status > 0)
             {
+                /*ViewData["SuccessMessage"] = result.Message;
+                return RedirectToPage("./LoginPage");*/
                 ViewData["SuccessMessage"] = result.Message;
-                return RedirectToPage("./LoginPage");
-            }
+                return new JsonResult(new { isSuccess = true, message = "Congratulations, Successfully registered, please Log in" });
+            
+        }
             else
             {
                 ViewData["ErrorMessage"] = $"Error: {result.Message}";
-                return Page();
+                return new JsonResult(new { isSuccess = false, message = "There was a problem during the registration process, please check your Email or other information again and register again" });
             }
 
         }
@@ -88,13 +91,17 @@ namespace RentTutorPresentation.Pages
             var result = await _tutorServices.RegisterTutor(Tutor);
             if (result.Status > 0)
             {
+                /* ViewData["SuccessMessage"] = result.Message;
+                 return RedirectToPage("./LoginPage");*/
                 ViewData["SuccessMessage"] = result.Message;
-                return RedirectToPage("./LoginPage");
+                return new JsonResult(new { isSuccess = true, message = "Congratulations, Successfully registered Tutor, please Log in" });
             }
             else
             {
+                /* ViewData["ErrorMessage"] = $"Error: {result.Message}";
+                 return Page();*/
                 ViewData["ErrorMessage"] = $"Error: {result.Message}";
-                return Page();
+                return new JsonResult(new { isSuccess = false, message = "There was a problem during the registration process, please check your email or other information again and register again" });
             }
 
         }
