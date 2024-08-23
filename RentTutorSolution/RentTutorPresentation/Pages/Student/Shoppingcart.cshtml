@@ -1,6 +1,7 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Student.ShoppingcartModel
 @{
+    var userId = HttpContext.Session.GetString("StudentId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -91,12 +92,22 @@
                                 <dd class="text-base font-bold text-gray-900 dark:text-white">$@Model.Cart.GetTotal()</dd>
                             </dl>
                         </div>
-
-                        <form method="post" asp-page-handler="Checkout" class="mb-4">
-                            <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Proceed to Checkout
-                            </button>
-                        </form>
+                         @if (!string.IsNullOrEmpty(userId))
+                        {
+                            <form method="post" asp-page-handler="Checkout" class="mb-4">
+                                <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    Proceed to Checkout
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="mb-4">
+                                <a href="../LoginPage" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    Proceed to Checkout
+                                </a>
+                            </div>
+                        }
                         <div class="flex items-center justify-center gap-2">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400">or</span>
                             <a href="/Courses" title="" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-700 underline hover:no-underline dark:text-indigo-500">

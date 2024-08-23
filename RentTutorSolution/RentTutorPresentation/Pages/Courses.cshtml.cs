@@ -33,17 +33,35 @@ namespace RentTutorPresentation.Pages
 
         [BindProperty(SupportsGet = true)]
         public Paginate<User> Tutor { get; set; } = default!;
+        public int? UserId { get; set; }
 
         [BindProperty]
         public Course Courses { get; set; } = default!;
 
         private async Task<Paginate<Course>> GetCourses()
         {
+            UserId = HttpContext.Session.GetInt32("StudentId");
+
             var result = await _courseServices.GetAll(PageIndex, Size);
+
             if (result.Status > 0 && result.Data != null)
             {
-                return result.Data as Paginate<Course> ?? new Paginate<Course>();
+                var courses = result.Data as Paginate<Course> ?? new Paginate<Course>();
+
+                if (UserId.HasValue)
+                {
+                    // Lọc các khóa học dựa trên OrderDetails của UserId hiện tại
+                    courses.Items = courses.Items
+                        .Where(course => course.OrderDetails != null &&
+                                         !course.OrderDetails
+                                             .Where(od => od.Order != null && od.Order.StudentId == UserId.Value)
+                                             .Any(od => od.Status == "Studying" || od.Status == "Pending"))
+                        .ToList();
+                }
+
+                return courses;
             }
+
             return new Paginate<Course>();
         }
 
