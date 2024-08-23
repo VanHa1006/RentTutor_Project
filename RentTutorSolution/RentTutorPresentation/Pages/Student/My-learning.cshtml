@@ -60,7 +60,7 @@
                 <form method="get" id="statusForm">
                     <select name="SortStatus" onchange="submitForm()" class="px-4 py-2 border rounded-md">
                         <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Sort By</option>
-                        <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
+                        <option value="Pending" selected="@(Model.SortStatus == "Pending")">Pending</option>
                         <option value="Studying" selected="@(Model.SortStatus == "Studying")">Studying</option>
                         <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
                     </select>

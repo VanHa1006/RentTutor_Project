@@ -80,6 +80,7 @@ namespace BusinessAccess.Services
                 user.StudentNavigation.Role = "Student";
                 user.StudentNavigation.Phone = "";
                 user.StudentNavigation.Address = "";
+                user.StudentNavigation.Username = "Student";
                 user.StudentNavigation.Birthday = DateOnly.MinValue;
                 user.StudentNavigation.CreatedAt = DateTime.Now;
                 user.StudentNavigation.UpdatedAt = DateTime.Now;
