@@ -250,11 +250,55 @@ else
                                 </svg>
                             </div>
 
-                            <input id="search"
-                                   type="text"
-                                   name="search"
-                                   class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400"
-                                   placeholder="Search..." />
+                                <form method="get">
+                                    <div class="input-group">
+                                        <input placeholder="Search..." class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400" asp-for="SearchTerm">
+                                    </div>
+                                </form>
+
+
+                                <!-- Status Select -->
+                                <div class="hidden md:flex relative mt-3 md:mt-0 md:ml-3">
+                                    <form method="get" id="statusForm">
+                                        <select name="SortStatus" onchange="submitForm()"
+                                                class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
+                                            <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">
+                                                &#x39E;  @* Unicode *@
+                                                Status
+                                            </option>
+
+                                            <option value="Active" selected="@(Model.SortStatus == "Active")">Active</option>
+                                            <option value="Disactive" selected="@(Model.SortStatus == "Disactive")">Disactive</option>
+                                        </select>
+                                    </form>
+                                </div>
+
+
+                                <!-- Cate Select -->
+                                <div class="hidden md:flex relative mt-3 md:mt-0 md:ml-3">
+                                     <form method="get" id="cateForm">
+                                        <select name="SortCate" onchange="submitCateForm()"
+                                             class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
+                                            <option value="" selected="@(string.IsNullOrEmpty(Model.SortCate))">
+                                             &#x39E; Category
+                                            </option>
+                                            @foreach (var item in (IEnumerable<SelectListItem>)ViewData["CategoryId"])
+                                            {
+                                                <option value="@item.Text" selected="@(Model.SortCate == item.Text)">
+                                                @item.Text
+                                                </option>
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
+                                <script>
+                                    function submitForm() {
+                                        document.getElementById("statusForm").submit();
+                                    }
+                                    function submitCateForm() {
+                                        document.getElementById("cateForm").submit();
+                                    }
+                                </script>
                         </div>
                         <div class="flex md:hidden">
                             <a href="#" class="flex items-center justify-center h-10 w-10 border-transparent">

@@ -426,7 +426,8 @@ namespace BusinessAccess.Services
                    selector: x => x,
                    predicate: x => x.Status == status && x.Role.Equals("Tutor"),
                    page: page,
-                   size: size
+                   size: size,
+                   include: x => x.Include(p => p.Tutor)
                    );
                 if (users != null)
                 {
@@ -451,7 +452,8 @@ namespace BusinessAccess.Services
                     selector: x => x,
                     predicate: x => x.Username.Contains(searchTerm) && x.Role.Equals("Tutor"),
                     page: page,
-                    size: size
+                    size: size,
+                   include: x => x.Include(p => p.Tutor)
                     );
 
                 if (user != null)

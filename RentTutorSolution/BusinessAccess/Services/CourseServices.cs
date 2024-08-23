@@ -4,9 +4,11 @@ using DataAccess.Models;
 using MailKit.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,8 +17,11 @@ namespace BusinessAccess.Services
     public interface ICourseServices
     {
         Task<IBusinessResult> GetAll(int page, int size);
+        Task<IBusinessResult> GetAllToStudentWhenNotStudying(int page, int size, int? studentId);
         Task<IBusinessResult> GetAllCourseToTutor(int page, int size, int? tutorId);
         Task<IBusinessResult> Search(string searchTerm, int page, int size, int? tutorId);
+        Task<IBusinessResult> GetAllCourseByStatus(string status, int page, int size);
+        Task<IBusinessResult> GetAllCourseByCate(string cate, int page, int size);
         Task<IBusinessResult> GetAllToAdmin(int page, int size);
         Task<IBusinessResult> GetAllCourses();
         Task<IBusinessResult> GetById(int id);
@@ -69,7 +74,7 @@ namespace BusinessAccess.Services
                     page: page,
                     predicate: x => x.Status.Equals("Active"),
                     size: size,
-                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation).Include(p => p.OrderDetails).ThenInclude(p => p.Order)
                     );
                 if (courses == null)
                 {
@@ -182,7 +187,7 @@ namespace BusinessAccess.Services
                     predicate: x => x.CourseName.Contains(searchTerm),
                     page: page,
                     size: size,
-                    include: x => x.Include(p => p.Category)
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
                     );
 
                 if (courses != null)
@@ -295,6 +300,83 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(1, "Tìm kiếm khóa học thành công", courses);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllToStudentWhenNotStudying(int page, int size, int? userId)
+        {
+            var courses = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                selector: x => x,
+                page: page,
+                predicate: x => x.Status.Equals("Active") &&
+                                x.OrderDetails.All(od => (od.Order.StudentId != userId &&
+                                                          od.Status != "Studying") ||(od.Order.StudentId != userId &&
+                                                          od.Status != "Pending")),
+                size: size,
+                include: x => x.Include(p => p.Category)
+                              .Include(p => p.Tutor.TutorNavigation)
+                              .Include(p => p.OrderDetails)
+            );
+
+            if (courses == null || !courses.Items.Any())
+            {
+                return new BusinessResult(4, "No course data");
+            }
+
+            return new BusinessResult(1, "Get course list success", courses);
+        }
+
+        public async Task<IBusinessResult> GetAllCourseByStatus(string status, int page, int size)
+        {
+            try
+            {
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                   selector: x => x,
+                   predicate: x => x.Status == status,
+                   page: page,
+                   size: size,
+                    include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                   );
+                if (users != null)
+                {
+                    return new BusinessResult(1, "Get all course successfully", users);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get all course fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetAllCourseByCate(string cate, int page, int size)
+        {
+            try
+            {
+                //var customer = await _unitOfWork.CustomerRepository.GetAllAsync();
+                var users = await _unitOfWork.CourseRepository.GetPagingListAsync(
+                   selector: x => x,
+                   predicate: x => x.Category.CategoryName == cate,
+                   page: page,
+                   size: size,
+                   include: x => x.Include(p => p.Category).Include(p => p.Tutor.TutorNavigation)
+                   );
+                if (users != null)
+                {
+                    return new BusinessResult(1, "Get all course successfully", users);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get all course fail");
                 }
             }
             catch (Exception ex)
