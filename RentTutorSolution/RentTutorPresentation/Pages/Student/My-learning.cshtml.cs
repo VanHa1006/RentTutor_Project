@@ -99,9 +99,10 @@ namespace RentTutorPresentation.Pages.Student
                 var result = await _orderDetailService.DoneCourseForStudent(OrderId);
                 if (result.Status > 0)
                 {
-                    ViewData["SuccessMessage"] = result.Message;
+                    /*ViewData["SuccessMessage"] = result.Message;*/
+                    TempData["SuccessMessage"] = "Congratulations on completing the course, hope you have had great lessons from Tutor";
                     await OnGetAsync();  // Gọi lại OnGetAsync để tải lại dữ liệu
-                    return Page();
+                    return RedirectToPage();
                 }
                 else
                 {
