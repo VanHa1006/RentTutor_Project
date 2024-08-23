@@ -171,8 +171,6 @@ namespace BusinessAccess.Services
             }
         }
 
-
-
         public async Task<IBusinessResult> Save(Order order)
         {
             try

@@ -24,6 +24,7 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> GetStatusOrdersByStudentId(string status, int page, int size, int? studentId);
         Task<IBusinessResult> GetAllCourseForStudentStudy(int page, int size, int? studentId);
         Task<IBusinessResult> DoneCourseForStudent(int id);
+
     }
 
     public class OrderDetailServices : IOrderDetailServices

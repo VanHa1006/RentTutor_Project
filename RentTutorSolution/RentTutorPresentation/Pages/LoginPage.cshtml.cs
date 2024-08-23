@@ -43,6 +43,11 @@ namespace RentTutorPresentation.Pages
                     ErrorMessage = "You must wait for Admin approval! Please wait within 15 minutes for a response.";
                     return Page();
                 }
+                if (user.Status == "RejectRequest")
+                {
+                    HttpContext.Session.SetInt32("TutorId", user.UserId);
+                    return RedirectToPage("BecomeTutor");
+                }
                 if (user.Role.Equals("Student"))
                 {
                     try

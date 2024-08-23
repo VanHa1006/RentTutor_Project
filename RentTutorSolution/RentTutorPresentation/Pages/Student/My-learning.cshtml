@@ -62,7 +62,7 @@
                         <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Sort By</option>
                         <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
                         <option value="Studying" selected="@(Model.SortStatus == "Studying")">Studying</option>
-                        <option value="Disapprove" selected="@(Model.SortStatus == "Disapprove")">Disapprove</option>
+                        <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
                     </select>
                 </form>
 
@@ -110,7 +110,7 @@
             </div>
         </main>
 
-       
+     
 
         <script>
             function submitForm() {
