@@ -60,7 +60,7 @@ namespace RentTutorPresentation.Pages
                 if (result.Status > 0)
                 {
                     ViewData["SuccessMessage"] = result.Message;
-                    return RedirectToPage("/LoginPage");
+                    return RedirectToPage("/Logout");
                 }
                 else
                 {
