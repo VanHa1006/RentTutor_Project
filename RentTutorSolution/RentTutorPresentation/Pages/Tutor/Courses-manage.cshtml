@@ -18,15 +18,12 @@
                 var statusText = statusButton.textContent.trim().toLowerCase(); // Trim and convert to lowercase
 
                 // Check and update the class based on status
-                if (statusText === "studying") {
+                if (statusText === "active") {
                     statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
-                } else if (statusText === "disapprove") {
-                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
-                } else if (statusText === "pending") {
-                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-100";
+               
                 } else {
                     // Default styling for other statuses
-                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-indigo-700 bg-indigo-100 rounded-full dark:bg-indigo-700 dark:text-indigo-100";
+                    statusButton.className = "statusButton toggle-active px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100";
                 }
             });
         });
