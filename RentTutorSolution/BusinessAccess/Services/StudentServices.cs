@@ -70,14 +70,14 @@ namespace BusinessAccess.Services
             {
                 // Kiểm tra email có tồn tại trong database không
                 var existingUser = await _unitOfWork.StudentRepository.FindAsync(u => u.StudentNavigation.Email == user.StudentNavigation.Email);
-                if (existingUser != null)
+                var existingTutor = await _unitOfWork.TutorRepository.FindAsync(u => u.TutorNavigation.Email == user.StudentNavigation.Email);
+                if (existingUser != null || existingTutor != null)
                 {
                     return new BusinessResult(-2, "Email is already registered");
                 }
 
                 user.StudentNavigation.Status = "Active";
                 user.StudentNavigation.Role = "Student";
-                user.StudentNavigation.Username = "Student";
                 user.StudentNavigation.Phone = "";
                 user.StudentNavigation.Address = "";
                 user.StudentNavigation.Birthday = DateOnly.MinValue;

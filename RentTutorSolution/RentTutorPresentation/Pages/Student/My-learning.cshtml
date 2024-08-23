@@ -43,7 +43,7 @@
                         <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Sort By</option>
                         <option value="Pending" selected="@(Model.SortStatus == "Pending")">Pending</option>
                         <option value="Studying" selected="@(Model.SortStatus == "Studying")">Studying</option>
-                        <option value="Disapprove" selected="@(Model.SortStatus == "Disapprove")">Disapprove</option>
+                        <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
                     </select>
                 </form>
                 <script>
@@ -76,6 +76,15 @@
                                 <input type="hidden" name="OrderId" value="@item.OrderDetailId" />
                                 <button type="submit" class="w-full py-2 mt-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition-all">
                                     Done
+                                </button>
+                            </form>
+                        }
+                        else if (item.Status == "Pending")
+                        {
+                            <form method="post" asp-page-handler="RefundMoney">
+                                <input type="hidden" name="OrderDetailId" value="@item.OrderDetailId" />
+                                <button type="submit" class="w-full py-2 mt-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition-all">
+                                    Refund Course
                                 </button>
                             </form>
                         }

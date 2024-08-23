@@ -19,6 +19,9 @@ namespace BusinessAccess.Services
         Task<IBusinessResult> SearchPending(string searchTerm, int page, int size);
         Task<IBusinessResult> GetTutorById(int id);
         Task<IBusinessResult> GetAllTutors();
+        Task<IBusinessResult> UpdateTutorAndUserAsync(Tutor updatedTutor);
+        Task<IBusinessResult> GetById(int id);
+
     }
 
     public class TutorServices : ITutorServices
@@ -114,7 +117,8 @@ namespace BusinessAccess.Services
             {
                 // Kiểm tra email có tồn tại trong database không
                 var existingUser = await _unitOfWork.TutorRepository.FindAsync(u => u.TutorNavigation.Email == user.TutorNavigation.Email);
-                if (existingUser != null)
+                var existingTutor = await _unitOfWork.StudentRepository.FindAsync(u => u.StudentNavigation.Email == user.TutorNavigation.Email);
+                if (existingUser != null || existingTutor != null)
                 {
                     return new BusinessResult(-2, "Email is already registered");
                 }
@@ -205,6 +209,75 @@ namespace BusinessAccess.Services
                 else
                 {
                     return new BusinessResult(1, "Get currency list success", tutor);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> UpdateTutorAndUserAsync(Tutor updatedTutor)
+        {
+            try
+            {
+                // Retrieve the current tutor and user from the database
+                var existingTutor = await _unitOfWork.TutorRepository.GetByIdAsync(updatedTutor.TutorId);
+                var existingUser = await _unitOfWork.UserRepository.GetByIdAsync(updatedTutor.TutorId); // Assuming you have UserId in Tutor
+
+                if (existingTutor == null)
+                {
+                    return new BusinessResult(-1, "Tutor not found");
+                }
+
+                if (existingUser == null)
+                {
+                    return new BusinessResult(-1, "User not found");
+                }
+
+                // Update tutor properties
+                existingTutor.Qualifications = updatedTutor.Qualifications;
+                existingTutor.Experience = updatedTutor.Experience;
+                existingTutor.Specialization = updatedTutor.Specialization;
+
+                // Update user properties (e.g., status)
+                existingUser.Status = "Pending";
+                existingUser.UpdatedAt = DateTime.Now; 
+                // Save the updated tutor and user
+                var updatedTutorResult = await _unitOfWork.TutorRepository.UpdateAsync(existingTutor);
+                var updatedUserResult = await _unitOfWork.UserRepository.UpdateAsync(existingUser);
+
+                if (updatedTutorResult != null && updatedUserResult != null)
+                {
+                    return new BusinessResult(1, "Update successfully");
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Update failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BusinessResult(-4, ex.Message);
+            }
+        }
+
+        public async Task<IBusinessResult> GetById(int id)
+        {
+            try
+            {
+                var tutor = await _unitOfWork.TutorRepository.SingleOrDefaultAsync(
+                    selector: x => x,
+                    predicate: x => x.TutorId == id,
+                    include: x => x.Include(p => p.TutorNavigation)
+                    );
+                if (tutor != null)
+                {
+                    return new BusinessResult(1, "Get tutor successfully", tutor);
+                }
+                else
+                {
+                    return new BusinessResult(-1, "Get tutor fail");
                 }
             }
             catch (Exception ex)
