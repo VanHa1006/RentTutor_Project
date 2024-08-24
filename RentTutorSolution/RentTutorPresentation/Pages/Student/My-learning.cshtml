@@ -75,8 +75,16 @@
                             </a>
                             <div class="p-4">
                                 <span class="text-gray-500 block mb-2 text-sm uppercase tracking-wider">Category: @item.Course?.Category?.CategoryName</span>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">@item.Course?.CourseName</h3>
-                                <p class="text-lg font-semibold text-gray-700 mb-4">Tutor: @item.Course?.Tutor?.TutorNavigation?.FullName</p>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                                    @{
+                                        var displayName = @item.Course?.CourseName.Length > 25
+                                        ? @item.Course?.CourseName.Substring(0, 25) + "..."
+                                        : @item.Course?.CourseName;
+                                    }
+                                    @displayName
+                                    @*  @item.Course?.CourseName *@
+                                </h3>
+                                <p class="text-lg font-semibold text-indigo-600 mb-4">Tutor: @item.Course?.Tutor?.TutorNavigation?.FullName</p>
                                 <div class="flex items-center justify-between mb-4">
                                     <p class="text-lg font-bold text-gray-900">$@(item.Course?.Price - item.Course?.DiscountPrice)</p>
                                     <p class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@item.Status</p>
