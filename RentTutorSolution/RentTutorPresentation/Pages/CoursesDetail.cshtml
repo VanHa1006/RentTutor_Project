@@ -70,7 +70,7 @@
                 <p class="text-gray-600"> @Model.Course.Tutor.Specialization</p>
                 <p class="text-gray-600">Number of Courses: 15 | Rating: 4.7</p>
             </div>
-            <a href="#"
+            <a asp-page="./TutorDetail" asp-route-id="@Model.Course.TutorId"
                class="ml-auto text-blue-500 hover:underline transition">View Tutor Details</a>
         </div>
 

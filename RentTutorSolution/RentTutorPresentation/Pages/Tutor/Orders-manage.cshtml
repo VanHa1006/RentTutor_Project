@@ -105,25 +105,26 @@
                                     <td class="px-4 py-2">
                                             <p class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@item.Status</p>
                                     </td>
-
-                                    <td class="px-4 py-2">
-                                        @{
-                                            var displayName = @item.Course.CourseName.Length > 25
+                                        <td class="px-4 py-2">
+                                            @{
+                                                var displayName = @item.Course.CourseName.Length > 25
                                                 ? @item.Course.CourseName.Substring(0, 25) + "..."
                                                 : @item.Course.CourseName;
-                                        }
-                                            @displayName @* @item.Course.CourseName *@ 
+                                            }
+                                            @displayName @* @item.Course.CourseName *@ </td>  
                                         <td class="px-4 py-2"> @(item.Course.Price - item.Course.DiscountPrice)</td>
-                                    <td class="px-4 py-2 flex justify-center space-x-2">
-                                        <a asp-page="./Detail-Course" >
-                                            <button class="flex items-center px-2 py-1 text-blue-500 hover:text-blue-700">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 0a3 3 0 106 0 3 3 0 00-6 0zm-2 0a5 5 0 1110 0 5 5 0 01-10 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </button>
-                                        </a>
-                               
+                                        
+                                         <td class="px-4 py-2 flex justify-center space-x-2">
+                                            <a asp-page="../Student/StudentProfile" asp-route-id="@item.Order.Student.StudentId">
+                                                <button class="flex items-center px-2 py-1 text-blue-500 hover:text-blue-700">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12m-3 0a3 3 0 106 0 3 3 0 00-6 0zm-2 0a5 5 0 1110 0 5 5 0 01-10 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+
+                                 
                                     </td>
                                 </tr>
                                 counter++;
