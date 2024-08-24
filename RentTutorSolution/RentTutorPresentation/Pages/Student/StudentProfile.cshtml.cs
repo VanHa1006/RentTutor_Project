@@ -2,38 +2,50 @@ using BusinessAccess.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace RentTutorPresentation.Pages.Student
 {
     public class StudentProfileModel : PageModel
     {
         private readonly IUserServices _studentServices;
+
         public StudentProfileModel(IUserServices studentServices)
         {
             _studentServices = studentServices;
         }
+
         [BindProperty]
         public User Student { get; set; } = default!;
 
-
-        public async Task OnGetStudentAsync()
+        // Method to load student data by ID, either from session or passed as a route parameter
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            int? userId = HttpContext.Session.GetInt32("StudentId");
-            if (userId.HasValue)
+            int userId;
+
+            if (id.HasValue)
             {
-                var studentResponse = await _studentServices.GetByIdAsync(userId.Value);
-                if (studentResponse.Status > 0 && studentResponse.Data != null)
-                {
-                    Student = studentResponse.Data as User;
-                }
+                // Use the ID passed via the URL route
+                userId = id.Value;
             }
-        }
+            else
+            {
+                // Fall back to the session-stored StudentId if no ID is provided in the route
+                userId = HttpContext.Session.GetInt32("StudentId") ?? 0;
+            }
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            await OnGetStudentAsync();
-            if (Student == null)
+            // If no valid ID is found, redirect to the login page
+            if (userId == 0)
+            {
+                return RedirectToPage("/LoginPage");
+            }
+
+            // Fetch student details based on the determined ID
+            var studentResponse = await _studentServices.GetByIdAsync(userId);
+            if (studentResponse.Status > 0 && studentResponse.Data != null)
+            {
+                Student = studentResponse.Data as User;
+            }
+            else
             {
                 return RedirectToPage("/LoginPage");
             }
@@ -43,7 +55,6 @@ namespace RentTutorPresentation.Pages.Student
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             try
             {
                 var result = await _studentServices.UpdateStudentAsync(Student);

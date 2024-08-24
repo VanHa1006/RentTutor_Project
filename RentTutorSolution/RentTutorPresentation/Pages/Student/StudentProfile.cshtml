@@ -1,6 +1,7 @@
 ﻿@page
 @model RentTutorPresentation.Pages.Student.StudentProfileModel
 @{
+    var userId = HttpContext.Session.GetString("TutorId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -60,12 +61,15 @@
                 <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
                     Public Profile
                 </a>
+                @if (string.IsNullOrEmpty(userId))
+                            {
                 <a href="/Student/My-learning" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
                     My Learnning
                 </a>
                 <a href="/Student/Orders-history" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
                     Orders History
                 </a>
+                            }
             </div>
         </aside>
         <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
@@ -139,20 +143,30 @@
                         </div>
                     
                         <div id="notification" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
-
-                        <div class="flex justify-end space-x-2">
-                            <button type="button" id="editButton"
+                            @if (string.IsNullOrEmpty(userId))
+                            {
+                                <div class="flex justify-end space-x-2">
+                                    <button type="button" id="editButton"
                                     class="text-indigo-700 bg-white hover:bg-indigo-100 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M17.414 2.586a2 2 0 00-2.828 0l-10 10A2 2 0 004 14v2a2 2 0 002 2h2a2 2 0 001.414-.586l10-10a2 2 0 000-2.828l-2-2zM7.121 14H6v-1.121l8.293-8.293 1.121 1.121L7.121 14zM5 15v-1.121l1.293 1.293H5zm11.293-9.707L14.172 4l1.121 1.121 1.293-1.293-1.293-1.293z" />
-                                </svg>
-                            </button>
-                            <button type="submit" id="updateButton" disabled
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M17.414 2.586a2 2 0 00-2.828 0l-10 10A2 2 0 004 14v2a2 2 0 002 2h2a2 2 0 001.414-.586l10-10a2 2 0 000-2.828l-2-2zM7.121 14H6v-1.121l8.293-8.293 1.121 1.121L7.121 14zM5 15v-1.121l1.293 1.293H5zm11.293-9.707L14.172 4l1.121 1.121 1.293-1.293-1.293-1.293z" />
+                                        </svg>
+                                    </button>
+                                    <button type="submit" id="updateButton" disabled
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-                                Update
-                            </button>
-                        </div>
-                    </form>
+                                        Update
+                                    </button>
+                                </div>
+                            }else{
+                                <a href="../Tutor/Orders-manage">
+                                    <button type="button" 
+                                            class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                                        Back order
+                                    </button>
+                                </a>
+
+                            }
+                        </form>
                     }
                     else
                     {
