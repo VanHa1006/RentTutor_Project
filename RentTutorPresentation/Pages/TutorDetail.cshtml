@@ -1,0 +1,80 @@
+﻿@page
+@model RentTutorPresentation.Pages.TutorDetailModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Detail Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mx-auto mt-10">
+        <div class="grid grid-cols-5 gap-4">
+            <!-- Section A -->
+            <div class="col-span-1"></div>
+            <!-- Card Section A (2nd position) -->
+            <div class="col-span-1 bg-white shadow-lg rounded-lg p-4 text-center ">
+                <img src="/img/Tutor.jpg" alt="Tutor's Image" class="w-24 h-24 mx-auto rounded-full">
+                <h2 class="text-xl font-semibold mt-4">@Model.Tutor.TutorNavigation.Username </h2>
+
+                <div class="flex items-center justify-center">
+                    <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <!-- Card Section B (3rd and 4th position) -->
+            <div class="col-span-2 bg-white shadow-lg rounded-lg p-4 ">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Tutor Info -->
+                    <div>
+                        <h3 class="text-lg font-semibold">@Model.Tutor.TutorNavigation.FullName</h3>
+                        <p class="text-gray-600 mt-2">Address: @Model.Tutor.TutorNavigation.Address</p>
+                        
+                    </div>
+                    <!-- Experience and Specialization -->
+                    <div>
+                        <p class="text-gray-600 mt-2">Experience: @Model.Tutor.Experience</p>
+                        <p class="text-gray-600 mt-2">Birthday: @Model.Tutor.TutorNavigation.Birthday</p>
+                        
+                    </div>
+                  
+                </div>
+                <p class="text-gray-600 mt-2">
+                    <b> Your Link Git Best:</b>  @Model.Tutor.Specialization
+                </p>
+                <!-- Qualifications -->
+                <div class="mt-4 flex item-center ">
+                    <h3 class="text-lg font-semibold">Qualifications</h3>
+                    <img src="@Model.Tutor.Qualifications"
+                         alt="Qualification Certificate"
+                         class="w-50 h-50 mt-4 rounded-lg border-2 border-gray-300 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
+                </div>
+            </div>
+            <div class="col-span-1"></div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

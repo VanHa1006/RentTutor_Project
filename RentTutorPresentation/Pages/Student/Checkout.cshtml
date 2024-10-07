@@ -1,0 +1,128 @@
+﻿@page
+@using BusinessAccess.Business
+@using DataAccess.CartModel
+@model RentTutorPresentation.Pages.Student.CheckoutModel
+@{
+    ViewData["Title"] = "Create";
+    ShoppingCart cartData = TempData["CartData"] as ShoppingCart;
+    var totalAmount = (decimal?)TempData["TotalAmount"];
+    var totalPrice = (decimal?)TempData["TotalPrice"];
+    var totalDiscount = (decimal?)TempData["TotalDiscount"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-7xl mx-auto p-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Checkout -->
+            <div class="lg:w-3/5 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Checkout</h2>
+
+               
+                <form method="post">
+                    <!-- Payment Method  -->
+                    <div class="mb-6">
+                        <label for="payment-method" class="block text-lg font-medium text-gray-700">Payment Method</label>
+                        <select id="payment-method" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="vnpay">VNPAY</option>
+                            
+                        </select>
+                    </div>
+
+                    <!-- Vnpay and Momo Form -->
+                    <div id="vnpay-form" class="hidden">
+                        <p class="text-sm text-gray-700">You will be redirected to the VNPAY gateway to complete your payment.</p>
+                    </div>
+                    
+
+                    <!-- Order List -->
+                    <div class="mt-6">
+                        <h3 class="text-xl font-bold mb-4">Order List</h3>
+                        <div class="space-y-4">
+                            @foreach (var item in cartData.Items)
+                            {
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <img src="@Url.Content(item.Image)" alt="Course Image" class="w-16 h-16 rounded-md mr-4">
+                                        <span>@item.CourseName</span>
+                                    </div>
+                                    <span class="font-semibold">@(item.Price - item.DiscountPrice) VND</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+          
+            <div class="lg:w-2/5 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Summary</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Original Price</span>
+                        <span class="font-semibold">@totalPrice.Value VND</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-700">Discounts</span>
+                        <span class="font-semibold text-red-500">-@totalDiscount.Value VND</span>
+                    </div>
+                    <hr class="my-4">
+                    <div class="flex justify-between text-xl font-bold">
+                        <span>Total</span>
+                        <span>@totalAmount.Value VND</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">By completing your purchase you agree to these Terms of Service.</p>
+                <form method="post">
+                    <input type="hidden" asp-for="UserID"/>
+
+                    <div>
+                        <label for="amount">Money Pay:</label>
+                        <!-- Đảm bảo giá trị này là số nguyên khi gửi đi -->
+                        <input id="amount" name="Amount" value="@totalAmount.Value VND" readonly />
+                    </div>
+
+                    <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-red-700 dark:focus:ring-blue-800">
+                        Pay with VNPAY
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const paymentMethod = document.getElementById('payment-method');
+        const vnpayForm = document.getElementById('vnpay-form');
+        const momoForm = document.getElementById('momo-form');
+
+        paymentMethod.addEventListener('change', function () {
+            creditCardForm.classList.add('hidden');
+            vnpayForm.classList.add('hidden');
+            momoForm.classList.add('hidden');
+
+            if (this.value === 'credit-card') {
+                creditCardForm.classList.remove('hidden');
+            } else if (this.value === 'vnpay') {
+                vnpayForm.classList.remove('hidden');
+            } else if (this.value === 'momo') {
+                momoForm.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

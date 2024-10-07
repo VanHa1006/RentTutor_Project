@@ -1,0 +1,374 @@
+﻿@page
+@model RentTutorPresentation.Pages.HomePageModel
+@{
+    ViewData["Title"] = "Home Page";
+    var userId = HttpContext.Session.GetString("StudentId");
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="./assets/img/favicon.ico" />
+    <link rel="apple-touch-icon"
+          sizes="76x76"
+          href="./assets/img/apple-icon.png" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css" />
+    <title>Homepage</title>
+</head>
+<body class="text-gray-800 antialiased">
+    <main>
+        @if (!string.IsNullOrEmpty(userId))
+        {
+            <div class="flex justify-left bg-gray-100">
+                <div class="rounded-lg p-6 flex items-center space-x-4">
+                    <img src="~/img/Avatar01.jpg" alt="Student Image" class="w-24 h-24 rounded-full">
+                    <div class="text-left">
+                        <h2 class="text-xl font-semibold mb-1">Welcome back, @Model.Student.FullName</h2>
+                        <p class="text-gray-600">User</p>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div class="relative pt-16 pb-32 flex content-center items-center justify-center"
+             style="min-height: 75vh;">
+            <div class="absolute top-0 w-full h-full bg-center bg-cover"
+                 style='background-image: url("https://i0.wp.com/www.xamnation.com/wp-content/uploads/2022/01/2021-01-06-elearning-statistics-1170-d4bf8384a.jpg?w=1170&ssl=1;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'>
+                <span id="blackOverlay"
+                      class="w-full h-full absolute opacity-75 bg-black"></span>
+            </div>
+            <div class="container relative mx-auto">
+                <div class="items-center flex flex-wrap">
+                    <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                        <div class="pr-12">
+                            <h1 class="text-white font-semibold text-5xl">
+                                Unlock Your Potential with Shift - Soft.
+                            </h1>
+                            <p class="mt-4 text-lg text-gray-300">
+                                User is developing a platform that offers comprehensive website solutions for mini stores, enabling efficient inventory management, order tracking, and staff management.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+                 style="height: 70px;">
+                <svg class="absolute bottom-0 overflow-hidden"
+                     xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="none"
+                     version="1.1"
+                     viewBox="0 0 2560 100"
+                     x="0"
+                     y="0">
+                    <polygon class="text-gray-300 fill-current"
+                             points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+        <section class="pb-20 bg-gray-300 -mt-24">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap">
+                    <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                            <div class="px-4 py-5 flex-auto">
+                                <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <h6 class="text-xl font-semibold">Classes are free</h6>
+                                <p class="mt-2 mb-4 text-gray-600">
+                                    Since tutors are volunteering, classes come with no cost to student
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-4/12 px-4 text-center">
+                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                            <div class="px-4 py-5 flex-auto">
+                                <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                                    <i class="fas fa-retweet"></i>
+                                </div>
+                                <h6 class="text-xl font-semibold">Flexible timings</h6>
+                                <p class="mt-2 mb-4 text-gray-600">
+                                    After you are matched with a studennt, you can decide your OWN timings/dates
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6 w-full md:w-4/12 px-4 text-center">
+                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                            <div class="px-4 py-5 flex-auto">
+                                <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                                    <i class="fas fa-fingerprint"></i>
+                                </div>
+                                <h6 class="text-xl font-semibold">Fully personalized</h6>
+                                <p class="mt-2 mb-4 text-gray-600">
+                                    Classes are 1-on-1 so students get comprehensive lesson on content
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center mt-32">
+                    <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
+                        <div class="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
+                            <i class="fas fa-user-friends text-xl"></i>
+                        </div>
+                        <h3 class="text-3xl mb-2 font-semibold leading-normal">
+                            Why do we use it?
+                        </h3>
+                        <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
+                            It is a long established fact that a reader will be distracted by the readable
+                            content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                            it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
+                            content here', making it look like readable English.
+                        </p>
+                        <p class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
+                            Many desktop publishing packages and web page editors now use
+                            Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
+                            will uncover many web sites still in their infancy. Various versions have
+                            evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                        </p>
+                        <a href="https://github.com/VanHa1006/RentTutor_Project.git"
+                           class="font-bold text-gray-800 mt-8">Check Rent-Tutor-Github!</a>
+                    </div>
+                    <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
+                        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
+                            <img alt="..."
+                                 src="/img/Personalized-Learning.png"
+                                 class="w-full align-middle rounded-t-lg" />
+                            <blockquote class="relative p-8 mb-4">
+                                <svg preserveAspectRatio="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 583 95"
+                                     class="absolute left-0 w-full block"
+                                     style="height: 95px; top: -94px;">
+                                    <polygon points="-30,95 583,95 583,65"
+                                             class="text-pink-600 fill-current"></polygon>
+                                </svg>
+                                <h4 class="text-xl font-bold text-black">
+                                    Personalized Learning Experience
+                                </h4>
+                                <p class="text-md font-light mt-2 text-black">
+                                    Rent-Tutor connects you with tutors
+                                    who tailor their teaching methods
+                                    to your individual learning style, ensuring you get the most out of every session.
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="relative py-20">
+            <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+                 style="height: 80px;">
+                <svg class="absolute bottom-0 overflow-hidden"
+                     xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="none"
+                     version="1.1"
+                     viewBox="0 0 2560 100"
+                     x="0"
+                     y="0">
+                    <polygon class="text-white fill-current"
+                             points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+            <div class="container mx-auto px-4">
+                <div class="items-center flex flex-wrap">
+                    <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
+                        <img alt="..."
+                             class="max-w-full rounded-lg shadow-lg"
+                             src="/img/visual-teenager-reading-book-mobile-phone-educate.jpg" />
+                    </div>
+                    <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
+                        <div class="md:pr-12">
+                            <div class="text-blue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300">
+                                <i class="fas fa-rocket text-xl"></i>
+                            </div>
+                            <h3 class="text-3xl font-semibold">A Thriving Education Platform</h3>
+                            <p class="mt-4 text-lg leading-relaxed text-gray-600">
+                                Rent-Tutor offers a streamlined experience with
+                                pre-built features to get you started quickly.
+                                Customize the content, and you're ready to connect with top tutors.
+                            </p>
+                            <ul class="list-none mt-6">
+                                <li class="py-2">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 mr-3">
+                                                <i class="fas fa-fingerprint"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-gray-600">
+                                                Expertly Designed Features
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="py-2">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 mr-3">
+                                                <i class="fab fa-html5"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-gray-600">Inspiring Learning Examples</h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="py-2">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 mr-3">
+                                                <i class="far fa-paper-plane"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-gray-600">Interactive Tutoring Sessions</h4>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="pt-20 pb-48">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center text-center mb-24">
+                    <div class="w-full lg:w-6/12 px-4">
+                        <h2 class="text-4xl font-semibold">Meet Our Expert Tutors</h2>
+                        <p class="text-lg leading-relaxed m-4 text-gray-600">
+                            Our team of experienced tutors is dedicated to providing
+                            personalized and effective learning support to help you
+                            achieve your academic goals.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap">
+                    <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                        <div class="px-6">
+                            <img alt="..."
+                                 src="/img/Avatar01.jpg"
+                                 class="shadow-lg rounded-full max-w-full mx-auto"
+                                 style="max-width: 120px;" />
+                            <div class="pt-6 text-center">
+                                <h5 class="text-xl font-bold">Ryan Tompson</h5>
+                                <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                                    Web Developer
+                                </p>
+                                <div class="mt-6">
+                                    <button class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                            type="button">
+                                        <i class="fab fa-twitter"></i>
+                                    </button><button class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button><button class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-dribbble"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                        <div class="px-6">
+                            <img alt="..."
+                                 src="/img/Avatar02.jpg"
+                                 class="shadow-lg rounded-full max-w-full mx-auto"
+                                 style="max-width: 120px;" />
+                            <div class="pt-6 text-center">
+                                <h5 class="text-xl font-bold">Romina Hadid</h5>
+                                <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                                    Marketing Specialist
+                                </p>
+                                <div class="mt-6">
+                                    <button class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                            type="button">
+                                        <i class="fab fa-google"></i>
+                                    </button><button class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                        <div class="px-6">
+                            <img alt="..."
+                                 src="/img/Avatar04.jpg"
+                                 class="shadow-lg rounded-full max-w-full mx-auto"
+                                 style="max-width: 120px;" />
+                            <div class="pt-6 text-center">
+                                <h5 class="text-xl font-bold">Alexa Smith</h5>
+                                <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                                    UI/UX Designer
+                                </p>
+                                <div class="mt-6">
+                                    <button class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                            type="button">
+                                        <i class="fab fa-google"></i>
+                                    </button><button class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-twitter"></i>
+                                    </button><button class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-instagram"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                        <div class="px-6">
+                            <img alt="..."
+                                 src="/img/Avatar05.jpg"
+                                 class="shadow-lg rounded-full max-w-full mx-auto"
+                                 style="max-width: 120px;" />
+                            <div class="pt-6 text-center">
+                                <h5 class="text-xl font-bold">Jenna Kardi</h5>
+                                <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                                    Founder and CEO
+                                </p>
+                                <div class="mt-6">
+                                    <button class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                            type="button">
+                                        <i class="fab fa-dribbble"></i>
+                                    </button><button class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-google"></i>
+                                    </button><button class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-twitter"></i>
+                                    </button><button class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                                                     type="button">
+                                        <i class="fab fa-instagram"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+<script>
+    function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("block");
+    }
+</script>
+</html>
