@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoursesDetail</title>
+    <title>Website Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -41,7 +41,7 @@
                 </svg>
                 <span class="ml-1 text-gray-600">4.5 (20 reviews)</span>
             </div>
-            <span class="text-gray-600">Duration: @Model.Course.Hours hours</span>
+            <span class="text-gray-600">Duration: @Model.Course.Hours Months</span>
         </div>
         <p class="mt-4 text-gray-700">
             @Model.Course.Description
@@ -71,12 +71,12 @@
                 <p class="text-gray-600">Number of Courses: 15 | Rating: 4.7</p>
             </div>
             <a asp-page="./TutorDetail" asp-route-id="@Model.Course.TutorId"
-               class="ml-auto text-blue-500 hover:underline transition">View Tutor Details</a>
+               class="ml-auto text-blue-500 hover:underline transition">View Manager Details</a>
         </div>
 
         <!-- Reviews Tab -->
         <div class="bg-white shadow-lg rounded-lg p-6 mt-8">
-            <h4 class="text-xl font-bold">Course reviews</h4>
+            <h4 class="text-xl font-bold">Website reviews</h4>
             <div id="reviews-container" class="grid grid-cols-3 gap-4 mt-4">
                 <!-- Review items will be dynamically inserted here -->
             </div>

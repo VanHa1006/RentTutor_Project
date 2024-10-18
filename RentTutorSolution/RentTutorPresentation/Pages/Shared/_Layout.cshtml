@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RentTutorPresentation</title>
+    <title>@ViewData["Title"] - ShiftSoft Company</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentTutorPresentation.styles.css" asp-append-version="true" />
@@ -47,7 +47,7 @@
     <header class='flex shadow-md py-1 px-1 sm:px-10 bg-white font-[sans-serif] min-h-[50px] tracking-wide relative z-50'>
         <div class='flex flex-wrap items-center justify-between gap-5 w-full'>
             <a href="javascript:void(0)">
-                <img src="/img/graduation.png" alt="logo" class='w-40' style="width: 100px; height: auto;" />
+                <img src="/img/z5848027674510_1678da8f2f576d67c74ec3fdb0ace680.jpg" alt="logo" class='w-40' style="width: 100px; height: auto;" />
             </a>
             <div id="collapseMenu" class='max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                 <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
@@ -59,7 +59,7 @@
                 <ul class='lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
                     <li class='mb-6 hidden max-lg:block'>
                         <a href="/HomePage">
-                            <img src="/img/graduation.png" alt="logo" class='w-40' style="width: 100px; height: auto;" />
+                            <img src="/img/z5848027674510_1678da8f2f576d67c74ec3fdb0ace680.jpg" alt="logo" class='w-40' style="width: 100px; height: auto;" />
                         </a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
@@ -75,7 +75,7 @@
                             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="text-black hover:text-[#007bff] active:text-[#007bff]">
                                 <path d="M22 24h-17c-1.657 0-3-1.343-3-3v-18c0-1.657 1.343-3 3-3h17v24zm-2-4h-14.505c-1.375 0-1.375 2 0 2h14.505v-2zm0-18h-15v16h15v-16zm-3 3v3h-9v-3h9z" />
                             </svg>
-                            Courses
+                            Websites
                         </a>
                     </li>
                     <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
@@ -128,7 +128,7 @@
                                     <rect x="3" y="5" width="18" height="12" rx="2" ry="2"></rect>
                                     <line x1="2" y1="19" x2="22" y2="19"></line>
                                 </svg>
-                                <span class="text-[16px]">My Learning</span>
+                                <span class="text-[16px]">My Website</span>
                             </a>
                             <div class="ml-6" onclick="window.location.href='/Student/wishlist';">
                                 <svg id="svg1" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
@@ -160,8 +160,8 @@
                         </div>
 
                         <ul id="avatarDropdown" tabindex="0" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg w-52 z-[1] p-2">
-                            <li><a asp-page="/Student/StudentProfile"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Student Profile</a></li>
-                            <li><a asp-page="/Student/My-learning" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Learning</a></li>
+                            <li><a asp-page="/Student/StudentProfile"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a></li>
+                            <li><a asp-page="/Student/My-learning" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Website</a></li>
                             <li><a asp-page="/Student/Orders-history" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders History</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
@@ -206,8 +206,8 @@
                         </div>
 
                         <ul id="avatarDropdown" tabindex="0" class="hidden absolute right-0 mt-2 bg-white rounded-md shadow-lg w-52 z-[1] p-2">
-                            <li><a asp-page="/Tutor/Tutor-Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tutor Profile</a></li>
-                            <li><a asp-page="/Tutor/Courses-manage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Courses Manage</a></li>
+                            <li><a asp-page="/Tutor/Tutor-Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a></li>
+                            <li><a asp-page="/Tutor/Courses-manage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Website Manage</a></li>
                             <li><a asp-page="/Tutor/Orders-manage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders Manage</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Settings</a></li>
                             <li><a href="/404" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help and Support</a></li>
@@ -229,8 +229,8 @@
         <div class="w-full max-w-screen-xl mx-auto p-3 md:py-6 container">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="/HomePage" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="/img/graduation.png" alt="logo" class='w-40' style="width: 100px; height: auto;" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SWP Group-7</span>
+                    <img src="/img/z5848027674510_1678da8f2f576d67c74ec3fdb0ace680.jpg" alt="logo" class='w-40' style="width: 100px; height: auto;" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EXE202 ShiftSoft</span>
                 </a>
                 <ul class="flex flex-wrap items-center mb-4 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>

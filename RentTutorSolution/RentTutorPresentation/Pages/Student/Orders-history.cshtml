@@ -23,10 +23,10 @@
                 <h2 class="pl-3 mb-4 text-2xl font-semibold">Settings</h2>
 
                 <a href="/Student/StudentProfile" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
-                    Public Profile
+                    My Profile
                 </a>
                 <a href="/Student/My-learning" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
-                    My Learnning
+                    My Website
                 </a>
                 <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
                     Orders History
@@ -61,7 +61,7 @@
                             <table class="min-w-full bg-white">
                                 <thead>
                                     <tr>
-                                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Course Name</th>
+                                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Website Name</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Price</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Discount Price</th>
                                         <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800 tracking-wider">Info</th>
@@ -84,7 +84,7 @@
                                                     <div class="text-sm leading-5 text-gray-900">$@detail.Course.DiscountPrice</div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                                    <a asp-page="../CoursesDetail" asp-route-id="@detail.CourseId" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm">View Course</a>
+                                                    <a asp-page="../CoursesDetail" asp-route-id="@detail.CourseId" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm">View Website</a>
                                                 </td>
                                             </tr>
                                         }
