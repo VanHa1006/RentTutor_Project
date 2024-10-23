@@ -53,7 +53,7 @@ else
             <div class="sidebar-header flex items-center justify-center py-4">
                 <div class="inline-flex">
                     <a href="/Admin">
-                        <img src="/img/graduation.png" alt="logo" class='w-24 h-24 object-cover rounded-full mx-auto' />
+                        <img src="/img/z5848027674510_1678da8f2f576d67c74ec3fdb0ace680.jpg" alt="logo" class='w-24 h-24 object-cover rounded-full mx-auto' />
                     </a>
                 </div>
             </div>
@@ -93,7 +93,7 @@ else
                                     <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Student Manage</span>
+                            <span class="ml-3">User Manage</span>
                             
                         </a>
                     </li>
@@ -111,7 +111,7 @@ else
                                     <path d="M12 3.04l7 4.02-7 4.01-7-4.01 7-4.02zm-8 6.47v4.02c0 .78.63 1.41 1.41 1.41h12.18c.78 0 1.41-.63 1.41-1.41V9.51l-7 4.01-7-4.01zm14.36 4.01h1.59c.78 0 1.41.63 1.41 1.41v3.03c0 .78-.63 1.41-1.41 1.41H4.05c-.78 0-1.41-.63-1.41-1.41v-3.03c0-.78.63-1.41 1.41-1.41h1.59l6.18 3.51 6.18-3.51z" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Tutor Manage</span>
+                            <span class="ml-3">Manager</span>
                         </a>
                     </li>
 
@@ -129,7 +129,7 @@ else
                                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Regis Tutor Manage</span>
+                            <span class="ml-3">Regis Manager</span>
                         </a>
                     </li>
                     <li class="my-px">
@@ -149,7 +149,7 @@ else
                                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Course Manage</span>
+                            <span class="ml-3">Websites</span>
                         </a>
                     </li>
                     <li class="my-px">
@@ -166,7 +166,7 @@ else
                                     <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Categories Courses</span>
+                            <span class="ml-3">Services</span>
                         </a>
                     </li>
                     <li class="my-px">
@@ -280,7 +280,7 @@ else
                                         <select name="SortCate" onchange="submitCateForm()"
                                              class="text-sm sm:text-base rounded-lg border border-gray-300 w-[120%] h-10 pl-2 focus:outline-none focus:border-indigo-400">
                                             <option value="" selected="@(string.IsNullOrEmpty(Model.SortCate))">
-                                             &#x39E; Category
+                                             &#x39E; Services
                                             </option>
                                             @foreach (var item in (IEnumerable<SelectListItem>)ViewData["CategoryId"])
                                             {
@@ -332,7 +332,7 @@ else
 
             <div class="main-content flex flex-col flex-grow p-4">
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="font-bold text-2xl text-gray-700">Courses Management</h1>
+                    <h1 class="font-bold text-2xl text-gray-700">Websites Management</h1>
                     @* <div class="flex">
                         <button id="checkAllButton" class="px-4 py-2 bg-gray-500 text-white rounded mr-2 hover:bg-gray-600">Check all</button>
                         <button id="deleteButton" class="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
@@ -358,8 +358,8 @@ else
                             </div>
                             <div class="p-3">
                                 <h5 class="mb-2 text-sm-center font-bold leading-tight">@Html.DisplayFor(modelItem => item.CourseName)</h5>
-                                <p class="text-xs text-gray-500">Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)</p>
-                                <p id="Tutor"><span class="font-bold">Tutor:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
+                                <p class="text-xs text-gray-500">Service: @Html.DisplayFor(modelItem => item.Category.CategoryName)</p>
+                                <p id="Tutor"><span class="font-bold">Manager:</span> @Html.DisplayFor(modelItem => item.Tutor.TutorNavigation.FullName)</p>
                                         <div class="flex items-center justify-between">
                                             <div id="Status" class="flex items-center">
                                                 <span class="font-bold">Status:</span>

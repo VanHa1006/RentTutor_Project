@@ -7,8 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Learning</title>
+    <title>My Website</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
     <script defer>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -39,10 +44,10 @@
                 <h2 class="pl-3 mb-4 text-2xl font-semibold">Settings</h2>
 
                 <a href="/Student/StudentProfile" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
-                    Public Profile
+                    My Profile
                 </a>
                 <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
-                    My Learnning
+                    My Websites
                 </a>
                 <a href="/Student/Orders-history" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
                     Orders History
@@ -53,7 +58,7 @@
         <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
             <div class="p-4 md:p-6">
                 <div class="max-w-5xl mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
-                    <h2 class="text-4xl font-extrabold mb-6 text-center text-indigo-600">My Learning</h2>
+                    <h2 class="text-4xl font-extrabold mb-6 text-center text-indigo-600">My Website</h2>
                 </div>
 
                 <!-- Status Filter Form -->
@@ -61,7 +66,7 @@
                     <select name="SortStatus" onchange="submitForm()" class="px-4 py-2 border rounded-md">
                         <option value="" selected="@(string.IsNullOrEmpty(Model.SortStatus))">Sort By</option>
                         <option value="Pending" selected="@(Model.SortStatus == "Pending")">Pending</option>
-                        <option value="Studying" selected="@(Model.SortStatus == "Studying")">Studying</option>
+                        <option value="Studying" selected="@(Model.SortStatus == "Studying")">Running</option>
                         <option value="Done" selected="@(Model.SortStatus == "Done")">Done</option>
                     </select>
                 </form>
@@ -74,7 +79,7 @@
                                 <img src="@item.Course?.Image" class="h-60 w-full object-cover transition-transform duration-300 hover:scale-110" />
                             </a>
                             <div class="p-4">
-                                <span class="text-gray-500 block mb-2 text-sm uppercase tracking-wider">Category: @item.Course?.Category?.CategoryName</span>
+                                <span class="text-gray-500 block mb-2 text-sm uppercase tracking-wider">Service: @item.Course?.Category?.CategoryName</span>
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">
                                     @{
                                         var displayName = @item.Course?.CourseName.Length > 25
@@ -84,12 +89,12 @@
                                     @displayName
                                    @*  @item.Course?.CourseName *@</h3>
 
-                                <p class="text-lg font-semibold text-indigo-600 mb-4">Tutor: @item.Course?.Tutor?.TutorNavigation?.FullName</p>
+                                <p class="text-lg font-semibold text-indigo-600 mb-4">Manager: @item.Course?.Tutor?.TutorNavigation?.FullName</p>
                                 <div class="flex items-center justify-between mb-4">
                                     <p class="text-lg font-bold text-gray-900">$@(item.Course?.Price - item.Course?.DiscountPrice)</p>
                                     <p class="statusButton toggle-active px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@item.Status</p>
                                 </div>
-                                @if (item.Status == "Studying")
+                                @if (item.Status == "Running")
                                 {
                                     <form method="post" asp-page-handler="DoneCourse">
                                         <input type="hidden" name="OrderId" value="@item.OrderDetailId" />

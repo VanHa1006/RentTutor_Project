@@ -58,18 +58,15 @@
             <div class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12">
                 <h2 class="pl-3 mb-4 text-2xl font-semibold">Settings</h2>
 
-                <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
-                    Public Profile
+                <a href="/Student/StudentProfile" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
+                    My Profile
                 </a>
-                @if (string.IsNullOrEmpty(userId))
-                            {
                 <a href="/Student/My-learning" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
-                    My Learnning
+                    My Website
                 </a>
-                <a href="/Student/Orders-history" class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
+                <a href="#" class="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full">
                     Orders History
                 </a>
-                            }
             </div>
         </aside>
         <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">

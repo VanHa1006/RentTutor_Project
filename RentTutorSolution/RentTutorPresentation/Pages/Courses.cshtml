@@ -93,9 +93,9 @@
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.29 3.97a1 1 0 00.95.69h4.176c.97 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.29 3.97c.3.921-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.176 0l-3.388 2.46c-.784.57-1.838-.197-1.54-1.118l1.29-3.97a1 1 0 00-.364-1.118L2.146 9.397c-.783-.57-.382-1.81.588-1.81h4.176a1 1 0 00.95-.69l1.29-3.97z" />
                                             </svg>
                                         </span>
-                                        <span class="text-sm text-gray-500">Students: 15</span>
+                                        <span class="text-sm text-gray-500">Users: 15</span>
                                     </div>
-                                    <div class="mt-2 text-sm text-gray-500">Courses: 1</div>
+                                    <div class="mt-2 text-sm text-gray-500">Websites: 1</div>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
 
     <div class="max-w-3xl mx-auto p-10">
         <div class="text-center mb-8">
-            <h1 class="font-bold text-3xl">All Courses</h1>
+            <h1 class="font-bold text-3xl">All Websites</h1>
         </div>
         <form method="post" asp-page-handler="Search" id="searchForm" class="flex items-center space-x-4 mb-8">
             <label for="searchTerm" class="text-xl font-medium text-gray-700">Search:</label>
@@ -238,7 +238,7 @@
                                 <del>
                                     <p class="text-sm text-gray-600 cursor-auto ml-2">@course.Price</p>
                                 </del>
-                            <p class="ml-auto text-lg font-semibold text-black cursor-auto my-3">@course.Hours Hours</p>
+                            <p class="ml-auto text-lg font-semibold text-black cursor-auto my-3">@course.Hours Months</p>
                         </div>
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-sm text-gray-500 flex items-center">
